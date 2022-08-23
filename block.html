@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>block</title>
+	<script crossorigin="anonymous" src="https://kit.fontawesome.com/f325a34ebe.js"></script>
+	<style type="text/css">
+		body{
+			margin: 0;
+		}
+		header{
+		    background: #a861ff;
+		    color: white;
+		    padding: 5px 25px;
+		}
+		header>h1{
+			display: inline-block;
+		}
+		header>i{
+		    font-size: 50px;
+		    float: right;
+		    top: 15px;
+		    position: relative;
+		}
+		#blocklyDiv{
+		    height: 87vh;
+		    width: 60vw;
+		    float: left;
+		}
+		.blocklyFlyoutBackground{
+			fill: #6716ca;
+		}
+		aside{
+			display: inline;
+		    height: 87vh;
+		}
+		#toolbox{
+			float: left;
+		    background: #8739e7;
+		    width: 15vw;
+		}
+		#toolbox>span{
+			float: right;
+		    top: 45%;
+		    position: relative;
+		    background: #d9baff;
+		    padding: 10px;
+		    font-size: 20px;
+		    font-weight: bolder;
+		    border-radius: 5px 0 0 5px;
+		    cursor: pointer;
+		    user-select: none;
+		    font-family: monospace;
+		    color: #410092;
+		}
+		#code{
+		    float: right;
+		    width: 39vw;
+		    background: #ddd;
+		    text-align: center;
+		}
+		section{
+			height: 49.4%;
+		}
+		textarea{
+		    width: 98%;
+		    resize: none;
+		    height: 100%;
+		    color: white;
+		    font-size: 16px;
+		}
+		#cpp{
+			background: #000;
+		}
+		#python{
+			background: #012242;
+		}
+	</style>
+</head>
+<body mode="blockly">
+	<header>
+		<h1>Code Blocks</h1>
+		<i class="fa fa-user-circle" aria-hidden="true"></i>
+	</header>
+	<div id="blocklyDiv"></div>
+	<aside id="code">
+		<section>
+			<textarea id="python"></textarea>
+		</section>
+		<section>
+			<textarea id="cpp"></textarea>
+		</section>
+	</aside>
+    <script src="https://unpkg.com/blockly@8.0.5/blockly.min.js"></script>
+	<script src="main.js"></script>
+</body>
+</html>
