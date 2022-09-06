@@ -8,4 +8,11 @@ function start() {
     {
       toolbox: document.getElementById('toolbox-categories'),
     });
+    
+  workspace.addChangeListener(myUpdateFunction);
+}
+
+function myUpdateFunction(event) {
+  var code = Blockly.Python.workspaceToCode(workspace);
+  document.getElementById('python').value = code;
 }
