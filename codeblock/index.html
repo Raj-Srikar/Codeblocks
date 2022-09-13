@@ -4,116 +4,17 @@
 <head>
   <meta charset="utf-8">
   <title>Codeblocks</title>
-  
+
+  <script src="highlight/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
   <script src="https://unpkg.com/blockly/blockly.min.js"></script>
   <script src="python_compressed.js"></script>
   <script src="https://unpkg.com/@blockly/dev-tools@2.0.0/dist/index.js"></script>
   <script src="index.js"></script>
 
-  <style>
-    html,
-    body {
-      height: 100%;
-    }
-
-    body {
-      background-color: #fff;
-      font-family: sans-serif;
-      overflow: hidden;
-    }
-
-    .blocklyToolboxDiv{
-      background-color: #b7ceff;
-    }
-    
-    .blocklyFlyoutBackground{
-      fill: #d3e1ff;
-    }
-
-    #blocklyDiv {
-      float: bottom;
-      height: 90%;
-      width: 100%;
-    }
-  </style>
-  <style type="text/css">
-		body{
-			margin: 0;
-		}
-		header{
-		    background: #1e1e1e;
-		    color: white;
-		    padding: 5px 25px;
-		}
-		header>h1{
-			display: inline-block;
-      font-family: Thunder;
-      font-size: 50px;
-      margin: 15px 0 10px;
-		}
-		header>i{
-		    font-size: 50px;
-		    float: right;
-		    top: 15px;
-		    position: relative;
-		}
-		#blocklyDiv{
-		    height: 87vh;
-		    width: 61vw;
-		    float: left;
-		}
-		aside{
-			display: inline;
-		    height: 87vh;
-		}
-		#toolbox{
-			float: left;
-		    background: #8739e7;
-		    width: 15vw;
-		}
-		#toolbox>span{
-			float: right;
-		    top: 45%;
-		    position: relative;
-		    background: #d9baff;
-		    padding: 10px;
-		    font-size: 20px;
-		    font-weight: bolder;
-		    border-radius: 5px 0 0 5px;
-		    cursor: pointer;
-		    user-select: none;
-		    font-family: monospace;
-		    color: #410092;
-		}
-		#code{
-		    float: right;
-		    width: 39vw;
-		    background: #ddd;
-		    text-align: center;
-		}
-		section{
-			height: 49.4%;
-		}
-		textarea{
-		    width: 98%;
-		    resize: none;
-		    height: 100%;
-		    color: white;
-		    font-size: 16px;
-		}
-		#cpp{
-			background: #1e1e1e;
-		}
-		#python{
-			background: #012242;
-		}
-
-    @font-face {
-      font-family: Thunder;
-      src: url('Thunder.ttf');
-      font-weight: bold;
-    }
-	</style>
+  <link rel="stylesheet" href="highlight/styles/night-owl.min.css">
+  <link rel="stylesheet" href="cb-styles.css">
+  
 	<script crossorigin="anonymous" src="https://kit.fontawesome.com/f325a34ebe.js"></script>
 </head>
 
@@ -125,13 +26,9 @@
 
   <div id="blocklyDiv"></div>
   <aside id="code">
-		<section>
-			<textarea id="python"></textarea>
-		</section>
-		<section>
-			<textarea id="cpp"></textarea>
-		</section>
-	</aside>
+    <pre><code id="python" class="language-python"></code></pre>
+    <pre><code id="cpp"></code></pre>
+  </aside>
   <!-- Toolbox Definition -->
   <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox-categories" style="display: none">
     <category name="Variables" categorystyle="variable_category" custom="VARIABLE"></category>

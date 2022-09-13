@@ -1,0 +1,104 @@
+
+html, body {
+    height: 100%;
+    background-color: #fff;
+    font-family: sans-serif;
+    overflow: hidden;
+}
+
+.blocklyToolboxDiv{
+    background-color: #b7ceff;
+}
+
+.blocklyFlyoutBackground{
+    fill: #d3e1ff;
+}
+
+#blocklyDiv {
+    float: bottom;
+    height: 90%;
+    width: 100%;
+}
+
+
+body{
+    margin: 0;
+}
+header{
+    background: #1e1e1e;
+    color: white;
+    padding: 5px 25px;
+}
+header>h1{
+    display: inline-block;
+font-family: Thunder;
+font-size: 50px;
+margin: 15px 0 10px;
+}
+header>i{
+    font-size: 50px;
+    float: right;
+    top: 15px;
+    position: relative;
+}
+#blocklyDiv{
+    height: 87vh;
+    width: 61vw;
+    float: left;
+user-select: none;
+}
+aside{
+    display: inline;
+    height: 87vh;
+}
+#toolbox{
+    float: left;
+    background: #8739e7;
+    width: 15vw;
+}
+#toolbox>span{
+    float: right;
+    top: 45%;
+    position: relative;
+    background: #d9baff;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: bolder;
+    border-radius: 5px 0 0 5px;
+    cursor: pointer;
+    user-select: none;
+    font-family: monospace;
+    color: #410092;
+}
+#code{
+    float: right;
+    width: 39vw;
+    background: #ddd;
+}
+section{
+    height: 49.4%;
+}
+textarea{
+    width: 98%;
+    resize: none;
+    height: 100%;
+    color: white;
+    font-size: 16px;
+}
+pre {
+height: 50%;
+margin: 0;
+}
+code {
+width: 100%;
+resize: none;
+height: 100%;
+font-size: 16px;
+margin: 0;
+}
+
+@font-face {
+font-family: Thunder;
+src: url('Thunder.ttf');
+font-weight: bold;
+}

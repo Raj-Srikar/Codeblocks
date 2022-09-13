@@ -14,5 +14,6 @@ function start() {
 
 function myUpdateFunction(event) {
   var code = Blockly.Python.workspaceToCode(workspace);
-  document.getElementById('python').value = code;
+  document.getElementById('python').innerHTML = code;
+  hljs.highlightAll();
 }
