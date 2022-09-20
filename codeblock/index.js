@@ -13,7 +13,9 @@ function start() {
 }
 
 function myUpdateFunction(event) {
-  var code = Blockly.Python.workspaceToCode(workspace);
-  document.getElementById('python').innerHTML = code;
+  var pycode = Blockly.Python.workspaceToCode(workspace);
+  document.getElementById('python').innerHTML = pycode;
+  var cppcode = cppGenerator.workspaceToCode(workspace);
+  document.getElementById('cpp').innerHTML = cppcode;
   hljs.highlightAll();
 }
