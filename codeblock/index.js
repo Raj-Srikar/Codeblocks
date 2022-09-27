@@ -16,6 +16,7 @@ function myUpdateFunction(event) {
   var pycode = Blockly.Python.workspaceToCode(workspace);
   document.getElementById('python').innerHTML = pycode;
   var cppcode = cppGenerator.workspaceToCode(workspace);
-  document.getElementById('cpp').innerHTML = cppcode;
+  document.getElementById('cpp').innerHTML = '#include &lt;iostream.h&gt;\nusing namespace std;\n\nint main() {\n'
+                                              + cppcode + '\n  return 0;\n}';
   hljs.highlightAll();
 }
