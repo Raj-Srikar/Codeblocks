@@ -16,7 +16,13 @@ function myUpdateFunction(event) {
   var pycode = Blockly.Python.workspaceToCode(workspace);
   document.getElementById('python').innerHTML = pycode;
   var cppcode = cppGenerator.workspaceToCode(workspace);
-  document.getElementById('cpp').innerHTML = '#include &lt;iostream.h&gt;\nusing namespace std;\n\nint main() {\n'
+  var includes = '#include &lt;iostream.h&gt;\n';
+  if(cppGenerator.definitions){
+    for(const k in cppGenerator.definitions){
+      includes += cppGenerator.definitions[k] + '\n';
+    }
+  }
+  document.getElementById('cpp').innerHTML = includes + 'using namespace std;\n\nint main() {\n'
                                               + cppcode + '\n  return 0;\n}';
   hljs.highlightAll();
 }

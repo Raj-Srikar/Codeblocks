@@ -1,4 +1,5 @@
 const cppGenerator = new Blockly.Generator('CPP');
+cppGenerator.definitions = {};
 
 cppGenerator.ORDER_ATOMIC = 0;
 cppGenerator.ORDER_NEW = 1.1;
@@ -59,6 +60,15 @@ function semify(block, stringValue) {
     return stringValue;
 }
 
+var cppGenerator_texts_strRegExp = /^\s*'([^']|\\')*'\s*$/,
+cppGenerator_texts_forceString = function(s) {
+    if(cppGenerator_texts_strRegExp.test(s)){
+        return [s, $.Blockly.Python.ORDER_ATOMIC];
+    }
+    cppGenerator.definitions["include_string"] = "#include &lt;string.h&gt;";
+    return ["to_string(" + s + ")", cppGenerator.ORDER_FUNCTION_CALL];
+};
+
 cppGenerator['text'] = function(block) {
     var textValue = block.getFieldValue('TEXT');
     var code = semify(block, `"${textValue}"`);
@@ -84,4 +94,12 @@ cppGenerator.text_multiline = function(block) {
     var b = -1 !== a.indexOf("+") ? cppGenerator.ORDER_ADDITION : cppGenerator.ORDER_ATOMIC;
     a = semify(block, a);
     return [a, b];
+};
+
+cppGenerator.text_length = function(block) {
+    cppGenerator.definitions["include_string"] = "#include &lt;string.h&gt;";
+    a = 'string(' + (cppGenerator.valueToCode(block, "VALUE", cppGenerator.ORDER_MEMBER) || "''") + ").length()";
+    a = cppGenerator_texts_forceString(a)[0];
+    a = semify(block, a);
+    return [a, cppGenerator.ORDER_FUNCTION_CALL]
 };
