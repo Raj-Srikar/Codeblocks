@@ -142,3 +142,22 @@ cppGenerator.text_count = function(block) {
     code = semify(block, code);
     return [code, cppGenerator.ORDER_FUNCTION_CALL];
 };
+
+cppGenerator.text_replace = function(block) {
+    cppGenerator.definitions["include_string"] = "#include &lt;string.h&gt;";
+    cppGenerator.custom_functions['replace'] = 'string replace(string search, string replaceStr, string s) {\n  size_t pos = s.find(search);\n  while (pos != string::npos) {\n    s.replace(pos, search.size(), replaceStr);\n    pos = s.find(search, pos + replaceStr.size());\n  }\n  return s;\n}';
+    var txt = cppGenerator.valueToCode(block, "TEXT", cppGenerator.ORDER_NONE) || "''",
+        frm = cppGenerator.valueToCode(block, "FROM", cppGenerator.ORDER_NONE) || "''",
+		to = cppGenerator.valueToCode(block, "TO", cppGenerator.ORDER_NONE) || "''";
+    var code = "replace(" + frm + ", " + to + ", " + txt + ")";
+    code = semify(block, code);
+    return [code, cppGenerator.ORDER_FUNCTION_CALL];
+};
+
+cppGenerator.text_reverse = function(block) {
+    cppGenerator.definitions["include_string"] = "#include &lt;string.h&gt;";
+    cppGenerator.custom_functions['reverse'] = 'string reverse(string str) {\n  int n = str.length();\n  for (int i = 0; i < n / 2; i++)\n    swap(str[i], str[n - i - 1]);\n  return str;\n}';
+    var code = "reverse(" + (cppGenerator.valueToCode(block, 'TEXT', cppGenerator.ORDER_FUNCTION_CALL) || '""') + ")";
+    code = semify(block, code);
+    return [code, cppGenerator.ORDER_FUNCTION_CALL];
+};
