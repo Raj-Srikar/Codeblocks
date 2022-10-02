@@ -161,3 +161,9 @@ cppGenerator.text_reverse = function(block) {
     code = semify(block, code);
     return [code, cppGenerator.ORDER_FUNCTION_CALL];
 };
+
+cppGenerator.text_print = function(block) {
+    var code = 'cout << ' + cppGenerator.valueToCode(block, 'TEXT', cppGenerator.ORDER_NONE) + ';';
+    return cppGenerator.prefixLines(code, cppGenerator.INDENT);
+}
+
