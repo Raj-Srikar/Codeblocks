@@ -22,7 +22,13 @@ function myUpdateFunction(event) {
       includes += cppGenerator.definitions[k] + '\n';
     }
   }
-  document.getElementById('cpp').innerHTML = includes + 'using namespace std;\n\nint main() {\n'
+  var cfuncs = '';
+  if(cppGenerator.custom_functions){
+    for(const k in cppGenerator.custom_functions){
+      cfuncs += cppGenerator.custom_functions[k] + '\n\n';
+    }
+  }
+  document.getElementById('cpp').innerHTML = includes + 'using namespace std;\n\n' + cfuncs + 'int main() {\n'
                                               + cppcode + '\n  return 0;\n}';
   hljs.highlightAll();
 }

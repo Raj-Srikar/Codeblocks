@@ -1,5 +1,8 @@
 const cppGenerator = new Blockly.Generator('CPP');
+
 cppGenerator.definitions = {};
+cppGenerator.custom_functions = {};
+cppGenerator.forceStrings = ['text_join'];
 
 cppGenerator.ORDER_ATOMIC = 0;
 cppGenerator.ORDER_NEW = 1.1;
@@ -52,6 +55,18 @@ cppGenerator.ORDER_OVERRIDES = [
     [cppGenerator.ORDER_LOGICAL_OR, cppGenerator.ORDER_LOGICAL_OR]
 ];
 
+var cppGenerator_texts_strRegExp = /^\s*"([^"]|\\")*'\s*$/,
+cppGenerator_texts_forceString = function(s, block='') {
+    if(cppGenerator_texts_strRegExp.test(s)){
+        return [s, cppGenerator.ORDER_ATOMIC];
+    }
+    if(block && block.getParent() && cppGenerator.forceStrings.includes(block.getParent().type)){
+        cppGenerator.definitions["include_string"] = "#include &lt;string.h&gt;";
+        return ["to_string(" + s + ")", cppGenerator.ORDER_FUNCTION_CALL];
+    }
+    return [s, cppGenerator.ORDER_ATOMIC];
+};
+
 function semify(block, stringValue) {
     if(!block.parentBlock_){
         stringValue = cppGenerator.prefixLines(stringValue, cppGenerator.INDENT);
@@ -59,16 +74,6 @@ function semify(block, stringValue) {
     }
     return stringValue;
 }
-
-var cppGenerator_texts_strRegExp = /^\s*'([^']|\\')*'\s*$/,
-cppGenerator_texts_forceString = function(s) {
-    if(cppGenerator_texts_strRegExp.test(s)){
-        return [s, $.Blockly.Python.ORDER_ATOMIC];
-    }
-    cppGenerator.definitions["include_string"] = "#include &lt;string.h&gt;";
-    return ["to_string(" + s + ")", cppGenerator.ORDER_FUNCTION_CALL];
-};
-
 cppGenerator['text'] = function(block) {
     var textValue = block.getFieldValue('TEXT');
     var code = semify(block, `"${textValue}"`);
@@ -78,13 +83,12 @@ cppGenerator['text'] = function(block) {
 cppGenerator['text_join'] = function(block) {
     const values = [];
     for (var i = 0; i < block.itemCount_; i++) {
-        let vtc = cppGenerator.valueToCode(block, 'ADD' + i, 0)
-        let valueCode = vtc ? vtc || '' : '""';
-        if (valueCode)
-            values.push(valueCode);
+        let vtc = cppGenerator.valueToCode(block, 'ADD' + i, cppGenerator.ORDER_ADDITION);
+        let valueCode = vtc ? vtc : '""';
+        values.push(valueCode);
     }
     let valueString = semify(block, values.join(' + '));
-    return [valueString, cppGenerator.ORDER_ATOMIC];
+    return [valueString, cppGenerator.ORDER_ADDITION];
 };
 
 cppGenerator.text_multiline = function(block) {
@@ -98,8 +102,43 @@ cppGenerator.text_multiline = function(block) {
 
 cppGenerator.text_length = function(block) {
     cppGenerator.definitions["include_string"] = "#include &lt;string.h&gt;";
-    a = 'string(' + (cppGenerator.valueToCode(block, "VALUE", cppGenerator.ORDER_MEMBER) || "''") + ").length()";
-    a = cppGenerator_texts_forceString(a)[0];
-    a = semify(block, a);
-    return [a, cppGenerator.ORDER_FUNCTION_CALL]
+    var code = 'string(' + (cppGenerator.valueToCode(block, "VALUE", cppGenerator.ORDER_FUNCTION_CALL) || "''") + ").length()";
+    code = cppGenerator_texts_forceString(code, block)[0];
+    code = semify(block, code);
+    return [code, cppGenerator.ORDER_FUNCTION_CALL]
+};
+
+cppGenerator.text_changeCase = function(block) {
+    cppGenerator.definitions["include_string"] = "#include &lt;string.h&gt;";
+    cppGenerator.definitions["include_cctype"] = "#include &lt;cctype.h&gt;";
+    var c = '';
+    switch(block.getFieldValue("CASE")){
+        case 'UPPERCASE':
+            c = 'upper(';
+            cppGenerator.custom_functions['case'] = "string upper(string s){\n  char up[s.length()+1];\n  for(int i=0;i&lt;s.length();i++)\n    up[i]=toupper(s[i]);\n  up[s.length()] = '\\0';\n  return string(up);\n}";
+            break;
+        case 'LOWERCASE':
+            c = 'lower(';
+            cppGenerator.custom_functions['case'] = "string lower(string s){\n  char up[s.length()+1];\n  for(int i=0;i&lt;s.length();i++)\n    up[i]=tolower(s[i]);\n  up[s.length()] = '\\0';\n  return string(up);\n}";
+            break;
+        case 'TITLECASE':
+            c = 'title(';
+            cppGenerator.custom_functions['case'] = 'string title(string s){\n  size_t pos = 0;\n  string token, t="";\n  while ((pos = s.find(\' \')) != string::npos) {\n    token = s.substr(0, pos);\n    t += (char)toupper(token[0]) + token.substr(1, token.length()) + " ";\n    s.erase(0, pos + 1);\n  }\n  token = s.substr(0, pos);\n  t += (char)toupper(token[0]) + token.substr(1, token.length());\n  return t;\n}\n';
+            break;
+    }
+    var vtc = (cppGenerator.valueToCode(block, 'TEXT', cppGenerator.ORDER_FUNCTION_CALL)) || '""';
+    vtc = c + vtc + ')';
+    vtc = semify(block, vtc);
+    return [vtc, cppGenerator.ORDER_FUNCTION_CALL];
+};
+
+cppGenerator.text_count = function(block) {
+    cppGenerator.definitions["include_string"] = "#include &lt;string.h&gt;";
+    cppGenerator.custom_functions['count'] = 'int strcount(string str, string sub_str) {\n  int c = 0;\n  for (int i = 0; i < str.length(); i++)\n    if (str.substr(i, sub_str.length()) == sub_str)\n      c++;\n  return c;\n}';
+    var txt = cppGenerator.valueToCode(block, "TEXT", cppGenerator.ORDER_FUNCTION_CALL) || '""';
+    var sub = cppGenerator.valueToCode(block, "SUB", cppGenerator.ORDER_NONE) || '""';
+    var code = 'strcount(' + txt + ', ' + sub + ')';
+    code = cppGenerator_texts_forceString(code, block)[0];
+    code = semify(block, code);
+    return [code, cppGenerator.ORDER_FUNCTION_CALL];
 };
