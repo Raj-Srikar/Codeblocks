@@ -28,7 +28,6 @@ function myUpdateFunction(event) {
       cfuncs += cppGenerator.custom_functions[k] + '\n\n';
     }
   }
-  document.getElementById('cpp').innerHTML = includes + 'using namespace std;\n\n' + cfuncs + 'int main() {\n'
-                                              + cppcode + '\n  return 0;\n}';
+  document.getElementById('cpp').innerHTML = cppcode;
   hljs.highlightAll();
 }
