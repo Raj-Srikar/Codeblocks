@@ -1,6 +1,6 @@
 const cppGenerator = new Blockly.Generator('CPP');
 
-cppGenerator.forceStrings = ['text_join'];
+cppGenerator.forceStrings = ['text_join', 'variables_set'];
 
 cppGenerator.addReservedWords('alignas,alignof,and,and_eq,asm,auto,bitand,bitor,bool,break,case,catch,char,char16_t,char32_t,char8_t,class,co_await,co_return,co_yield,compl,concept,const,const_cast,consteval,constexpr,constinit,continue,decltype,default,delete,do,do-while,double,dynamic_cast,else,enum,explicit,export,extern,false,final,float,for,friend,goto,if,import,inline,int,long,module,mutable,namespace,new,noexcept,not,not_eq,nullptr,operator,or,or_eq,override,posix,private,protected,public,reflexpr,register,reinterpret_cast,requires,return,short,signed,sizeof,static,static_assert,static_cast,struct,switch,template,this,thread_local,throw,true,try,typedef,typeid,typename,union,unsigned,using,virtual,void,volatile,wchar_t,while,xor,xor_eq');
 cppGenerator.ORDER_ATOMIC = 0;
@@ -57,15 +57,27 @@ cppGenerator.ORDER_OVERRIDES = [
 cppGenerator.init = function(a) {
     Object.getPrototypeOf(cppGenerator).init.call(cppGenerator);
     cppGenerator.nameDB_ ? cppGenerator.nameDB_.reset() : cppGenerator.nameDB_ = new Blockly.Names(cppGenerator.RESERVED_WORDS_);
+    a.getVariableMap().createVariable("variable","string");
     cppGenerator.nameDB_.setVariableMap(a.getVariableMap());
     cppGenerator.nameDB_.populateVariables(a);
     cppGenerator.nameDB_.populateProcedures(a);
     for (var b = [], c = (0, Blockly.Variables.allDeveloperVariables)(a), d = 0; d < c.length; d++)
         b.push(cppGenerator.nameDB_.getName(c[d], cppGenerator.nameDB_.DEVELOPER_VARIABLE_TYPE) + " = None");
+    var w = a;
     a = (0, Blockly.Variables.allUsedVarModels)(a);
-    for (c = 0; c < a.length; c++)
-        b.push("  int " + cppGenerator.nameDB_.getName(a[c].name, "VARIABLE") + " = 0;");
-    cppGenerator.definitions_.variables = b.join("\n");
+    for (c = 0; c < a.length; c++) {
+        cppGenerator.definitions_["include_string"] = "#include &lt;string&gt;";
+        let vinit = cppGenerator.nameDB_.getName(a[c].name, "VARIABLE") + ' = ""';
+        if (a.length == 1)
+            b.push('string ' + vinit + ';')
+        else if (c == a.length-1)
+            b.push(vinit + ';')
+        else if (c)
+            b.push(vinit)
+        else
+            b.push('string ' + vinit);
+    }
+    cppGenerator.definitions_.variables = b.join(", ");
 };
 
 cppGenerator.finish = function(a) {
@@ -79,8 +91,25 @@ cppGenerator.finish = function(a) {
     a = Object.getPrototypeOf(cppGenerator).finish.call(cppGenerator, a);
     cppGenerator.isInitialized = !1;
     cppGenerator.nameDB_.reset();
-    return "#include &lt;iostream.h&gt;\n" + (b.join("\n") + "\n\n")
-            + "using namespace std;" + (c.join("\n\n")).replace(/\n\n+/g, "\n\n").replace(/\n*$/, "") + "\n\nint main() {\n" + a + "\n  return 0;\n}"
+    return "#include &lt;iostream&gt;\n" + (b.join("\n") + "\n\n")
+            + "using namespace std;\n" + (c.join("\n\n")).replace(/\n\n+/g, "\n\n").replace(/\n*$/, "") + "\n\nint main() {\n" + a + "\n  return 0;\n}"
+};
+
+cppGenerator.scrubNakedValue = function(a) {
+    return "  " + a + ";"
+};
+
+cppGenerator.scrub_ = function(a, b, c) {
+    var d = "";
+    if (!a.outputConnection || !a.outputConnection.targetConnection) {
+        var e = a.getCommentText();
+        e && (e = (0, Blockly.utils.string.wrap)(e, this.COMMENT_WRAP - 3), d += this.prefixLines(e + "\n", "// "));
+        for (var f = 0; f < a.inputList.length; f++) a.inputList[f].type === Blockly.inputTypes.VALUE && (e = a.inputList[f].connection.targetBlock()) && (e = this.allNestedComments(e)) && (d += this.prefixLines(e, "// "))
+    }
+    a = a.nextConnection &&
+        a.nextConnection.targetBlock();
+    c = c ? "" : this.blockToCode(a);
+    return d + b + c
 };
 
 var cppGenerator_texts_strRegExp = /^\s*"([^"]|\\")*'\s*$/,
@@ -89,31 +118,34 @@ cppGenerator_texts_forceString = function(s, block='') {
         return [s, cppGenerator.ORDER_ATOMIC];
     }
     if(block && block.getParent() && cppGenerator.forceStrings.includes(block.getParent().type)){
-        cppGenerator.definitions_["include_string"] = "#include &lt;string.h&gt;";
+        cppGenerator.definitions_["include_string"] = "#include &lt;string&gt;";
         return ["to_string(" + s + ")", cppGenerator.ORDER_FUNCTION_CALL];
     }
     return [s, cppGenerator.ORDER_ATOMIC];
 };
 
-function semify(block, stringValue) {
-    if(!block.parentBlock_){
-        stringValue = cppGenerator.prefixLines(stringValue, cppGenerator.INDENT);
-        return stringValue + ';';
-    }
-    return stringValue;
+function myscrub(block, stringValue) {
+    tb = block.nextConnection && block.nextConnection.targetBlock();
+    return tb ? stringValue + '\n' : stringValue;
 }
+
+cppGenerator.variables_set = function(block){
+    let vname = cppGenerator.nameDB_.getName(block.getFieldValue("VAR"), "VARIABLE"),
+    val = cppGenerator.valueToCode(block, "VALUE", cppGenerator.ORDER_ASSIGNMENT) || '"0"',
+    code = myscrub(block, cppGenerator.prefixLines(vname + " = " + val + ';', cppGenerator.INDENT));
+    return code;
+};
 
 cppGenerator.variables_get = function(block){
     var name = cppGenerator.nameDB_.getName(block.getFieldValue("VAR"), "VARIABLE");
-    name = cppGenerator_texts_forceString(name, block)[0];
-    name = semify(block, name);
     return [name, cppGenerator.ORDER_ATOMIC]
 };
 
 cppGenerator['text'] = function(block) {
     var textValue = block.getFieldValue('TEXT');
-    var code = semify(block, `"${textValue}"`);
-    return [code, cppGenerator.ORDER_ATOMIC];
+    textValue = textValue.replaceAll('\\','\\\\').replaceAll('"','\\"');
+    textValue = `"${textValue}"`;
+    return [textValue, cppGenerator.ORDER_ATOMIC];
 };
 
 cppGenerator['text_join'] = function(block) {
@@ -123,30 +155,27 @@ cppGenerator['text_join'] = function(block) {
         let valueCode = vtc ? vtc : '""';
         values.push(valueCode);
     }
-    let valueString = semify(block, values.join(' + '));
-    return [valueString, cppGenerator.ORDER_ADDITION];
+    return [values.join(' + '), cppGenerator.ORDER_ADDITION];
 };
 
 cppGenerator.text_multiline = function(block) {
     a = block.getFieldValue("TEXT");
-    a = '"' + a + '"';
-    a = a.replaceAll('\n','\\n');
+    a = a.replaceAll('\\','\\\\').replaceAll('"','\\"').replaceAll('\n','\\n');
+    a = `"${a}"`;
     var b = -1 !== a.indexOf("+") ? cppGenerator.ORDER_ADDITION : cppGenerator.ORDER_ATOMIC;
-    a = semify(block, a);
     return [a, b];
 };
 
 cppGenerator.text_length = function(block) {
-    cppGenerator.definitions_["include_string"] = "#include &lt;string.h&gt;";
+    cppGenerator.definitions_["include_string"] = "#include &lt;string&gt;";
     var code = 'string(' + (cppGenerator.valueToCode(block, "VALUE", cppGenerator.ORDER_FUNCTION_CALL) || "''") + ").length()";
     code = cppGenerator_texts_forceString(code, block)[0];
-    code = semify(block, code);
     return [code, cppGenerator.ORDER_FUNCTION_CALL]
 };
 
 cppGenerator.text_changeCase = function(block) {
-    cppGenerator.definitions_["include_string"] = "#include &lt;string.h&gt;";
-    cppGenerator.definitions_["include_cctype"] = "#include &lt;cctype.h&gt;";
+    cppGenerator.definitions_["include_string"] = "#include &lt;string&gt;";
+    cppGenerator.definitions_["include_cctype"] = "#include &lt;cctype&gt;";
     var c = '';
     switch(block.getFieldValue("CASE")){
         case 'UPPERCASE':
@@ -164,42 +193,38 @@ cppGenerator.text_changeCase = function(block) {
     }
     var vtc = (cppGenerator.valueToCode(block, 'TEXT', cppGenerator.ORDER_FUNCTION_CALL)) || '""';
     vtc = c + vtc + ')';
-    vtc = semify(block, vtc);
     return [vtc, cppGenerator.ORDER_FUNCTION_CALL];
 };
 
 cppGenerator.text_count = function(block) {
-    cppGenerator.definitions_["include_string"] = "#include &lt;string.h&gt;";
+    cppGenerator.definitions_["include_string"] = "#include &lt;string&gt;";
     cppGenerator.definitions_['count'] = 'int strcount(string str, string sub_str) {\n  int c = 0;\n  for (int i = 0; i < str.length(); i++)\n    if (str.substr(i, sub_str.length()) == sub_str)\n      c++;\n  return c;\n}';
     var txt = cppGenerator.valueToCode(block, "TEXT", cppGenerator.ORDER_FUNCTION_CALL) || '""';
     var sub = cppGenerator.valueToCode(block, "SUB", cppGenerator.ORDER_NONE) || '""';
     var code = 'strcount(' + txt + ', ' + sub + ')';
     code = cppGenerator_texts_forceString(code, block)[0];
-    code = semify(block, code);
     return [code, cppGenerator.ORDER_FUNCTION_CALL];
 };
 
 cppGenerator.text_replace = function(block) {
-    cppGenerator.definitions_["include_string"] = "#include &lt;string.h&gt;";
+    cppGenerator.definitions_["include_string"] = "#include &lt;string&gt;";
     cppGenerator.definitions_['replace'] = 'string replace(string search, string replaceStr, string s) {\n  size_t pos = s.find(search);\n  while (pos != string::npos) {\n    s.replace(pos, search.size(), replaceStr);\n    pos = s.find(search, pos + replaceStr.size());\n  }\n  return s;\n}';
     var txt = cppGenerator.valueToCode(block, "TEXT", cppGenerator.ORDER_NONE) || "''",
         frm = cppGenerator.valueToCode(block, "FROM", cppGenerator.ORDER_NONE) || "''",
 		to = cppGenerator.valueToCode(block, "TO", cppGenerator.ORDER_NONE) || "''";
     var code = "replace(" + frm + ", " + to + ", " + txt + ")";
-    code = semify(block, code);
     return [code, cppGenerator.ORDER_FUNCTION_CALL];
 };
 
 cppGenerator.text_reverse = function(block) {
-    cppGenerator.definitions_["include_string"] = "#include &lt;string.h&gt;";
+    cppGenerator.definitions_["include_string"] = "#include &lt;string&gt;";
     cppGenerator.definitions_['reverse'] = 'string reverse(string str) {\n  int n = str.length();\n  for (int i = 0; i < n / 2; i++)\n    swap(str[i], str[n - i - 1]);\n  return str;\n}';
     var code = "reverse(" + (cppGenerator.valueToCode(block, 'TEXT', cppGenerator.ORDER_FUNCTION_CALL) || '""') + ")";
-    code = semify(block, code);
     return [code, cppGenerator.ORDER_FUNCTION_CALL];
 };
 
 cppGenerator.text_print = function(block) {
-    var code = 'cout << ' + cppGenerator.valueToCode(block, 'TEXT', cppGenerator.ORDER_NONE) + ';';
+    var code = myscrub(block, 'cout << ' + cppGenerator.valueToCode(block, 'TEXT', cppGenerator.ORDER_NONE) + ';');
     return cppGenerator.prefixLines(code, cppGenerator.INDENT);
 }
 
