@@ -7,10 +7,11 @@
 
   <script src="highlight/highlight.min.js"></script>
   <script>hljs.highlightAll();</script>
-  <script src="https://unpkg.com/blockly/blockly.min.js"></script>
+  <script src="https://unpkg.com/blockly@8.0.5/blockly.min.js"></script>
   <script src="python_compressed.js"></script>
   <script src="https://unpkg.com/@blockly/dev-tools@2.0.0/dist/index.js"></script>
   <script src="index.js"></script>
+  <script src="customization.js"></script>
   <script src="./cpp_generator.js"></script>
 
   <link rel="stylesheet" href="highlight/styles/night-owl.min.css">
@@ -84,10 +85,9 @@
           </shadow>
         </value>
       </block>
-      <block type="text_prompt_ext">
+      <block type="prompt_inp">
         <value name="TEXT">
           <shadow type="text">
-            <field name="TEXT">abc</field>
           </shadow>
         </value>
       </block>

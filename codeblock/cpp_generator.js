@@ -57,7 +57,6 @@ cppGenerator.ORDER_OVERRIDES = [
 cppGenerator.init = function(a) {
     Object.getPrototypeOf(cppGenerator).init.call(cppGenerator);
     cppGenerator.nameDB_ ? cppGenerator.nameDB_.reset() : cppGenerator.nameDB_ = new Blockly.Names(cppGenerator.RESERVED_WORDS_);
-    a.getVariableMap().createVariable("variable","string");
     cppGenerator.nameDB_.setVariableMap(a.getVariableMap());
     cppGenerator.nameDB_.populateVariables(a);
     cppGenerator.nameDB_.populateProcedures(a);
@@ -180,15 +179,15 @@ cppGenerator.text_changeCase = function(block) {
     switch(block.getFieldValue("CASE")){
         case 'UPPERCASE':
             c = 'upper(';
-            cppGenerator.definitions_['case'] = "string upper(string s){\n  char up[s.length()+1];\n  for(int i=0;i&lt;s.length();i++)\n    up[i]=toupper(s[i]);\n  up[s.length()] = '\\0';\n  return string(up);\n}";
+            cppGenerator.definitions_['case'] = "string upper(string s){\n  for(int i=0;i&lt;s.length();i++)\n    s[i]=toupper(s[i]);\n  return string(s);\n}";
             break;
         case 'LOWERCASE':
             c = 'lower(';
-            cppGenerator.definitions_['case'] = "string lower(string s){\n  char up[s.length()+1];\n  for(int i=0;i&lt;s.length();i++)\n    up[i]=tolower(s[i]);\n  up[s.length()] = '\\0';\n  return string(up);\n}";
+            cppGenerator.definitions_['case'] = "string lower(string s){\n  for(int i=0;i&lt;s.length();i++)\n    s[i]=tolower(s[i]);\n  return string(s);\n}";
             break;
         case 'TITLECASE':
             c = 'title(';
-            cppGenerator.definitions_['case'] = 'string title(string s){\n  size_t pos = 0;\n  string token, t="";\n  while ((pos = s.find(\' \')) != string::npos) {\n    token = s.substr(0, pos);\n    t += (char)toupper(token[0]) + token.substr(1, token.length()) + " ";\n    s.erase(0, pos + 1);\n  }\n  token = s.substr(0, pos);\n  t += (char)toupper(token[0]) + token.substr(1, token.length());\n  return t;\n}\n';
+            cppGenerator.definitions_['case'] = "string title(string s) {\n  char prev = ' ';\n  for(int i=0; i < s.length(); i++) {\n    if(prev == ' ')\n      s[i] = toupper(s[i]);\n    prev = s[i];\n  }\n  return s;\n}";
             break;
     }
     var vtc = (cppGenerator.valueToCode(block, 'TEXT', cppGenerator.ORDER_FUNCTION_CALL)) || '""';
@@ -228,3 +227,10 @@ cppGenerator.text_print = function(block) {
     return cppGenerator.prefixLines(code, cppGenerator.INDENT);
 }
 
+cppGenerator.prompt_inp = function(block) {
+    var tb = block.nextConnection && block.nextConnection.targetBlock(),
+    print = cppGenerator.valueToCode(block, 'TEXT', cppGenerator.ORDER_NONE) !== '""' ? tb ?  cppGenerator.text_print(block) + '' : cppGenerator.text_print(block) + '\n' : '',
+    vname = cppGenerator.nameDB_.getName(block.getFieldValue("VAR"), 'VARIABLE'),
+    inp = myscrub(block, cppGenerator.prefixLines('cin >> ' + vname + ';', cppGenerator.INDENT)); 
+    return print + inp;
+};
