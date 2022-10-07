@@ -234,3 +234,75 @@ cppGenerator.prompt_inp = function(block) {
     inp = myscrub(block, cppGenerator.prefixLines('cin >> ' + vname + ';', cppGenerator.INDENT)); 
     return print + inp;
 };
+
+
+cppGenerator.controls_if = function(a) {
+    var b = 0,
+        c = "";
+    cppGenerator.STATEMENT_PREFIX && (c += cppGenerator.injectId(cppGenerator.STATEMENT_PREFIX, a));
+    do {
+        var d = cppGenerator.valueToCode(a, "IF" + b, cppGenerator.ORDER_NONE) || "false",
+            e = cppGenerator.statementToCode(a, "DO" + b);
+            if(e) e+='\n';
+        cppGenerator.STATEMENT_SUFFIX && (e = cppGenerator.prefixLines(cppGenerator.injectId(cppGenerator.STATEMENT_SUFFIX, a), cppGenerator.INDENT) + e);
+        c += (0 < b ?
+            "\nelse " : "") + "if (" + d + ") {\n" + e + "}";
+        b++
+    } while (a.getInput("IF" + b));
+    if (a.getInput("ELSE") || cppGenerator.STATEMENT_SUFFIX) b = cppGenerator.statementToCode(a, "ELSE"), cppGenerator.STATEMENT_SUFFIX && (b = cppGenerator.prefixLines(cppGenerator.injectId(cppGenerator.STATEMENT_SUFFIX, a), cppGenerator.INDENT) + b), c += "\nelse {\n", c += b ? b+"\n}" : b + "}";
+    c = cppGenerator.prefixLines(c, cppGenerator.INDENT);
+    return c
+};
+
+cppGenerator.logic_compare = function(block) {
+    var b = {
+            EQ: "==",
+            NEQ: "!=",
+            LT: "<",
+            LTE: "<=",
+            GT: ">",
+            GTE: ">="
+        } [block.getFieldValue("OP")],
+        c = "==" === b || "!=" === b ? cppGenerator.ORDER_EQUALITY : cppGenerator.ORDER_RELATIONAL,
+        d = cppGenerator.valueToCode(block, "A", c) || 'false',
+        a = cppGenerator.valueToCode(block, "B", c) || 'false',
+        code = d + " " + b + " " + a;
+    if (block.getParent() && block.getParent().type === "text_print") {
+        code = "(" + code + ")";
+    }
+    code = cppGenerator_texts_forceString(code, block)[0];
+    return [code, c]
+};
+
+cppGenerator.logic_operation = function(block) {
+    var b = "AND" === block.getFieldValue("OP") ? "&&" : "||",
+        c = "&&" === b ? cppGenerator.ORDER_LOGICAL_AND : cppGenerator.ORDER_LOGICAL_OR,
+        d = cppGenerator.valueToCode(block, "A", c);
+    a = cppGenerator.valueToCode(block, "B", c);
+    if (d || a) {
+        var e = "&&" === b ? "true" : "false";
+        d || (d = e);
+        a || (a = e)
+    } else a = d = "false";
+    return [d + " " + b + " " + a, c]
+};
+
+cppGenerator.logic_negate = function(block) {
+    var b = cppGenerator.ORDER_LOGICAL_NOT;
+    return ["!" + (cppGenerator.valueToCode(block, "BOOL", b) || "true"), b]
+};
+
+cppGenerator.logic_boolean = function(a) {
+    return ["TRUE" === a.getFieldValue("BOOL") ? "true" : "false", cppGenerator.ORDER_ATOMIC]
+};
+
+cppGenerator.logic_ternary = function(block) {
+    var b = cppGenerator.valueToCode(block, "IF", cppGenerator.ORDER_CONDITIONAL) || "false",
+        c = cppGenerator.valueToCode(block, "THEN", cppGenerator.ORDER_CONDITIONAL) || 'true',
+    a = cppGenerator.valueToCode(block, "ELSE", cppGenerator.ORDER_CONDITIONAL) || 'true',
+    code = b + " ? " + c + " : " + a;
+    if (block.getParent() && block.getParent().type === "text_print") {
+        code = "(" + code + ")";
+    }
+    return [code, cppGenerator.ORDER_CONDITIONAL]
+};
