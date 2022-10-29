@@ -251,6 +251,7 @@ cppGenerator.controls_if = function(a) {
     } while (a.getInput("IF" + b));
     if (a.getInput("ELSE") || cppGenerator.STATEMENT_SUFFIX) b = cppGenerator.statementToCode(a, "ELSE"), cppGenerator.STATEMENT_SUFFIX && (b = cppGenerator.prefixLines(cppGenerator.injectId(cppGenerator.STATEMENT_SUFFIX, a), cppGenerator.INDENT) + b), c += "\nelse {\n", c += b ? b+"\n}" : b + "}";
     c = cppGenerator.prefixLines(c, cppGenerator.INDENT);
+    if(a.getNextBlock()) c+='\n';
     return c
 };
 
@@ -305,4 +306,80 @@ cppGenerator.logic_ternary = function(block) {
         code = "(" + code + ")";
     }
     return [code, cppGenerator.ORDER_CONDITIONAL]
+};
+
+
+cppGenerator.math_number = function(a) {
+    a = Number(a.getFieldValue("NUM"));
+    return [a, 0 <= a ? cppGenerator.ORDER_ATOMIC : cppGenerator.ORDER_UNARY_NEGATION]
+};
+
+cppGenerator.controls_repeat_ext = function(block) {
+    var b = block.getField("TIMES") ? String(Number(block.getFieldValue("TIMES"))) : cppGenerator.valueToCode(block, "TIMES", cppGenerator.ORDER_ASSIGNMENT) || "0";
+    var c = cppGenerator.statementToCode(block, "DO");
+    c = cppGenerator.addLoopTrap(c, block);
+    a = "";
+    var d = cppGenerator.nameDB_.getDistinctName("count", "VARIABLE"),
+        e = b;
+    b.match(/^\w+$/) || (0, Blockly.utils.string.isNumber)(b) || (e = cppGenerator.nameDB_.getDistinctName("repeat_end",
+        "VARIABLE"), a += "int " + e + " = " + b + ";\n");
+    a = a + ("for (int " + d + " = 0; " + d + " < " + e + "; " + d + "++) {\n" + c + (c?"\n}":"}"));
+    a = cppGenerator.prefixLines(a, cppGenerator.INDENT);
+    if((block.nextConnection && block.nextConnection.targetBlock()))
+        a+='\n';
+    return a;
+};
+
+cppGenerator.controls_whileUntil = function(block) {
+    var b = "UNTIL" === block.getFieldValue("MODE"),
+        c = cppGenerator.valueToCode(block, "BOOL", b ? cppGenerator.ORDER_LOGICAL_NOT : cppGenerator.ORDER_NONE) || "false",
+        d = cppGenerator.statementToCode(block, "DO");
+    d = cppGenerator.addLoopTrap(d, block);
+    b && (c = "!" + c);
+    var code = cppGenerator.prefixLines("while (" + c + ") {\n" + d + (d?"\n}":"}"), cppGenerator.INDENT);
+    if((block.nextConnection && block.nextConnection.targetBlock()))
+        code+='\n';
+    return code
+};
+
+cppGenerator.controls_for = function(block) {
+    var b = cppGenerator.nameDB_.getName(block.getFieldValue("VAR"), "VARIABLE"),
+        c = cppGenerator.valueToCode(block, "FROM", cppGenerator.ORDER_ASSIGNMENT) || "0",
+        d = cppGenerator.valueToCode(block, "TO", cppGenerator.ORDER_ASSIGNMENT) || "0",
+        e = cppGenerator.valueToCode(block, "BY", cppGenerator.ORDER_ASSIGNMENT) || "1",
+        f = cppGenerator.statementToCode(block, "DO");
+    f = cppGenerator.addLoopTrap(f,
+        block);
+    if ((0, Blockly.utils.string.isNumber)(c) && (0, Blockly.utils.string.isNumber)(d) && (0, Blockly.utils.string.isNumber)(e)) {
+        var g = Number(c) <= Number(d);
+        a = "for (int " + b + " = " + c + "; " + b + (g ? " <= " : " >= ") + d + "; " + b;
+        b = Math.abs(Number(e));
+        a = (1 === b ? a + (g ? "++" : "--") : a + ((g ? " += " : " -= ") + b)) + (") {\n" + f + (f?"\n}":"}"))
+    } else {
+        cppGenerator.definitions_["include_cmath"] = "#include &lt;cmath&gt;";
+        a = "", g = c, c.match(/^\w+$/) || (0, Blockly.utils.string.isNumber)(c) || (g = cppGenerator.nameDB_.getDistinctName(b + "_start", "VARIABLE"),
+        a += "int " + g + " = " + c + ";\n"), c = d, d.match(/^\w+$/) || (0, Blockly.utils.string.isNumber)(d) || (c = cppGenerator.nameDB_.getDistinctName(b + "_end", "VARIABLE"), a += "int " + c + " = " + d + ";\n"), d = cppGenerator.nameDB_.getDistinctName(b + "_inc", "VARIABLE"), a += "int " + d + " = ", a = (0, Blockly.utils.string.isNumber)(e) ? a + (Math.abs(e) + ";\n") : a + ("abs(" + e + ");\n"), a = a + ("if (" + g + " > " + c + ") {\n") + (cppGenerator.INDENT +
+        d + " = -" + d + ";\n"), a += "}\n", a += "for (int " + b + " = " + g + "; " + d + " >= 0 ? " + b + " <= " + c + " : " + b + " >= " + c + "; " + b + " += " + d + ") {\n" + f + "}";
+    }
+    if((block.nextConnection && block.nextConnection.targetBlock()))
+        a+='\n';
+    return cppGenerator.prefixLines(a, cppGenerator.INDENT)
+};
+
+cppGenerator.controls_flow_statements = function(a) {
+    var b = "";
+    cppGenerator.STATEMENT_PREFIX && (b += cppGenerator.injectId(cppGenerator.STATEMENT_PREFIX, a));
+    cppGenerator.STATEMENT_SUFFIX && (b += cppGenerator.injectId(cppGenerator.STATEMENT_SUFFIX, a));
+    if (cppGenerator.STATEMENT_PREFIX) {
+        var c = a.getSurroundLoop();
+        c && !c.suppressPrefixSuffix && (b += cppGenerator.injectId(cppGenerator.STATEMENT_PREFIX, c))
+    }
+    switch (a.getFieldValue("FLOW")) {
+        case "BREAK":
+            return b +
+                "break;";
+        case "CONTINUE":
+            return b + "continue;"
+    }
+    throw Error("Unknown flow statement.");
 };

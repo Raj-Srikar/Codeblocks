@@ -1,3 +1,23 @@
+Blockly.Variables.createVariableButtonHandler = function(a, b, c) {
+    var d = c || "",
+      e = function(f) {
+        (0, Blockly.Variables.promptName)(Blockly.Msg.NEW_VARIABLE_TITLE, f, function(g) {
+          if (g) {
+            var h = (0, Blockly.Variables.nameUsedWithAnyType)(g, a);
+            if (h) {
+              if (h.type === d) var k = Blockly.Msg.VARIABLE_ALREADY_EXISTS.replace("%1", h.name);
+              else k = Blockly.Msg.VARIABLE_ALREADY_EXISTS_FOR_ANOTHER_TYPE, k = k.replace("%1", h.name).replace("%2",
+                h.type);
+              (0, Blockly.dialog.alert)(k, function() {
+                e(g)
+              })
+            } else a.createVariable(g, d), b && b(g)
+          } else b && b(null)
+        })
+      };
+    e("")
+  };  
+
 Blockly.Variables.flyoutCategory = function(a) {
     var b = [],
         c = document.createElement("button");
