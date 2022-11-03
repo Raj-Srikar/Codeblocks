@@ -383,3 +383,54 @@ cppGenerator.controls_flow_statements = function(a) {
     }
     throw Error("Unknown flow statement.");
 };
+
+
+cppGenerator.procedures_defreturn = function(a) {
+    var b = cppGenerator.nameDB_.getName(a.getFieldValue("NAME"), Blockly.Names.NameType.PROCEDURE),
+        c = "";
+    cppGenerator.STATEMENT_PREFIX && (c += cppGenerator.injectId(cppGenerator.STATEMENT_PREFIX, a));
+    cppGenerator.STATEMENT_SUFFIX && (c += cppGenerator.injectId(cppGenerator.STATEMENT_SUFFIX, a));
+    c && (c = cppGenerator.prefixLines(c, cppGenerator.INDENT));
+    var d = "";
+    cppGenerator.INFINITE_LOOP_TRAP &&
+        (d = cppGenerator.injectId(cppGenerator.INFINITE_LOOP_TRAP, a));
+    var e = cppGenerator.statementToCode(a, "STACK"),
+        f = cppGenerator.valueToCode(a, "RETURN", cppGenerator.ORDER_NONE) || "",
+        g = "";
+    e && f && (g = c);
+    f && (f = (e?'\n':'')+"    " +"return " + f + ";");
+    for (var h = [], k = a.getVars(), l = 0; l < k.length; l++) h[l] = 'string ' + cppGenerator.nameDB_.getName(k[l], "VARIABLE");
+    var innercode = c + d + e + g + f,
+    regexmatch = innercode.match(/return(?=(?:[^"\\]*"[^"\\]*")*[^"\\]*$)/);
+    regexmatch && (cppGenerator.definitions_["include_string"] = "#include &lt;string&gt;");
+    c = (regexmatch ? "string " : "void ") +
+        b + "(" + h.join(", ") + ") {\n" + innercode + (regexmatch && !f ?'\n    return "";':"") + (innercode ? "\n}" : "}");
+    c = cppGenerator.scrub_(a, c);
+    cppGenerator.definitions_["%" + b] = c;
+    return null
+};
+cppGenerator.procedures_defnoreturn = cppGenerator.procedures_defreturn;
+
+cppGenerator.procedures_callreturn = function(a) {
+    for (var b = cppGenerator.nameDB_.getName(a.getFieldValue("NAME"), Blockly.Names.NameType.PROCEDURE), c = [], d = a.getVars(), e = 0; e < d.length; e++) c[e] = cppGenerator.valueToCode(a, "ARG" + e, cppGenerator.ORDER_NONE) || '""';
+    return [b + "(" + c.join(", ") + ")", cppGenerator.ORDER_FUNCTION_CALL]
+};
+
+cppGenerator.procedures_callnoreturn = function(block) {
+    code = cppGenerator.procedures_callreturn(block)[0] + ";";
+    if(block.nextConnection.targetBlock())
+        code+="\n";
+    if(!block.getParent() || block.previousConnection)
+        return cppGenerator.prefixLines(code, cppGenerator.INDENT);
+    return code
+};
+
+cppGenerator.procedures_ifreturn = function(block) {
+    var b = "if (" + (cppGenerator.valueToCode(block, "CONDITION", cppGenerator.ORDER_NONE) || "false") + ") {\n";
+    cppGenerator.STATEMENT_SUFFIX && (b += cppGenerator.prefixLines(cppGenerator.injectId(cppGenerator.STATEMENT_SUFFIX, block), cppGenerator.INDENT));
+    block.hasReturnValue_ ? (a = cppGenerator.valueToCode(block, "VALUE", cppGenerator.ORDER_NONE) || '""', b += cppGenerator.INDENT + "  return " + a + ";\n") : b += cppGenerator.INDENT +
+        "return;\n";
+    b += "}";
+    block.nextConnection && block.nextConnection.targetBlock() && (b+='\n');
+    return cppGenerator.prefixLines(b,cppGenerator.INDENT)
+}
