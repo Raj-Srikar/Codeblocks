@@ -91,7 +91,7 @@ cppGenerator.finish = function(a) {
     cppGenerator.isInitialized = !1;
     cppGenerator.nameDB_.reset();
     return "#include &lt;iostream&gt;\n" + (b.length ? b.join("\n")+'\n':'')
-            + "\nusing namespace std;" + (c.join("\n\n")).replace(/\n\n+/g, "\n\n").replace(/\n*$/, "") + "\n\nint main() {\n" + cppGenerator.prefixLines(a, cppGenerator.INDENT) + "\n    return 0;\n}"
+            + "\nusing namespace std;" + ('\n\n' + c.join("\n\n")).replace(/\n\n+/g, "\n\n").replace(/\n*$/, "") + "\n\nint main() {\n" + cppGenerator.prefixLines(a, cppGenerator.INDENT) + "\n    return 0;\n}"
 };
 
 cppGenerator.scrubNakedValue = function(a) {
