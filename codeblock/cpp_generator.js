@@ -90,8 +90,8 @@ cppGenerator.finish = function(a) {
     a = Object.getPrototypeOf(cppGenerator).finish.call(cppGenerator, a);
     cppGenerator.isInitialized = !1;
     cppGenerator.nameDB_.reset();
-    return "#include &lt;iostream&gt;\n" + (b.join("\n") + "\n\n")
-            + "using namespace std;\n" + (c.join("\n\n")).replace(/\n\n+/g, "\n\n").replace(/\n*$/, "") + "\n\nint main() {\n" + a + "\n  return 0;\n}"
+    return "#include &lt;iostream&gt;\n" + (b.length ? b.join("\n")+'\n':'')
+            + "\nusing namespace std;" + (c.join("\n\n")).replace(/\n\n+/g, "\n\n").replace(/\n*$/, "") + "\n\nint main() {\n" + cppGenerator.prefixLines(a, cppGenerator.INDENT) + "\n    return 0;\n}"
 };
 
 cppGenerator.scrubNakedValue = function(a) {
@@ -223,7 +223,7 @@ cppGenerator.text_reverse = function(block) {
 };
 
 cppGenerator.text_print = function(block) {
-    var code = myscrub(block, 'cout << ' + cppGenerator.valueToCode(block, 'TEXT', cppGenerator.ORDER_NONE) + ';');
+    var code = myscrub(block, 'cout << ' + cppGenerator.valueToCode(block, 'TEXT', cppGenerator.ORDER_NONE) + ' << endl;');
     return cppGenerator.prefixLines(code, cppGenerator.INDENT);
 }
 
@@ -231,7 +231,8 @@ cppGenerator.prompt_inp = function(block) {
     var tb = block.nextConnection && block.nextConnection.targetBlock(),
     print = cppGenerator.valueToCode(block, 'TEXT', cppGenerator.ORDER_NONE) !== '""' ? tb ?  cppGenerator.text_print(block) + '' : cppGenerator.text_print(block) + '\n' : '',
     vname = cppGenerator.nameDB_.getName(block.getFieldValue("VAR"), 'VARIABLE'),
-    inp = myscrub(block, cppGenerator.prefixLines('cin >> ' + vname + ';', cppGenerator.INDENT)); 
+    inp = myscrub(block, cppGenerator.prefixLines('cin >> ' + vname + ';', cppGenerator.INDENT));
+    print = print.replaceAll(' << endl','');
     return print + inp;
 };
 
