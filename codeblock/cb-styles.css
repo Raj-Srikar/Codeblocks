@@ -19,6 +19,9 @@ html, body {
     height: 90%;
     width: 100%;
 }
+textarea{
+    color: black;
+}
 
 
 body{
@@ -31,9 +34,9 @@ header{
 }
 header>h1{
     display: inline-block;
-font-family: Thunder;
-font-size: 50px;
-margin: 15px 0 10px;
+    font-family: Thunder;
+    font-size: 60px;
+    margin: 8px 0 5px;
 }
 header>span>i{
     padding-right: 10px;
@@ -46,12 +49,13 @@ header>span{
     float: right;
     position: relative;
     top: 20px;
-    font-size: 25px;
+    font-size: 20px;
     padding: 5px 15px;
     border-radius: 10px;
     font-weight: bold;
     cursor: pointer;
     transition: 0.2s;
+    margin-top: 8px;
 }
 header>span:hover{
     color: white;
@@ -112,7 +116,7 @@ pre {
     border: 1px solid white;
 }
 code {
-    width: 100%;
+    width: 95%;
     resize: none;
     height: 90%;
     font-size: 16px;

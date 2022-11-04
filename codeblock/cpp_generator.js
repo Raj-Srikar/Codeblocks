@@ -179,15 +179,15 @@ cppGenerator.text_changeCase = function(block) {
     switch(block.getFieldValue("CASE")){
         case 'UPPERCASE':
             c = 'upper(';
-            cppGenerator.definitions_['case'] = "string upper(string s){\n  for(int i=0;i&lt;s.length();i++)\n    s[i]=toupper(s[i]);\n  return string(s);\n}";
+            cppGenerator.definitions_['case'] = "string upper(string s) {\n    for (int i = 0; i &lt; s.length(); i++)\n        s[i] = toupper(s[i]);\n    return string(s);\n}";
             break;
         case 'LOWERCASE':
             c = 'lower(';
-            cppGenerator.definitions_['case'] = "string lower(string s){\n  for(int i=0;i&lt;s.length();i++)\n    s[i]=tolower(s[i]);\n  return string(s);\n}";
+            cppGenerator.definitions_['case'] = "string lower(string s) {\n    for (int i = 0; i &lt; s.length(); i++)\n        s[i] = tolower(s[i]);\n    return string(s);\n}";
             break;
         case 'TITLECASE':
             c = 'title(';
-            cppGenerator.definitions_['case'] = "string title(string s) {\n  char prev = ' ';\n  for(int i=0; i < s.length(); i++) {\n    if(prev == ' ')\n      s[i] = toupper(s[i]);\n    prev = s[i];\n  }\n  return s;\n}";
+            cppGenerator.definitions_['case'] = "string title(string s) {\n    char prev = ' ';\n    for (int i = 0; i &lt; s.length(); i++) {\n        if (prev == ' ')\n            s[i] = toupper(s[i]);\n        prev = s[i];\n    }\n    return s;\n}";
             break;
     }
     var vtc = (cppGenerator.valueToCode(block, 'TEXT', cppGenerator.ORDER_FUNCTION_CALL)) || '""';
@@ -197,7 +197,7 @@ cppGenerator.text_changeCase = function(block) {
 
 cppGenerator.text_count = function(block) {
     cppGenerator.definitions_["include_string"] = "#include &lt;string&gt;";
-    cppGenerator.definitions_['count'] = 'int strcount(string str, string sub_str) {\n  int c = 0;\n  for (int i = 0; i < str.length(); i++)\n    if (str.substr(i, sub_str.length()) == sub_str)\n      c++;\n  return c;\n}';
+    cppGenerator.definitions_['count'] = "int strcount(string str, string sub_str) {\n    int c = 0;\n    for (int i = 0; i &lt; str.length(); i++)\n        if (str.substr(i, sub_str.length()) == sub_str)\n            c++;\n    return c;\n}";
     var txt = cppGenerator.valueToCode(block, "TEXT", cppGenerator.ORDER_FUNCTION_CALL) || '""';
     var sub = cppGenerator.valueToCode(block, "SUB", cppGenerator.ORDER_NONE) || '""';
     var code = 'strcount(' + txt + ', ' + sub + ')';
@@ -207,7 +207,7 @@ cppGenerator.text_count = function(block) {
 
 cppGenerator.text_replace = function(block) {
     cppGenerator.definitions_["include_string"] = "#include &lt;string&gt;";
-    cppGenerator.definitions_['replace'] = 'string replace(string search, string replaceStr, string s) {\n  size_t pos = s.find(search);\n  while (pos != string::npos) {\n    s.replace(pos, search.size(), replaceStr);\n    pos = s.find(search, pos + replaceStr.size());\n  }\n  return s;\n}';
+    cppGenerator.definitions_['replace'] = "string replace(string search, string replaceStr, string s) {\n    size_t pos = s.find(search);\n    while (pos != string::npos) {\n        s.replace(pos, search.size(), replaceStr);\n        pos = s.find(search, pos + replaceStr.size());\n    }\n    return s;\n}";
     var txt = cppGenerator.valueToCode(block, "TEXT", cppGenerator.ORDER_NONE) || "''",
         frm = cppGenerator.valueToCode(block, "FROM", cppGenerator.ORDER_NONE) || "''",
 		to = cppGenerator.valueToCode(block, "TO", cppGenerator.ORDER_NONE) || "''";
@@ -217,7 +217,7 @@ cppGenerator.text_replace = function(block) {
 
 cppGenerator.text_reverse = function(block) {
     cppGenerator.definitions_["include_string"] = "#include &lt;string&gt;";
-    cppGenerator.definitions_['reverse'] = 'string reverse(string str) {\n  int n = str.length();\n  for (int i = 0; i < n / 2; i++)\n    swap(str[i], str[n - i - 1]);\n  return str;\n}';
+    cppGenerator.definitions_['reverse'] = "string reverse(string str) {\n    int n = str.length();\n    for (int i = 0; i < n / 2; i++)\n        swap(str[i], str[n - i - 1]);\n    return str;\n}";
     var code = "reverse(" + (cppGenerator.valueToCode(block, 'TEXT', cppGenerator.ORDER_FUNCTION_CALL) || '""') + ")";
     return [code, cppGenerator.ORDER_FUNCTION_CALL];
 };
