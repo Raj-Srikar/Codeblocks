@@ -35,11 +35,32 @@ font-family: Thunder;
 font-size: 50px;
 margin: 15px 0 10px;
 }
-header>i{
-    font-size: 50px;
+header>span>i{
+    padding-right: 10px;
+    font-size: 20px;
+}
+header>span{
+    border: 3px solid white;
+    background-color: white;
+    color: black;
     float: right;
-    top: 15px;
     position: relative;
+    top: 20px;
+    font-size: 25px;
+    padding: 5px 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+header>span:hover{
+    color: white;
+    background-color: black;
+    box-shadow: 0 0 15px #ddd;
+}
+header>span:active{
+    background-color: white;
+    color: black;
 }
 #blocklyDiv{
     height: 87vh;
@@ -86,17 +107,29 @@ textarea{
     font-size: 16px;
 }
 pre {
-height: 50%;
-margin: 0;
+    height: 49.2%;
+    margin: 0;
+    border: 1px solid white;
 }
 code {
-width: 100%;
-resize: none;
-height: 90%;
-font-size: 16px;
-margin: 0;
+    width: 100%;
+    resize: none;
+    height: 90%;
+    font-size: 16px;
+    margin: 0;
 }
-
+#python.hljs{
+    background-image: url(python-logo-tr.png);
+    background-size: 45%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+#cpp.hljs{
+    background-image: url(cpp-logo-tr.png);
+    background-size: 45%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 @font-face {
 font-family: Thunder;
 src: url('Thunder.ttf');

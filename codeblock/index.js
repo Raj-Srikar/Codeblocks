@@ -1,6 +1,6 @@
 'use strict';
 
-let workspace = null;
+let workspace = null, jscode = "";
 
 function start() {
   // Create main workspace.
@@ -15,6 +15,7 @@ function start() {
 function myUpdateFunction(event) {
   var pycode = Blockly.Python.workspaceToCode(workspace);
   document.getElementById('python').innerHTML = pycode;
+  jscode = Blockly.JavaScript.workspaceToCode(workspace);
   var cppcode = cppGenerator.workspaceToCode(workspace);
   var includes = '#include &lt;iostream.h&gt;\n';
   if(cppGenerator.definitions){

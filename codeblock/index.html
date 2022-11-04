@@ -8,6 +8,7 @@
   <script src="highlight/highlight.min.js"></script>
   <script>hljs.highlightAll();</script>
   <script src="https://unpkg.com/blockly@8.0.5/blockly.min.js"></script>
+  <script src="javascript_compressed.js"></script>
   <script src="python_compressed.js"></script>
   <script src="https://unpkg.com/@blockly/dev-tools@2.0.0/dist/index.js"></script>
   <script src="index.js"></script>
@@ -24,13 +25,13 @@
 <body onload="start()">
   <header>
 		<h1>Code Blocks</h1>
-		<i class="fa fa-user-circle" aria-hidden="true"></i>
+		<span onclick="eval(jscode)"><i class="fa fa-play" aria-hidden="true"></i>Run</span>
 	</header>
 
   <div id="blocklyDiv"></div>
   <aside id="code">
-    <pre><code id="python" class="language-python"></code></pre>
-    <pre><code id="cpp" class="language-cpp"></code></pre>
+    <pre id="py-pre"><code id="python" class="language-python"></code></pre>
+    <pre id="cpp-pre"><code id="cpp" class="language-cpp"></code></pre>
   </aside>
   <!-- Toolbox Definition -->
   <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox-categories" style="display: none">

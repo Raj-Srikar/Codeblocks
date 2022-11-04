@@ -43,6 +43,12 @@ Blockly.Variables.flyoutCategoryBlocks = function(a) {
             d.appendChild((0, Blockly.Variables.generateVariableFieldDom)(c));
             b.push(d)
         }
+        // Blockly.Blocks.math_change &&
+        //     (d = (0, Blockly.utils.xml.createElement)("block"), d.setAttribute("type", "math_change"), d.setAttribute("gap", 
+        //         Blockly.Blocks.variables_get ? 20 : 8), d.appendChild((0, Blockly.Variables.generateVariableFieldDom)(c)), 
+        //         c = (0, Blockly.Xml.textToDom)
+        //             ('<value name="DELTA"><shadow type="math_number"><field name="NUM">1</field></shadow></value>'), 
+        //         d.appendChild(c), b.push(d));
         if (Blockly.Blocks.variables_get)
             for (a.sort(Blockly.VariableModel.compareByName),
                 c = 0; d = a[c]; c++) {
@@ -78,4 +84,21 @@ Blockly.Python.prompt_inp = function(a) {
   var vname = Blockly.Python.variables_set(a);
   return vname.replace('0', b)
 };
+Blockly.JavaScript.prompt_inp = function(a) {
+  var b = "window.prompt(" + (a.getField("TEXT") ? Blockly.JavaScript.quote_(a.getFieldValue("TEXT")) : Blockly.JavaScript.valueToCode(a, "TEXT", Blockly.JavaScript.ORDER_NONE) || "''") + ")";
+  var vname = Blockly.JavaScript.variables_set(a);
+  return vname.replace('0', b)
+};
 
+// Blockly.Blocks['variables_get'] = {
+//   init: function() {
+//     this.appendDummyInput()
+//         .appendField("type")
+//         .appendField(new Blockly.FieldDropdown([["text","STRING"], ["number","INT"]]), "TYPE")
+//         .appendField(new Blockly.FieldVariable(), "VAR");
+//     this.setOutput(true, null);
+//     this.setColour(330);
+//  this.setTooltip("");
+//  this.setHelpUrl("");
+//   }
+// };
