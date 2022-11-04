@@ -36,7 +36,7 @@ function myUpdateFunction(event) {
 function copyToClipboard(ele){
   var range = document.createRange();
   range.selectNode(ele.parentElement);
-  range.setStart(ele.parentElement, 1)
+  range.setStart(ele.parentElement, 2)
   window.getSelection().removeAllRanges();
   window.getSelection().addRange(range);
   document.execCommand("copy");
