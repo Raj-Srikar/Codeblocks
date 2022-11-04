@@ -19,10 +19,6 @@ html, body {
     height: 90%;
     width: 100%;
 }
-textarea{
-    color: black;
-}
-
 
 body{
     margin: 0;
@@ -103,18 +99,45 @@ aside{
 section{
     height: 49.4%;
 }
-textarea{
-    width: 98%;
-    resize: none;
-    height: 100%;
-    color: white;
-    font-size: 16px;
-}
 pre {
     height: 49.2%;
     margin: 0;
     border: 1px solid white;
 }
+pre>i{
+    color: white;
+    position: absolute;
+    right: 15px;
+    margin-top: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 5px;
+    border-radius: 5px;
+    transition: 0.15s;
+}
+#py-pre>i{
+    background-color: #011627;
+}
+#cpp-pre>i{
+    background-color: #151515;
+}
+#py-pre>i:hover{
+    color: #011627;
+    background-color: white;
+}
+#cpp-pre>i:hover{
+    color: #151515;
+    background-color: white;
+}
+pre>i:active{
+    color: white !important;
+    background-color: black !important;
+}
+.fa-check{
+    background-color: rgb(0, 180, 0) !important;
+    color: white !important;
+}
+
 code {
     width: 95%;
     resize: none;

@@ -32,3 +32,19 @@ function myUpdateFunction(event) {
   document.getElementById('cpp').innerHTML = cppcode;
   hljs.highlightAll();
 }
+
+function copyToClipboard(ele){
+  var range = document.createRange();
+  range.selectNode(ele.parentElement);
+  range.setStart(ele.parentElement, 1)
+  window.getSelection().removeAllRanges();
+  window.getSelection().addRange(range);
+  document.execCommand("copy");
+  window.getSelection().removeAllRanges();
+  ele.className = 'fa fa-check';
+  ele.title = 'Copied To Clipboard!!'
+  setTimeout(() => {
+    ele.className = 'fa fa-clone';
+    ele.title = 'Copy To Clipboard!!'
+  }, 2000);
+}
