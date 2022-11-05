@@ -20,7 +20,6 @@ html, body {
     width: 100%;
 }
 
-
 body{
     margin: 0;
 }
@@ -31,15 +30,37 @@ header{
 }
 header>h1{
     display: inline-block;
-font-family: Thunder;
-font-size: 50px;
-margin: 15px 0 10px;
+    font-family: Thunder;
+    font-size: 60px;
+    margin: 8px 0 5px;
 }
-header>i{
-    font-size: 50px;
+header>span>i{
+    padding-right: 10px;
+    font-size: 20px;
+}
+header>span{
+    border: 3px solid white;
+    background-color: white;
+    color: black;
     float: right;
-    top: 15px;
     position: relative;
+    top: 20px;
+    font-size: 20px;
+    padding: 5px 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+    margin-top: 8px;
+}
+header>span:hover{
+    color: white;
+    background-color: black;
+    box-shadow: 0 0 15px #ddd;
+}
+header>span:active{
+    background-color: white;
+    color: black;
 }
 #blocklyDiv{
     height: 87vh;
@@ -78,25 +99,64 @@ aside{
 section{
     height: 49.4%;
 }
-textarea{
-    width: 98%;
-    resize: none;
-    height: 100%;
-    color: white;
-    font-size: 16px;
-}
 pre {
-height: 50%;
-margin: 0;
+    height: 49.2%;
+    margin: 0;
+    border: 1px solid white;
 }
-code {
-width: 100%;
-resize: none;
-height: 100%;
-font-size: 16px;
-margin: 0;
+pre>i{
+    color: white;
+    position: absolute;
+    right: 15px;
+    margin-top: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 5px;
+    border-radius: 5px;
+    transition: 0.15s;
+}
+#py-pre>i{
+    background-color: #011627;
+}
+#cpp-pre>i{
+    background-color: #151515;
+}
+#py-pre>i:hover{
+    color: #011627;
+    background-color: white;
+}
+#cpp-pre>i:hover{
+    color: #151515;
+    background-color: white;
+}
+pre>i:active{
+    color: white !important;
+    background-color: black !important;
+}
+.fa-check{
+    background-color: rgb(0, 180, 0) !important;
+    color: white !important;
 }
 
+code {
+    width: 95%;
+    resize: none;
+    height: 90%;
+    font-size: 16px;
+    margin: 0;
+}
+#python.hljs{
+    background-image: url(python-logo-tr.png);
+    background-size: 45%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+#cpp.hljs{
+    background-image: url(cpp-logo-tr.png);
+    background-size: 45%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 @font-face {
 font-family: Thunder;
 src: url('Thunder.ttf');

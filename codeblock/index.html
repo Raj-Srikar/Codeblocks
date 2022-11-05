@@ -7,10 +7,12 @@
 
   <script src="highlight/highlight.min.js"></script>
   <script>hljs.highlightAll();</script>
-  <script src="https://unpkg.com/blockly/blockly.min.js"></script>
+  <script src="https://unpkg.com/blockly@8.0.5/blockly.min.js"></script>
+  <script src="javascript_compressed.js"></script>
   <script src="python_compressed.js"></script>
   <script src="https://unpkg.com/@blockly/dev-tools@2.0.0/dist/index.js"></script>
   <script src="index.js"></script>
+  <script src="customization.js"></script>
   <script src="./cpp_generator.js"></script>
 
   <link rel="stylesheet" href="highlight/styles/night-owl.min.css">
@@ -23,13 +25,13 @@
 <body onload="start()">
   <header>
 		<h1>Code Blocks</h1>
-		<i class="fa fa-user-circle" aria-hidden="true"></i>
+		<span onclick="eval(jscode)"><i class="fa fa-play" aria-hidden="true"></i>Run</span>
 	</header>
 
   <div id="blocklyDiv"></div>
   <aside id="code">
-    <pre><code id="python" class="language-python"></code></pre>
-    <pre><code id="cpp" class="language-cpp"></code></pre>
+    <pre id="py-pre"><i class="fa fa-clone" aria-hidden="true" title="Copy To Clipboard!!" onclick="copyToClipboard(this)"></i><code id="python" class="language-python"></code></pre>
+    <pre id="cpp-pre"><i class="fa fa-clone" aria-hidden="true" title="Copy To Clipboard!!" onclick="copyToClipboard(this)"></i><code id="cpp" class="language-cpp"></code></pre>
   </aside>
   <!-- Toolbox Definition -->
   <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox-categories" style="display: none">
@@ -84,10 +86,9 @@
           </shadow>
         </value>
       </block>
-      <block type="text_prompt_ext">
+      <block type="prompt_inp">
         <value name="TEXT">
           <shadow type="text">
-            <field name="TEXT">abc</field>
           </shadow>
         </value>
       </block>
@@ -98,7 +99,6 @@
       <block type="logic_operation"></block>
       <block type="logic_negate"></block>
       <block type="logic_boolean"></block>
-      <block type="logic_null" disabled="true"></block>
       <block type="logic_ternary"></block>
     </category>
     <category name="Loops" categorystyle="loop_category">
@@ -109,7 +109,6 @@
           </shadow>
         </value>
       </block>
-      <block type="controls_repeat" disabled="true"></block>
       <block type="controls_whileUntil"></block>
       <block type="controls_for">
         <value name="FROM">
@@ -128,9 +127,9 @@
           </shadow>
         </value>
       </block>
-      <block type="controls_forEach"></block>
       <block type="controls_flow_statements"></block>
     </category>
+    <category name="Functions" categorystyle="procedure_category" custom="PROCEDURE"></category>
   </xml>
 
 </body>
