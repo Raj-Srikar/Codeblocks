@@ -1,0 +1,301 @@
+html, body{
+    margin: 0;
+}
+body{
+    display: flex;
+    font-family: titi;
+}
+
+aside{
+    width: 50%;
+    height: 100vh;
+    z-index: 1;
+}
+
+#bg{
+    background-image: url(../images/Circuit-CB-Glowing-Logo.png);
+    background-size: 250%;
+    background-repeat: no-repeat;
+    background-position: 45% 75%;
+    width: 40%;
+}
+
+#auth-content{
+    background-color: #101c21;
+    color: white;
+    text-align: center;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-left: 1px solid deepskyblue;
+    box-shadow: 0 0 10px 2px skyblue;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav{
+    display: flex;
+    justify-content: space-around;
+    font-family: EncodeSansBold;
+    align-self: stretch;
+}
+nav>span{
+    border: 2px solid white;
+    padding: 3vh 0;
+    cursor: pointer;
+    border-top: 0;
+    user-select: none;
+    transition: 0.3s;
+}
+nav>span:not(.selected):hover{
+    box-shadow: 0 0px 15px 1px skyblue;
+}
+.home{
+    flex-grow: 0.3;
+    border-left: 0;
+    border-bottom-right-radius: 10px;
+}
+#login{
+    flex-grow: 2;
+    border: 0;
+}
+#signup{
+    flex-grow: 2;
+    border-right: 0;
+    border-bottom-left-radius: 10px;
+}
+.selected{
+    text-shadow: 0px 0 10px skyblue, 0px 0 10px skyblue, 0px 0 10px skyblue;
+    cursor: default;
+    font-size: 20px;
+}
+
+#logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 3% 0 2%;
+    /* margin: 0;
+    margin-top: 2% 0 0; */
+    font-family: EncodeSansBold;
+    font-weight: bold;
+    flex-grow: 1;
+}
+img{
+    width: 2.5vw;
+}
+#logo>h1{
+    font-size: 13px;
+}
+#logo>h1>span{
+    font-size: 8px;
+}
+
+.msg{
+    flex-grow: 0.75;
+}
+.signup-msg{
+    display: none;
+}
+.msg>span:nth-child(1){
+    margin: 1% 0 2%;
+    display: block;
+    font-size: 30px;
+    font-family: arvo;
+}
+
+form{
+    /* margin: 3%; */
+    font-family: arvo;
+    /* padding: 5% 25%; */
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    width: 50%;
+    flex-grow: 2;
+    justify-content: flex-start;
+}
+form label{
+    font-family: EncodeSansLight;
+    display: block;
+    font-size: 10px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    margin-left: 0.5vw;
+    text-transform: uppercase;
+    align-self: flex-start;
+}
+form>div{
+    width: 100%;
+    margin: 0 auto 2.5vh;
+    position: relative;
+}
+form input{
+    background-color: #172a31;
+    color: white;
+    display: block;
+    width: 100%;
+    padding: 10px 8px;
+    font-size: 15px;
+    /* border-radius: 7px; */
+    border: 0;
+    border-bottom: 2px solid white;
+    /* box-sizing: border-box; */
+}
+form input:focus{
+    outline: none;
+    border-bottom-color: skyblue;
+}
+
+.eye{
+    position: absolute;
+    padding: 9px;
+    padding-right: 0;
+    right: 0;
+    font-size: 20px !important;
+    cursor: pointer;
+    user-select: none;
+    display: none !important;
+}
+form div:has(input:focus)>.eye{
+    color: skyblue;
+    display: inline-block !important;
+}
+/* form div:has(input:hover):not(form div:has(input:focus))>.eye, .eye:hover{
+    color: white;
+} */
+.err-eye{
+    color: indianred !important;
+}
+
+.su-inp{
+    display: none;
+}
+.focus-input{
+    position: absolute;
+    display: block;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    width: 103.5%;
+    height: 100%;
+    box-shadow: 0 0;
+    color: skyblue;
+}
+form input:focus+.focus-input, .flash{
+    animation: anim-shadow .5s ease-in-out forwards;
+}
+form>input[type="button"]{
+    font-family: arvo;
+    text-transform: uppercase;
+    /* font-weight: bold; */
+    padding: 13px;
+    width: 50%;
+    margin-top: 5vh;
+    cursor: pointer;
+    border: 0;
+    border-radius: 5px;
+    transition: box-shadow 0.3s, color 0.3s;
+}
+form>input[type="button"]:hover,form>input[type="button"]:focus{
+    box-shadow: 0 0 15px deepskyblue;
+    border: 1px solid deepskyblue;
+    color: #b2ecff;
+    padding: 12px;
+}
+
+.warning{
+    position: fixed;
+    margin-left: 31.5%;
+    font-size: 13px;
+    width: 10%;
+    background-color: #1f3943;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid indianred;
+    box-shadow: 0 0 10px indianred;
+    z-index: 1;
+    display: none;
+}
+div:has(> input):hover>.warning{
+    display: inline-block;
+}
+.warning::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10%;
+    border-width: 7px;
+    border-style: solid;
+    border-color: transparent indianred transparent transparent;
+    margin-left: -15px;
+}
+.warning ul{
+    padding-left: 15px;
+    margin-top: 5px;
+    margin-bottom: 0;
+}
+
+#modal{
+    display: none;
+    position: fixed;
+    z-index: 3;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #00000066;
+    color: white;
+    user-select: none;
+}
+#modal-content{
+    width: 30%;
+    margin: auto;
+    background-color: #1f3943;
+    padding: 20px;
+    border: 2px solid skyblue;
+    border-radius: 15px;
+}
+#modal-close{
+    color: #b2ebf2;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+#modal-msg a{
+    color: #b2ebf2;
+}
+#modal-close:hover, #modal-msg a:hover{
+    color:#00ACC1;
+}
+
+
+@keyframes anim-shadow {
+    to {
+      box-shadow: 0 0 60px 15px;
+      opacity: 0;
+    }
+}
+
+@font-face {
+    font-family: EncodeSansBold;
+    src: url(../fonts/EncodeSansSemiExpanded-Bold.ttf);
+}
+@font-face {
+    font-family: EncodeSansLight;
+    src: url(../fonts/EncodeSansSemiExpanded-Light.ttf);
+}
+@font-face {
+    font-family: arvo;
+    src: url(../fonts/Arvo-Regular.ttf);
+}
+@font-face {
+    font-family: Titi;
+    src: url(../fonts/TitilliumWeb-Regular.ttf);
+}

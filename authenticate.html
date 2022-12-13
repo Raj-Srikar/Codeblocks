@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>CodeBlocks.study</title>
+		<link rel="stylesheet" type="text/css" href="styles/authenticate.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+		<link rel="icon" type="image/svg+xml" href="images/cb-bg-compat.svg">
+        <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-auth.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-firestore.js"></script>
+        <script src="./scripts/backend/cb-firebase.js"></script>
+	</head>
+	<body>
+        <aside id="bg"></aside>
+        <aside id="auth-content">
+            <nav>
+                <span class="material-symbols-outlined home" onclick="window.open('/', '_self')">
+                    home_app_logo
+                </span>
+                <span id="login" class="selected" onclick="showlogin()">Login</span>
+                <span id="signup" onclick="showsignup()">Signup</span>
+            </nav>
+            <div id="logo">
+                <img src="./images/cb-thin-semisymmetrical-curved-monochrome.svg">
+                <h1>CodeBlocks<span>.study</span></h1>
+            </div>
+            <div class="msg login-msg">
+                <span>Welcome Back!</span>
+                <span>Log back in to your account to get access to awesome features!</span>
+            </div>
+            <div class="msg signup-msg">
+                <span>New Here?</span>
+                <span>We got your back! Register below and have access to amazing features!</span>
+            </div>
+            <form>
+                <label class="su-inp name" for="user">Name</label>
+                <div class="su-inp">
+                    <input class="inp name" type="text" name="name" placeholder="Enter your full name" oninput="validateInput(this)">
+                    <span class="focus-input"></span>
+                </div>
+                <label class="inp email" for="email">Email</label>
+                <div>
+                    <input class="inp email" type="email" name="email" placeholder="Enter your email" oninput="validateInput(this)">
+                    <span class="focus-input"></span>
+                </div>
+                <label class="inp pass" for="pass">Password</label>
+                <div>
+                    <span class="material-symbols-outlined eye" onmousedown="passwordVisibility(this)" onmouseleave="document.querySelector('input.pass').focus()">
+                        visibility
+                    </span>
+                    <input class="inp pass login-pass" type="password" name="pass" placeholder="Enter your password" oninput="validateInput(this)">
+                    <span class="focus-input"></span>
+                </div>
+                <label class="su-inp cnfpass" for="cnfpass">Confirm Password</label>
+                <div class="su-inp">
+                    <span class="material-symbols-outlined eye" onmousedown="passwordVisibility(this)" onmouseleave="document.querySelector('input.cnfpass').focus()">
+                        visibility
+                    </span>
+                    <input class="inp cnfpass" type="password" name="cnfpass" placeholder="Retype your password" oninput="validateInput(this)">
+                    <span class="focus-input"></span>
+                </div>
+                <input type="button" value="Login" onclick="submitForm();this.blur()">
+            </form>
+        </aside>
+        <div id="modal">
+            <div id="modal-content">
+                <span id="modal-close">&times;</span>
+                <h3 id="modal-heading"></h3>
+                <p id="modal-msg"></p>
+            </div>
+        </div>
+        <script src="./scripts/frontend/authenticate.js"></script>
+		<script src="./scripts/backend/auth.js"></script>
+	</body>
+</html>

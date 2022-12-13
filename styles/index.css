@@ -1,0 +1,113 @@
+html, body{
+    height: 100%;
+}
+body{
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    background-color: #296985;
+    /* background-image: url(../images/Circuit-CB-Glowing-Logo-Cropped.png); */
+    /* background-repeat: no-repeat; */
+    /* background-attachment: fixed; */
+    /* background-size: cover; */
+    /* background-position: top; */
+}
+
+nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #101c21;
+    color: white;
+    height: 11vh;
+    border-bottom: 1px solid white;
+    width: 100%;
+    text-align: center;
+}
+
+#cb-logo{
+    display: inline-block;
+    width: 4vw;
+    vertical-align: middle;
+}
+
+#title{
+    text-align: center;
+    vertical-align: middle;
+}
+
+#cb-title{
+    display: inline;
+    font-family: EncodeSansBold;
+    font-size: 1.95vw;
+}
+#title-study{
+    font-size: 1.3vw;
+    text-transform: lowercase;
+}
+#tagline{
+    display: inline;
+    font-family: EncodeSansLight;
+    font-size: 0.97vw;
+    font-style: italic;
+}
+
+#authenticate{
+    color: white;
+    width: 13vw;
+    text-align: center;
+    padding: 4vh 0;
+    font-family: EncodeSansLight;
+    border: 1px solid white;
+    border-bottom: 0;
+    float: right;
+    text-decoration: none;
+    transition: 0.3s;
+}
+#authenticate:hover{
+    text-shadow: 0 0 15px #e6d488;
+    box-shadow: 0 0 15px #e6d488;
+    text-decoration: underline;
+}
+
+#bg{
+    background-image: url(../images/Circuit-CB-Glowing-Logo.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center 90%;
+    height: 100%;
+}
+
+#blocking{
+    font-family: EncodeSansLight;
+    position: absolute;
+    top: 80%;
+    right: 40vw;
+    color: #00000000;
+    background: #00000088;
+    padding: 20px;
+    text-decoration: none;
+    border: 1px solid white;
+    border-radius: 10px;
+    height: auto;
+    transform: scaleX(1.6) skewX(21deg) skewY(-30deg);
+    transition: 0.5s;
+}
+#blocking:hover{
+    color:white;
+    background-color: #101c21;
+    box-shadow: 0 0 20px 2px #23e6ff;
+}
+#blocking span{
+    text-shadow: 0 0 5px #23e6ff;
+}
+
+
+@font-face {
+    font-family: EncodeSansBold;
+    src: url(../fonts/EncodeSansSemiExpanded-Bold.ttf);
+}
+@font-face {
+    font-family: EncodeSansLight;
+    src: url(../fonts/EncodeSansSemiExpanded-Light.ttf);
+}
