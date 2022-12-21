@@ -29,6 +29,7 @@ nav{
     display: inline-block;
     width: 4vw;
     vertical-align: middle;
+    margin-left: 5px;
 }
 
 #title{
@@ -78,7 +79,7 @@ nav{
     height: 100%;
 }
 
-#blocking{
+#blocking, #m-blocking{
     font-family: EncodeSansLight;
     position: absolute;
     top: 80%;
@@ -93,15 +94,119 @@ nav{
     transform: scaleX(1.6) skewX(21deg) skewY(-30deg);
     transition: 0.5s;
 }
-#blocking:hover{
+#blocking:hover, #m-blocking{
     color:white;
     background-color: #101c21;
     box-shadow: 0 0 20px 2px #23e6ff;
 }
-#blocking span{
+#blocking span, #m-blocking span{
     text-shadow: 0 0 5px #23e6ff;
 }
 
+@media only screen and (min-width: 481px) and (max-width: 768px){
+    nav{
+        height: 15vh;
+    }
+    #title{
+        margin-left: -7px;
+    }
+    #cb-logo{
+        width: 7vw;
+    }
+    #cb-title{
+        font-size: 2.5vw;
+    }
+    #title-study{
+        font-size: 1.6vw;
+    }
+    #tagline{
+        font-size: 1.3vw;
+    }
+    span:has(#authenticate){
+        height: 100%;
+    }
+    #authenticate{
+        font-size: 1.8vw;
+        width: 15vw;
+        height: 100%;
+        padding-top: 5vh;
+    }
+    #bg{
+        background-position-y: bottom;
+        background-size: 160%;
+    }
+    #blocking{
+        font-size: 12px;
+        padding: 17px;
+        right: 30%;
+    }
+    @media only screen and (max-width: 606px){
+        #bg{
+            background-size: 200%;
+        }
+        #blocking{
+            top: 82%;
+            right: 25%;
+        }
+    }
+}
+
+.for-mobiles{
+    display: none;
+}
+
+@media only screen and (max-width: 480px){
+    #bg{
+        padding: 5%;
+        background-position: 44% center;
+    }
+    nav,#blocking{
+        display: none;
+    }
+    nav.for-mobiles{
+        width: auto;
+        padding: 0 5vw;
+        display: flex;
+        height: 100%;
+        flex-flow: column;
+        justify-content: space-evenly;
+        border: 0;
+        background-color: #101c21a6;
+        border-radius: 17px;
+    }
+    #cb-logo{
+        width: 15vw;
+        margin: 0;
+    }
+    #cb-title{
+        font-size: 8vw;
+    }
+    #title-study, #tagline{
+        font-size: 4vw;
+    }
+    #tagline{
+        margin-bottom: 50px;
+    }
+    #authenticate{
+        border-bottom: 1px solid;
+        width: 55vw;
+        border-radius: 10px;
+        background: black;
+        box-shadow: 0 0 15px #e6d488;
+        margin-top: 50px;
+    }
+    #m-blocking{
+        position: initial;
+        transform: none;
+        width: 55vw;
+        padding: 4vh 0;
+    }
+    #m-blocking, #authenticate{
+        transition: none;
+        font-size: 4vw;
+    }
+
+}
 
 @font-face {
     font-family: EncodeSansBold;

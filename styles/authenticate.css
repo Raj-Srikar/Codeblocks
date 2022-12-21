@@ -201,6 +201,9 @@ form>input[type="button"]{
     border-radius: 5px;
     transition: box-shadow 0.3s, color 0.3s;
 }
+::placeholder{
+    color: #677c8a;
+}
 form>input[type="button"]:hover,form>input[type="button"]:focus{
     box-shadow: 0 0 15px deepskyblue;
     border: 1px solid deepskyblue;
@@ -275,6 +278,139 @@ div:has(> input):hover>.warning{
     color:#00ACC1;
 }
 
+@media only screen and (max-width: 768px){
+    body{
+        background-image: url(../images/Circuit-CB-Glowing-Logo.png);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    #bg{
+        display: none;
+    }
+    #auth-content{
+        overflow: auto;
+        width: 100%;
+        border: none;
+        background-color: #00000099;
+    }
+    nav>span:nth-child(1){
+        font-size: 3vw;
+    }
+    nav>span{
+        font-size: 2vw;
+        padding: 2.5vh 0;
+    }
+    .selected{
+        font-size: 2.7vw;
+    }
+    nav>span:not(.selected) {
+        box-shadow: 0 0px 15px 1px skyblue;
+        background-color: #101c21;
+    }
+    .msg>span:nth-child(1) {
+        font-size: 3.6vw;
+    }
+    .msg>span:nth-child(2) {
+        font-size: 2.25vw;
+    }
+    #logo{
+        margin-bottom: 0;
+    }
+    #logo>img{
+        width: 6vw;
+    }
+    #logo>h1{
+        font-size: 4vw;
+    }
+    #logo>h1>span{
+        font-size: 2vw;
+    }
+    form>label{
+        font-size: 1.45vw;
+    }
+    form input{
+        width: 96%;
+        font-size: 2.2vw;
+    }
+    .focus-input{
+        width: 100.5%;
+    }
+    form>input[type="button"]{
+        margin: 4vh 0;
+    }
+    .warning{
+        margin-left: 52%;
+        margin-top: 0%;
+        width: 15%;
+        font-size: 2vw;
+        /* position: absolute; */
+    }
+    #modal-content {
+        width: 50%;
+    }
+}
+
+@media only screen and (max-width: 480px){
+    body{
+        background-position: 44% center;
+    }
+    nav>span{
+        font-size: 15px;
+    }
+    nav>span:nth-child(1) {
+        font-size: 25px;
+        width: 30px;
+    }
+    .selected{
+        font-size: 20px;
+    }
+    #logo{
+        margin: 0 !important;
+        flex-grow: 0.75;
+    }
+    #logo>img{
+        width: 50px;
+    }
+    #logo>h1{
+        font-size: 30px;
+    }
+    #logo>h1>span{
+        font-size: 15px;
+    }
+    .msg>span:nth-child(1){
+        font-size: 25px;
+    }
+    .msg>span:nth-child(2){
+        font-size: 12px;
+        margin: 0 15px;
+    }
+    form{
+        width: 70%;
+    }
+    form label{
+        font-size: 9px;
+    }
+    form>div{
+        margin-bottom: 2vh;
+    }
+    form input{
+        font-size: 12px;
+        width: 95%;
+    }
+    .focus-input{
+        width: 101.5%;
+    }
+    form>input[type="button"]{
+        margin: 3vh 0;
+    }
+    .warning{
+        width: 18%;
+    }
+    #modal-content{
+        width: 70%;
+    }
+}
 
 @keyframes anim-shadow {
     to {
