@@ -25,3 +25,24 @@ const db = firebase.firestore();
 
 // Update firestore settings
 db.settings({ timestampsInSnapshots: true });
+
+
+function sanitizeContent(content) {
+    let syms = {
+        '"' : '&#34',
+        "'" : '&#39',
+        '(' : '&#40',
+        ')' : '&#41',
+        '/' : '&#47',
+        '<' : '&#60',
+        '>' : '&#62'
+    }
+
+    for (const key in syms) {
+        if (Object.hasOwnProperty.call(syms, key)) {
+            if(content.includes(key))
+                content = content.replace(key, syms[key])
+        }
+    }
+    return content;
+}

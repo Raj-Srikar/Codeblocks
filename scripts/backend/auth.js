@@ -18,12 +18,16 @@ async function cb_authenticate(){
         try{
             cb_auth.createUserWithEmailAndPassword(email, pass).then(cred => {
                 let col = db.collection('users').doc(cred.user.uid);
-                return col.set({
-                    'username': name,
-                    'bio' : '' 
+                db.collection('users').doc(cred.user.uid).collection('custom-files').doc('init').set({});
+                col.set({
+                    'bio' : 'Hello there! My name is ' + name + ' :)'
+                })
+                return cred.user.updateProfile({
+                    displayName: name,
+                    photoURL : ''
                 })
             }).then(() => {
-                window.open('./codeblock','_self');
+                window.open('dashboard.html','_self');
             })
         }
         catch(e){
@@ -33,13 +37,15 @@ async function cb_authenticate(){
     else {
         try{
             await cb_auth.signInWithEmailAndPassword(email, pass).then(cred => {
-                window.open('./codeblock','_self');
+                window.open('dashboard.html','_self');
             })
         } catch(e){
             if (e.code == 'auth/user-not-found' || e.code == "auth/wrong-password")
                 showModal("Uh Oh! :(", 'Wrong email or password! Please try again or <a href="#signup">Create a new account</a>.')
             else if (e.code == "auth/email-already-in-use")
-                window.open('./codeblock','_self');
+                window.open('dashboard.html','_self');
+            else
+                showModal(e.code, e.message)
             console.log(e);
         }
     }

@@ -236,24 +236,6 @@ function submitForm() {
 }
 
 
-const modal = document.getElementById('modal'),
-modalContent = document.getElementById('modal-content'),
-modalHeading = document.getElementById('modal-heading'),
-modalMsg = document.getElementById('modal-msg'),
-modalClose = document.getElementById('modal-close');
-
-function closeModal() {
-    modal.style.display = '';
-}
-
-function showModal(heading, msg) {
-    modal.style.display = 'flex';
-    modalHeading.innerHTML = heading;
-    modalMsg.innerHTML = msg;
-}
-
-modalClose.onclick = function() {closeModal()}
-
 window.addEventListener('load', function () {
     if (window.location.href.endsWith('#signup')) {
         showsignup();

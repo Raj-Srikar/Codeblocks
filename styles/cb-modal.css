@@ -1,0 +1,77 @@
+#modal{
+    display: flex;
+    position: fixed;
+    z-index: 3;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #00000066;
+    color: white;
+    user-select: none;
+    font-family: titi;
+}
+#modal-content{
+    width: 30%;
+    margin: auto;
+    background-color: #1f3943;
+    padding: 20px;
+    border: 2px solid skyblue;
+    border-radius: 15px;
+}
+#modal-heading{
+    text-transform: capitalize;
+    margin-top: 2px;
+}
+#modal-close{
+    color: #b2ebf2;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: -10px;
+}
+#modal-msg a{
+    color: #b2ebf2;
+}
+#modal-close:hover, #modal-msg a:hover{
+    color:#00ACC1;
+}
+#modal-decision>button {
+    padding: 8px 5px;
+    margin: 0 5px;
+    width: 20%;
+    float: right;
+    color: white;
+    background-color: #3c7b90;
+    border-radius: 5px;
+    border: 1px solid black;
+    font-size: 14px;
+    cursor: pointer;
+}
+#modal-decision>button:hover {
+    background-color: #478fa7;
+}
+#modal-text-field{
+    width: 100%;
+    background-color: #355f70;
+    outline: none;
+    border: 1px solid white;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+@media only screen and (max-width: 768px){
+    #modal-content {
+        width: 50%;
+    }
+}
+
+@media only screen and (max-width: 480px){
+    #modal-content{
+        width: 70%;
+    }
+}

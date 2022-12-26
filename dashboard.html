@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Dashboard | CodeBlocks.study</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="./styles/dashboard.css">
+    <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-firestore.js"></script>
+    <script id="cbfb" src="./scripts/backend/cb-firebase.js"></script>
+    <script src="./scripts/frontend/cb-modal.js"></script>
+    <script src="./scripts/backend/user-data.js"></script>
+</head>
+<body style="display: none;">
+    <nav>
+        <span>
+            <img src="images/cb-thin-semisymmetrical-curved-monochrome.svg" id="cb-logo">
+            <span id="title">
+                <h1 id="cb-title">
+                    <span id="title-code">Code</span><span id="title-blocks">Blocks</span><span id="title-study">.study</span>
+                </h1>
+            </span>
+        </span>
+        <span>
+            <span id="tagline">"An innovative approach to learning Python and C++ at the same time"</span>
+        </span>
+        <span>
+            <a href="/codeblock/" id="blocking">Start Blocking!</a>
+        </span>
+    </nav>
+    <main>
+        <aside id="profile">
+            <div id="dp" class="default">
+                <img src="./images/account_circle.svg">
+                <div id="add-pic">
+                    <div style="margin-bottom: 10px;" onclick="addPicture('Add a')">
+                        <span class="material-symbols-outlined">add_a_photo</span>
+                        <span>Add Picture</span>
+                    </div>
+                </div>
+                <div id="update-pic" style="display: none;">
+                    <div style="margin-bottom: 10px;" onclick="addPicture('Update')">
+                        <span class="material-symbols-outlined">add_photo_alternate</span>
+                        <span>Update Picture</span>
+                    </div>
+                    <hr>
+                    <div style="margin-top: 0;" onclick="removePicture()">
+                        <span class="material-symbols-outlined">delete_forever</span>
+                        <span>Remove Picture</span>
+                    </div>
+                </div>
+            </div>
+            <b id="fullname">
+                <span id="name">Full Name</span>
+                <span class="material-symbols-outlined edit" onclick="editFullname()">edit</span>
+                <input type="text" id="edit-fullname" maxlength="30">
+                <span class="material-symbols-outlined done-fullname" onclick="confirmFullname()">done</span>
+                <span class="material-symbols-outlined close-fullname" onclick="closeEditFullname()">close</span>
+            </b>
+            <div id="bio">
+                <span>"Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore"</span>
+                <span class="material-symbols-outlined edit" onclick="editBio()">edit_note</span>
+                <textarea id="edit-bio" maxlength="100"></textarea>
+                <span class="material-symbols-outlined done-bio" onclick="confirmBio()">done</span>
+                <span class="material-symbols-outlined close-bio" onclick="closeEditBio()">close</span>
+            </div>
+            <button id="logout" onclick="cb_logout()">Log Out</button>
+        </aside>
+        <aside id="codeblocks">
+            <div id="examples">
+                <span>Example CodeBlocks</span>
+                <div class="cb-folder">
+                    <div class="cb-file">
+                        <img src="./images/cb-file-ex.svg" alt="example file">
+                        <span class="filename">Example file</span>
+                        <div class="file-options">
+                            <div class="open-opt"><span class="material-symbols-outlined">file_open</span><span>Open</span></div>
+                            <div class="delete-opt" onclick="deleteCbFile(this)"><span class="material-symbols-outlined">delete</span><span>Delete</span></div>
+                        </div>
+                    </div>
+                    <div class="cb-file">
+                        <img src="./images/cb-file-ex.svg" alt="example file">
+                        <span class="filename">Example file number 2</span>
+                        <div class="file-options">
+                            <div class="open-opt"><span class="material-symbols-outlined">file_open</span><span>Open</span></div>
+                            <div class="delete-opt" onclick="deleteCbFile(this)"><span class="material-symbols-outlined">delete</span><span>Delete</span></div>
+                        </div>
+                    </div>
+                    <div class="cb-file">
+                        <img src="./images/cb-file-ex.svg" alt="example file">
+                        <span class="filename">Example file 3</span>
+                        <div class="file-options">
+                            <div class="open-opt"><span class="material-symbols-outlined">file_open</span><span>Open</span></div>
+                            <div class="delete-opt" onclick="deleteCbFile(this)"><span class="material-symbols-outlined">delete</span><span>Delete</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="my-cbs">
+                <span>My CodeBlocks</span>
+                <div class="cb-folder">
+                    <div class="cb-file">
+                        <img src="./images/cb-file.svg" alt="example file">
+                        <span class="filename">My CB file</span>
+                        <div class="file-options">
+                            <div class="open-opt"><span class="material-symbols-outlined">file_open</span><span>Open</span></div>
+                            <div class="delete-opt" onclick="deleteCbFile(this)"><span class="material-symbols-outlined">delete</span><span>Delete</span></div>
+                        </div>
+                    </div>
+                    <div class="cb-file">
+                        <img src="./images/cb-file.svg" alt="example file">
+                        <span class="filename">My CB file 2</span>
+                        <div class="file-options">
+                            <div class="open-opt"><span class="material-symbols-outlined">file_open</span><span>Open</span></div>
+                            <div class="delete-opt" onclick="deleteCbFile(this)"><span class="material-symbols-outlined">delete</span><span>Delete</span></div>
+                        </div>
+                    </div>
+                    <div class="cb-file">
+                        <img src="./images/cb-file.svg" alt="example file">
+                        <span class="filename">My CB file 3</span>
+                        <div class="file-options">
+                            <div class="open-opt"><span class="material-symbols-outlined">file_open</span><span>Open</span></div>
+                            <div class="delete-opt" onclick="deleteCbFile(this)"><span class="material-symbols-outlined">delete</span><span>Delete</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </main>
+    <script src="./scripts/frontend/dashboard.js"></script>
+</body>
+</html>
