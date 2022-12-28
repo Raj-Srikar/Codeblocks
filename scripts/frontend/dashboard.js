@@ -197,15 +197,6 @@ function isBioValid(bio) {
 }
 
 
-function cb_logout() {
-    showYesOrNoModal('Log Out', 'Are you sure you want to log out?').then(dec =>{
-        dec && cb_auth.signOut().then(() => {
-            window.open('authenticate.html','_self');
-        });
-    })
-}
-
-
 var selectedFile = null,
 files = document.getElementsByClassName('cb-file');
 

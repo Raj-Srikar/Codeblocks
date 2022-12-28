@@ -1,0 +1,126 @@
+nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #101c21;
+    color: white;
+    height: 12vh;
+    border-bottom: 1px solid white;
+    width: 100%;
+    text-align: center;
+}
+
+#cb-logo{
+    display: inline-block;
+    width: 4vw;
+    vertical-align: middle;
+    margin-left: 5px;
+}
+
+#title{
+    text-align: center;
+    vertical-align: middle;
+}
+
+#cb-title{
+    display: inline;
+    font-family: EncodeSansBold;
+    font-size: 1.95vw;
+}
+#title-study{
+    font-size: 1.3vw;
+    text-transform: lowercase;
+}
+
+span:has(#tagline){
+    position: absolute;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+}
+#tagline{
+    display: inline;
+    font-family: EncodeSansLight;
+    font-size: 0.97vw;
+    font-style: italic;
+}
+
+nav>span:nth-child(3){
+    align-self: stretch;
+}
+nav>span>a{
+    color: white;
+    width: 13vw;
+    text-align: center;
+    font-family: EncodeSansLight;
+    border: 1px solid white;
+    border-bottom: 0;
+    float: right;
+    text-decoration: none;
+    transition: 0.3s;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+nav>span>a:hover{
+    text-shadow: 0 0 10px #e6d488;
+    box-shadow: 0 0 15px #e6d488;
+    text-decoration: underline;
+}
+#authed-user{
+    padding: 0 10px 0 20px;
+    display: flex;
+    font-size: 18px;
+    font-family: 'EncodeSansLight';
+    align-self: stretch;
+    align-items: center;
+    border-left: 1px solid #9aa0a6;
+    border-bottom-left-radius: 10px;
+    user-select: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+#authed-user:hover{
+    background-color: #23282e;
+}
+#authed-user img{
+    width: 40px;
+    height: 40px;
+    border: 1px solid;
+    border-radius: 50%;
+}
+#authed-user>#dname{
+    font-weight: bold;
+    padding: 0 10px;
+}
+#user-dropdown {
+    /* display: none; */
+    position: absolute;
+    top: 10.7vh;
+    right: 0;
+    background-color: #101c21;
+    width: 100px;
+    border-radius: 0 0 10px 10px;
+    font-size: 13px;
+    border: 1px solid;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.5s;
+}
+#authed-user:hover>#user-dropdown{
+    /* display: block; */
+    opacity: 1;
+    visibility: visible;
+}
+#user-dropdown>div {
+    padding: 10px 5px;
+}
+#user-dropdown>div:hover{
+    background-color: #23282e;
+}
+#user-dropdown a{
+    text-decoration: none;
+    color: inherit;
+}

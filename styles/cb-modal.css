@@ -75,3 +75,9 @@
         width: 70%;
     }
 }
+
+
+@font-face {
+    font-family: Titi;
+    src: url(../fonts/TitilliumWeb-Regular.ttf);
+}

@@ -8,64 +8,6 @@ body{
     background-color: #296985;
 }
 
-nav{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #101c21;
-    color: white;
-    height: 11vh;
-    border-bottom: 1px solid white;
-    width: 100%;
-    text-align: center;
-}
-
-#cb-logo{
-    display: inline-block;
-    width: 4vw;
-    vertical-align: middle;
-    margin-left: 5px;
-}
-
-#title{
-    text-align: center;
-    vertical-align: middle;
-}
-
-#cb-title{
-    display: inline;
-    font-family: EncodeSansBold;
-    font-size: 1.95vw;
-}
-#title-study{
-    font-size: 1.3vw;
-    text-transform: lowercase;
-}
-#tagline{
-    display: inline;
-    font-family: EncodeSansLight;
-    font-size: 0.97vw;
-    font-style: italic;
-}
-
-#blocking{
-    color: white;
-    width: 13vw;
-    text-align: center;
-    padding: 4vh 0;
-    font-family: EncodeSansLight;
-    border: 1px solid white;
-    border-bottom: 0;
-    float: right;
-    text-decoration: none;
-    transition: 0.3s;
-}
-#blocking:hover{
-    text-shadow: 0 0 15px #e6d488;
-    box-shadow: 0 0 15px #e6d488;
-    text-decoration: underline;
-}
-
 main{
     display: flex;
     width: 100%;

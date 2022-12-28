@@ -1,8 +1,11 @@
-async function userInfo(user) {
+async function userInfo(user, getBio = true) {
         if (user) {
             let p,d,b;
             p = user.photoURL;
             d = user.displayName;
+            if (!getBio) {
+                return [p,d];
+            }
             await db.collection('users').doc(user.uid).get().then(doc => {
                 b = doc.data().bio;
             })
@@ -26,4 +29,13 @@ async function fetchCustomFiles(user) {
 
 async function deleteMyCodeBlock(name) {
     await db.collection('users').doc(cb_auth.currentUser.uid).collection('custom-files').doc(name).delete();
+}
+
+
+function cb_logout() {
+    showYesOrNoModal('Log Out', 'Are you sure you want to log out?').then(dec =>{
+        dec && cb_auth.signOut().then(() => {
+            window.location.pathname=='/' ? (updateUser(null),showModal('Logged Out', 'You are logged out successfully!')) : window.open('authenticate.html','_self');
+        });
+    })
 }

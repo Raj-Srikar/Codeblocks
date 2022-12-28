@@ -13,64 +13,6 @@ body{
     /* background-position: top; */
 }
 
-nav{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #101c21;
-    color: white;
-    height: 11vh;
-    border-bottom: 1px solid white;
-    width: 100%;
-    text-align: center;
-}
-
-#cb-logo{
-    display: inline-block;
-    width: 4vw;
-    vertical-align: middle;
-    margin-left: 5px;
-}
-
-#title{
-    text-align: center;
-    vertical-align: middle;
-}
-
-#cb-title{
-    display: inline;
-    font-family: EncodeSansBold;
-    font-size: 1.95vw;
-}
-#title-study{
-    font-size: 1.3vw;
-    text-transform: lowercase;
-}
-#tagline{
-    display: inline;
-    font-family: EncodeSansLight;
-    font-size: 0.97vw;
-    font-style: italic;
-}
-
-#authenticate{
-    color: white;
-    width: 13vw;
-    text-align: center;
-    padding: 4vh 0;
-    font-family: EncodeSansLight;
-    border: 1px solid white;
-    border-bottom: 0;
-    float: right;
-    text-decoration: none;
-    transition: 0.3s;
-}
-#authenticate:hover{
-    text-shadow: 0 0 15px #e6d488;
-    box-shadow: 0 0 15px #e6d488;
-    text-decoration: underline;
-}
-
 #bg{
     background-image: url(../images/Circuit-CB-Glowing-Logo.png);
     background-size: cover;
@@ -184,16 +126,69 @@ nav{
     #title-study, #tagline{
         font-size: 4vw;
     }
+    span:has(#tagline){
+        position: relative;
+    }
     #tagline{
         margin-bottom: 50px;
     }
+    nav>span:nth-child(3){
+        align-self: auto;
+    }
     #authenticate{
+        padding: 4vh 0;
         border-bottom: 1px solid;
         width: 55vw;
         border-radius: 10px;
         background: black;
         box-shadow: 0 0 15px #e6d488;
+        height: initial;
+        font-weight: normal;
         margin-top: 50px;
+    }
+
+    .for-mobiles>span:nth-child(3):has(img){
+        padding: 15px 0 8px;
+        /* align-self: stretch; */
+        background-color: #0000006b;
+        border-radius: 10px;
+        border: 1px solid;
+        width: 55vw;
+        border: 1px solid;
+        box-shadow: 0 0 15px #e6d488;
+        /* cursor: pointer; */
+        font-family: 'EncodeSansLight';
+    }
+    .for-mobiles>span:nth-child(3)>img{
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        display: block;
+        border-radius: 50%;
+        margin: auto;
+        border: 1px solid;
+    }
+    .for-mobiles #dname{
+        font-weight: bold;
+        margin: 10px;
+        display: inline-block;
+        font-size: 20px;
+    }
+    .for-mobiles #user-dropdown{
+        width: 80px;
+        border-radius: 5px;
+        top: 55vh;
+        right: 9vw;
+        background-color: #000000ba;
+        transition: 0.1s;
+    }
+    .for-mobiles>span:nth-child(3):has(img):hover #user-dropdown{
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .for-mobiles:has(#dname) #m-blocking{
+        margin: 10px;
     }
     #m-blocking{
         position: initial;
