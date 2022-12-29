@@ -5,6 +5,8 @@ home = document.querySelector('.home'),
 logo = document.getElementById('logo'),
 msgs = document.getElementsByClassName('msg'),
 suinps = document.getElementsByClassName('su-inp'),
+fname = document.querySelector('input[name="name"]'),
+email = document.querySelector('input[name="email"]'),
 pass = document.querySelector('input[name="pass"]'),
 cnfpass = document.querySelector('input[name="cnfpass"]'),
 btn = document.querySelector('input[type="button"]'),
@@ -235,6 +237,27 @@ function submitForm() {
     }
 }
 
+fname.addEventListener('keyup', e => {
+    if (e.keyCode === 13) {
+        email.focus()
+    }
+});
+email.addEventListener('keyup', e => {
+    if (e.keyCode === 13) {
+        pass.focus()
+    }
+});
+pass.addEventListener('keyup', e => {
+    if (e.keyCode === 13) {
+        loginSelected ? (btn.click()||btn.focus()) : cnfpass.focus()
+    }
+});
+cnfpass.addEventListener('keyup', e => {
+    if (e.keyCode === 13) {
+        btn.click();
+        btn.focus()
+    }
+});
 
 window.addEventListener('load', function () {
     if (window.location.href.endsWith('#signup')) {

@@ -7,7 +7,7 @@ modal_link.setAttribute('href','styles/cb-modal.css');
 document.querySelector('head').appendChild(modal_link);
 
 function closeModal() {
-    modal.remove();
+    modal && modal.remove();
 }
 
 function showModal(heading, msg) {

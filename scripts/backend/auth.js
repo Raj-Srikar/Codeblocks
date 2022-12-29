@@ -15,24 +15,26 @@ async function cb_authenticate(){
 
     if (!loginSelected) {
         const name = document.querySelector('input[name="name"]').value;
-        try{
-            cb_auth.createUserWithEmailAndPassword(email, pass).then(cred => {
-                let col = db.collection('users').doc(cred.user.uid);
-                db.collection('users').doc(cred.user.uid).collection('custom-files').doc('init').set({});
-                col.set({
-                    'bio' : 'Hello there! My name is ' + name + ' :)'
-                })
-                return cred.user.updateProfile({
-                    displayName: name,
-                    photoURL : ''
-                })
-            }).then(() => {
-                window.open('dashboard.html','_self');
+        cb_auth.createUserWithEmailAndPassword(email, pass).then(cred => {
+            let col = db.collection('users').doc(cred.user.uid);
+            db.collection('users').doc(cred.user.uid).collection('custom-files').doc('init').set({});
+            col.set({
+                'bio' : 'Hello there! My name is ' + name + ' :)'
             })
-        }
-        catch(e){
+            return cred.user.updateProfile({
+                displayName: name,
+                photoURL : ''
+            })
+        }).then(() => {
+            window.open('dashboard.html','_self');
+        }).catch(e => {
+            switch (e.code) {
+                case "auth/email-already-in-use":
+                    showModal('Email already exists', e.message)
+                    break;
+            }
             console.log('Error occurred: ', e.message)
-        }
+        })
     }
     else {
         try{
@@ -40,13 +42,18 @@ async function cb_authenticate(){
                 window.open('dashboard.html','_self');
             })
         } catch(e){
-            if (e.code == 'auth/user-not-found' || e.code == "auth/wrong-password")
-                showModal("Uh Oh! :(", 'Wrong email or password! Please try again or <a href="#signup">Create a new account</a>.')
-            else if (e.code == "auth/email-already-in-use")
-                window.open('dashboard.html','_self');
-            else
-                showModal(e.code, e.message)
-            console.log(e);
+            switch (e.code) {
+                case '"auth/wrong-password"':
+                case 'auth/user-not-found':                    
+                    showModal("Uh Oh! :(", 'Wrong email or password! Please try again or <a href="#signup">Create a new account</a>.')
+                    break;
+                case "auth/email-already-in-use":
+                    window.open('dashboard.html','_self');
+                    break;
+                default:
+                    showModal(e.code, e.message)
+            }
+            console.log(e.message);
         }
     }
 }
