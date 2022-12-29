@@ -6,6 +6,7 @@ body{
     flex-direction: column;
     margin: 0;
     background-color: #296985;
+    word-wrap: break-word;
 }
 
 main{
@@ -218,6 +219,7 @@ hr{
     background-color: #172a31;
     color: white;
     border: 1px solid lightskyblue;
+    overflow: hidden;
 }
 #codeblocks>div>span{
     padding: 8px;
@@ -313,6 +315,17 @@ hr{
     display: block;
     animation: show-file 0s ease-in 0.5s forwards;
 }
+
+::-webkit-scrollbar-thumb:hover {
+    background: #5a5a5a4d;
+}
+::-webkit-scrollbar-thumb {
+    background: #0000004d;
+}
+::-webkit-scrollbar {
+    width: 10px;
+}
+
 
 @media only screen and (min-width: 481px) and (max-width: 768px){
     main>#profile{

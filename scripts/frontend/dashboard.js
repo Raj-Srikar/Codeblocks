@@ -179,7 +179,7 @@ function confirmBio() {
                 db.collection('users').doc(user.uid).set({bio : updatedBio}).then(() => {
                     closeEditBio();
                     biospan.innerHTML = '"'+updatedBio+'"';
-                    console.log('Updated Bio to', updatedName);
+                    console.log('Updated Bio to', updatedBio);
                 })
             }
             else {
