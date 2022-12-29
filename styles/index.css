@@ -116,6 +116,9 @@ body{
         background-color: #101c21a6;
         border-radius: 17px;
     }
+    nav.for-mobiles>span:has(#tagline){
+        display: initial;
+    }
     #cb-logo{
         width: 15vw;
         margin: 0;

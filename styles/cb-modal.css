@@ -74,6 +74,9 @@
     #modal-content{
         width: 70%;
     }
+    #modal-decision>button {
+        width: 25%;
+    }
 }
 
 

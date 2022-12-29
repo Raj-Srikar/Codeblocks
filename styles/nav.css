@@ -10,6 +10,10 @@ nav{
     text-align: center;
 }
 
+nav>span:nth-child(1){
+    cursor: pointer;
+}
+
 #cb-logo{
     display: inline-block;
     width: 4vw;
@@ -123,4 +127,52 @@ nav>span>a:hover{
 #user-dropdown a{
     text-decoration: none;
     color: inherit;
+}
+
+@media only screen and (max-width: 768px){
+    nav>span:nth-child(1){
+        cursor: default;
+    }
+    nav:first-of-type{
+        height: 10vh;
+    }
+    nav:first-of-type span:nth-child(1){
+        padding: 1vh 0;    
+    }
+    nav:first-of-type #cb-logo{
+        width: 8vw;
+        margin-left: 0;
+    }
+    nav:first-of-type #cb-title{
+        font-size: 4vw;
+        margin-left: -5px;
+    }
+    nav:first-of-type #title-study{
+        font-size: 2.5vw;
+    }
+    nav:first-of-type>span:has(#tagline){
+        display: none;
+    }
+    nav:first-of-type>span>a{
+        font-size: 2.5vw;
+        width: 25vw;
+    }
+}
+
+@media only screen and (max-width: 480px){
+    nav:first-of-type{
+        height: 9vh;
+    }
+    nav:first-of-type #cb-logo{
+        width: 10vw;
+    }
+    nav:first-of-type #cb-title{
+        font-size: 5vw;
+    }
+    nav:first-of-type #title-study{
+        font-size: 3vw;
+    }
+    nav:first-of-type>span>a{
+        font-size: 3.1vw;
+    }
 }

@@ -69,10 +69,12 @@ main{
     background: #0000005e;
     user-select: none;
     opacity: 0;
+    visibility: hidden;
     transition: 0.5s;
 }
-#dp>div:hover {
+#dp:hover>div {
     opacity: 1;
+    visibility: visible;
 }
 hr{
     margin: 0;
@@ -239,8 +241,7 @@ hr{
     display: inline-block;
     text-align: center;
     margin: 10px 3px;
-    padding: 0 15px 5px;
-    padding-top: 15px;
+    padding: 15px 15px 5px;
     height: 135px;
     border-radius: 10px;
     cursor: pointer;
@@ -255,6 +256,7 @@ hr{
 }
 .selected-file{
     background-color: #304a54;
+    position: relative; 
 }
 .selected-file:hover{
     background-color: #375764;
@@ -271,9 +273,9 @@ hr{
 .file-options{
     display: none;
     opacity: 0;
-    position: fixed;
+    position: absolute;
     margin-left: 40px;
-    background: #2b4f5d;
+    background: #253a41;
     text-align: left;
     border: 1px solid lightskyblue;
     border-radius: 5px;
@@ -286,7 +288,7 @@ hr{
     padding: 7px 15px 7px 7px;
 }
 .file-options>div:hover{
-    background-color: #355e6f;
+    background-color: #304a54;
 }
 .file-options .material-symbols-outlined{
     margin-right: 5px;
@@ -310,6 +312,198 @@ hr{
 .selected-file:hover>.file-options{
     display: block;
     animation: show-file 0s ease-in 0.5s forwards;
+}
+
+@media only screen and (min-width: 481px) and (max-width: 768px){
+    main>#profile{
+        width: calc(25% + 15px);
+    }
+    #dp{
+        margin: 20% auto 5%;
+
+    }
+    #fullname{
+        margin-top: 8%;
+        font-size: 3.5vw;
+    }
+    #edit-fullname{
+        font-size: 3.5vw;
+        padding-right: 3.2vw;
+        margin-right: 3.2vw;
+    }
+    .done-fullname, .close-fullname{
+        font-size: 15px;
+    }
+    .done-fullname {
+        margin: 1.2vw calc(-5vw - 5px);
+    }
+    .close-fullname {
+        margin: 1.2vw -2vw;
+    }
+    .edit{
+        font-size: 1.8vw;
+        margin: 1.5vw 7px;
+    }
+    #bio,#edit-bio{
+        font-size: 2vw;
+    }
+    #bio{
+        padding: 12%;
+    }
+    #bio:hover>.edit{
+        margin: 4px 5px 0;
+        font-size: 1.6vw;
+    }
+    #logout{
+        font-size: 2vw;
+    }
+    .cb-folder{
+        justify-content: space-between;
+        height: 87%;
+    }
+    #codeblocks>div{
+        overflow: hidden;
+    }
+    .cb-file{
+        cursor: default;
+        height: 50%;
+        padding: 15px 0 10px;
+    }
+    .cb-file>img{
+        width: 60px;
+    }
+    #codeblocks>div>span{
+        font-size: 2vw;
+    }
+    .selected-file,.selected-file:hover{
+        background-color: #375764;
+    }
+    .filename{
+        font-size: 2vw;
+    }
+    .file-options{
+        left: 1.5vw;
+        margin: 0;
+        width: 75%;
+    }
+    .file-options>div>span:nth-child(2) {
+        font-size: 13px;
+    }
+
+    .selected-file>.file-options{
+        display: block;
+        animation: show-file 0s ease-in 0.5s forwards;
+    }
+}
+
+@media only screen and (max-width: 480px){
+    body{
+        background-image: url(../images/Circuit-CB-Glowing-Logo.png);
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: 180vh;
+        background-position-x: 44%;
+        background-position-y: bottom;
+        transition: background-image 1s;
+        
+    }
+    nav{
+        position: sticky;
+        z-index: 3;
+        top: 0;
+    }
+    main{
+        flex-flow: column;
+        align-items: center;
+        height: initial;
+        background: none;
+    }
+    main>#profile{
+        width: 90%;
+        margin-top: 5%;
+        border-radius: 20px;
+    }
+    #dp{
+        padding-top: 50%;
+        cursor: default;
+    }
+    #dp>img{
+        width: 60%;
+        height: 100%;
+        margin: 0 auto;
+    }
+    #dp>div{
+        width: 60%;
+        margin: auto;
+    }
+    #dp>div>div{
+        font-size: 3vw;
+    }
+    #dp span.material-symbols-outlined {
+        font-size: 5vw;
+    }
+    #fullname{
+        margin-top: 2%;
+        font-size: 22px;
+    }
+    #bio, #edit-bio {
+        padding: 5%;
+        font-size: 13px;
+    }
+    .edit{
+        font-size: 11px;
+    }
+    #logout{
+        margin: 5% auto 7%;
+        width: 35%;
+    }
+
+    #codeblocks{
+        width: 100%;
+        height: 100%;
+    }
+    #codeblocks>div{
+        height: 195px;
+    }
+    #codeblocks>div>span{
+        font-size: 13px;
+    }
+    .cb-folder{
+        overflow-x: scroll;
+        overflow-y: hidden;
+        flex-wrap: nowrap;
+        height: 163px;
+    }
+    .cb-file{
+        cursor: default;
+        margin: 15px 0;
+        height: 100px;
+        padding: 10px 5px 20px;
+    }
+    .cb-file:hover{
+        background-color: transparent;
+    }
+    .cb-file>img{
+        width: 65px;
+    }
+    .selected-file,.selected-file:hover{
+        background-color: #375764;
+    }
+    .filename{
+        font-size: 14px;
+    }
+    .file-options{
+        top: 10vh;
+        left: 10vw;
+    }
+    .file-options>div>span:nth-child(2) {
+        font-size: 13px;
+    }
+
+    .selected-file>.file-options{
+        display: block;
+        animation: show-file 0s ease-in 0.5s forwards;
+    }
 }
 
 

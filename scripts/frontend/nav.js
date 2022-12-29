@@ -1,7 +1,7 @@
 const nav = document.createElement('nav'),
 mnav = document.querySelector('for-mobiles');
 
-nav.innerHTML = `<span>
+nav.innerHTML = `<span ${window.location.pathname!=='/' && `onclick="window.open('/','_self')"`}>
             <img src="images/cb-thin-semisymmetrical-curved-monochrome.svg" id="cb-logo">
             <span id="title">
                 <h1 id="cb-title">

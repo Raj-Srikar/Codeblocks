@@ -48,8 +48,8 @@ async function showYesOrNoModal(heading, msg) {
                             <h3 id="modal-heading">${heading}</h3>
                             <p id="modal-msg">${msg}</p>
                             <div id="modal-decision">
-                                <button id="modal-no" onclick="decision='no'">No</button>
                                 <button id="modal-yes" onclick="decision='yes'">Yes</button>
+                                <button id="modal-no" onclick="decision='no'">No</button>
                             </div>
                         </div>`
     ;
@@ -77,8 +77,8 @@ async function showModalWithTextField(heading, msg) {
                             <p id="modal-msg">${msg}</p>
                             <div id="modal-decision">
                                 <input type="text" id="modal-text-field">
-                                <button id="modal-cancel" onclick="decision='cancel'">Cancel</button>
                                 <button id="modal-ok" onclick="decision='ok'">Ok</button>
+                                <button id="modal-cancel" onclick="decision='cancel'">Cancel</button>
                             </div>
                         </div>`
     ;
