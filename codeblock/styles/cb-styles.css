@@ -146,19 +146,19 @@ code {
     margin: 0;
 }
 #python.hljs{
-    background-image: url(python-logo-tr.png);
+    background-image: url(../images/python-logo-tr.png);
     background-size: 45%;
     background-position: center;
     background-repeat: no-repeat;
 }
 #cpp.hljs{
-    background-image: url(cpp-logo-tr.png);
+    background-image: url(../images/cpp-logo-tr.png);
     background-size: 45%;
     background-position: center;
     background-repeat: no-repeat;
 }
 @font-face {
 font-family: Thunder;
-src: url('Thunder.ttf');
+src: url('../Thunder.ttf');
 font-weight: bold;
 }

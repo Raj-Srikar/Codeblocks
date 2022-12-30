@@ -1,5 +1,8 @@
 cb_auth.onAuthStateChanged(user => {
     if (user) {
+        if (window.location.pathname.match('authenticate')) {
+            window.open('/dashboard.html','_self')
+        }
         console.log('User logged in:', user)
     }
     else{

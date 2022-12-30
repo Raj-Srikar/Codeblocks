@@ -42,8 +42,6 @@ function showsignup() {
         for (let i = 0; i < warnings.length; i++) {
             warnings[0].remove();
         }
-        // !validPass && (pass.style.borderBottom = '2px solid indianred');
-        // document.querySelectorAll('.focus-input')[2].style.color = 'indianred';
         loginSelected = false;
         btn.value = 'signup';
         window.open('#signup','_self');
