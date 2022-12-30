@@ -9,22 +9,47 @@
   <script src="highlight/highlight.min.js"></script>
   <script>hljs.highlightAll();</script>
   <script src="https://unpkg.com/blockly@8.0.5/blockly.min.js"></script>
+  <script src="https://unpkg.com/@blockly/dev-tools@2.0.0/dist/index.js"></script>
   <script src="scripts/blockly/javascript_compressed.js"></script>
   <script src="scripts/blockly/python_compressed.js"></script>
-  <script src="https://unpkg.com/@blockly/dev-tools@2.0.0/dist/index.js"></script>
-  <script src="scripts/index.js"></script>
-  <script src="scripts/blockly/customization.js"></script>
   <script src="scripts/blockly/cpp_generator.js"></script>
+  <script src="scripts/blockly/customization.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-firestore.js"></script>
+  <script src="../scripts/backend/cb-firebase.js"></script>
+  <script src="../scripts/backend/user-data.js"></script>
+  <script src="scripts/backend.js"></script>
+  <script src="scripts/index.js"></script>
+  <script src="../scripts/frontend/nav.js"></script>
 
   <link rel="stylesheet" href="highlight/styles/night-owl.min.css">
   <link rel="stylesheet" href="highlight/styles/chalk.min.css">
   <link rel="stylesheet" href="styles/cb-styles.css">
   
 	<script crossorigin="anonymous" src="https://kit.fontawesome.com/f325a34ebe.js"></script>
+  <style>
+    @font-face {
+        font-family: EncodeSansBold;
+        src: url(../fonts/EncodeSansSemiExpanded-Bold.ttf);
+    }
+    @font-face {
+        font-family: EncodeSansLight;
+        src: url(../fonts/EncodeSansSemiExpanded-Light.ttf);
+    }
+    @font-face {
+        font-family: arvo;
+        src: url(../fonts/Arvo-Regular.ttf);
+    }
+    @font-face {
+        font-family: Titi;
+        src: url(../fonts/TitilliumWeb-Regular.ttf);
+    }
+  </style>
 </head>
 
-<body onload="start()">
-  <header>
+<body>
+  <header style="display: none;">
 		<h1>Code Blocks</h1>
 		<span onclick="eval(jscode)"><i class="fa fa-play" aria-hidden="true"></i>Run</span>
 	</header>
@@ -132,7 +157,7 @@
     </category>
     <category name="Functions" categorystyle="procedure_category" custom="PROCEDURE"></category>
   </xml>
-
+  <script src="../scripts/backend/auth.js"></script>
 </body>
 
 </html>

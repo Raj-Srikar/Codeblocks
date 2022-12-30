@@ -111,6 +111,7 @@ nav>span>a:hover{
     border: 1px solid;
     opacity: 0;
     visibility: hidden;
+    z-index: 1;
     transition: 0.5s;
 }
 #authed-user:hover>#user-dropdown{

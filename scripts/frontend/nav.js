@@ -2,7 +2,7 @@ const nav = document.createElement('nav'),
 mnav = document.querySelector('for-mobiles');
 
 nav.innerHTML = `<span ${window.location.pathname!=='/' && `onclick="window.open('/','_self')"`}>
-            <img src="images/cb-thin-semisymmetrical-curved-monochrome.svg" id="cb-logo">
+            <img src="${window.location.pathname.match('codeblock') ? '../' : ''}images/cb-thin-semisymmetrical-curved-monochrome.svg" id="cb-logo">
             <span id="title">
                 <h1 id="cb-title">
                     <span id="title-code">Code</span><span id="title-blocks">Blocks</span><span id="title-study">.study</span>
@@ -17,6 +17,7 @@ nav.innerHTML = `<span ${window.location.pathname!=='/' && `onclick="window.open
         </span>`;
 
 window.onload = e => {
+    window.location.pathname.match('codeblock') && start()
     let b = document.querySelector('body');
     b.insertBefore(nav, b.children[0]);
     if (!window.location.pathname.match('/dashboard')) {
@@ -33,7 +34,7 @@ window.onload = e => {
 const nav_link = document.createElement('link');
 nav_link.setAttribute('rel','stylesheet');
 nav_link.setAttribute('type','text/css');
-nav_link.setAttribute('href','styles/nav.css');
+nav_link.setAttribute('href', (window.location.pathname.match('codeblock') ? '../' : '') + 'styles/nav.css');
 document.querySelector('head').insertBefore(nav_link, document.querySelector('link'));
 
 

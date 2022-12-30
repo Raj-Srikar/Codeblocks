@@ -48,3 +48,10 @@ function copyToClipboard(ele){
     ele.title = 'Copy To Clipboard!!'
   }, 2000);
 }
+
+cb_auth.onAuthStateChanged(async user => {
+  if (user) {
+    let getFile = await getCodeBlock();
+    getFile && cbFillWorkspace(getFile);
+  }
+});
