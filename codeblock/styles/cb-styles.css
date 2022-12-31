@@ -1,106 +1,120 @@
-
 html, body {
     height: 100%;
     background-color: #fff;
     font-family: sans-serif;
     overflow: hidden;
 }
+body{
+    margin: 0;
+    display: flex;
+    flex-flow: column;
+}
+main{
+    height: 100%;
+    display: flex;
+}
 
+/* Menu */
+    .menu{
+        background: black;
+        color: white;
+        display: flex;
+        align-items: center;
+        border-radius: 5px;
+        position: fixed;
+        z-index: 75;
+        right: 41.5vw;
+        top: 13vh;
+    }
+    .menu-btn {
+        background-color: #296985;
+        border: none;
+        cursor: pointer;
+        display: inline-flex;
+        padding: 5px;
+        border-radius: 5px;
+        z-index: 2;
+        transition: 0.3s;
+    }
+    .menu-btn:hover {
+        background-color: #40809d;
+    }
+    .line {
+        fill: none;
+        stroke: white;
+        stroke-width: 8;
+        transition: stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1),
+            stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .line1 {
+        stroke-dasharray: 60 207;
+    }
+    .line2 {
+        stroke-dasharray: 60 60;
+    }
+    .line3 {
+        stroke-dasharray: 60 207;
+    }
+    .opened .line1 {
+        stroke-dasharray: 90 207;
+        stroke-dashoffset: -134;
+    }
+    .opened .line2 {
+        stroke-dasharray: 1 60;
+        stroke-dashoffset: -30;
+    }
+    .opened .line3 {
+        stroke-dasharray: 90 207;
+        stroke-dashoffset: -134;
+    }
+    .menu-bar{
+        height: 35px;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        width: 0;
+        cursor: pointer;
+        transition: 0.6s;
+    }
+    .menu-item{
+        display: inline-block;
+        padding: 5.5px;
+        border-radius: 5px;
+        transition: 0.3s;
+    }
+    .menu-item:hover{
+        background-color: #2c3b47;
+    }
+    #menu-run, #menu-run-only{
+        display: flex;
+        align-items: center;
+        font-family: 'Titi';
+        padding-right: 10px;
+    }
+    .no-user-menu{
+        width: 100%;
+        padding-right: 3px;
+    }
+
+#blocklyDiv {
+    height: 100%;
+    width: 60vw;
+    float: left;
+    user-select: none;
+}
 .blocklyToolboxDiv{
     background-color: #b7ceff;
 }
 
-.blocklyFlyoutBackground{
-    fill: #d3e1ff;
-}
-
-#blocklyDiv {
-    float: bottom;
-    height: 90%;
-    width: 100%;
-}
-
-body{
-    margin: 0;
-}
-header{
-    background: #1e1e1e;
-    color: white;
-    padding: 5px 25px;
-}
-header>h1{
-    display: inline-block;
-    font-family: Thunder;
-    font-size: 60px;
-    margin: 8px 0 5px;
-}
-header>span>i{
-    padding-right: 10px;
-    font-size: 20px;
-}
-header>span{
-    border: 3px solid white;
-    background-color: white;
-    color: black;
-    float: right;
-    position: relative;
-    top: 20px;
-    font-size: 20px;
-    padding: 5px 15px;
-    border-radius: 10px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.2s;
-    margin-top: 8px;
-}
-header>span:hover{
-    color: white;
-    background-color: black;
-    box-shadow: 0 0 15px #ddd;
-}
-header>span:active{
-    background-color: white;
-    color: black;
-}
-#blocklyDiv{
-    height: 87vh;
-    width: 61vw;
-    float: left;
-user-select: none;
-}
 aside{
-    display: inline;
-    height: 87vh;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 40vw;
 }
-#toolbox{
-    float: left;
-    background: #8739e7;
-    width: 15vw;
-}
-#toolbox>span{
-    float: right;
-    top: 45%;
-    position: relative;
-    background: #d9baff;
-    padding: 10px;
-    font-size: 20px;
-    font-weight: bolder;
-    border-radius: 5px 0 0 5px;
-    cursor: pointer;
-    user-select: none;
-    font-family: monospace;
-    color: #410092;
-}
-#code{
-    float: right;
-    width: 39vw;
-    background: #ddd;
-}
-section{
-    height: 49.4%;
-}
+
 pre {
-    height: 49.2%;
+    height: 50%;
     margin: 0;
     border: 1px solid white;
 }
@@ -139,11 +153,12 @@ pre>i:active{
 }
 
 code {
-    width: 95%;
+    width: inherit;
     resize: none;
-    height: 90%;
     font-size: 16px;
     margin: 0;
+    height: 90%;
+    margin-top: -31px;
 }
 #python.hljs{
     background-image: url(../images/python-logo-tr.png);
@@ -157,8 +172,10 @@ code {
     background-position: center;
     background-repeat: no-repeat;
 }
+
+
 @font-face {
-font-family: Thunder;
-src: url('../Thunder.ttf');
-font-weight: bold;
+    font-family: Thunder;
+    src: url('../Thunder.ttf');
+    font-weight: bold;
 }

@@ -21,11 +21,14 @@
   <script src="../scripts/backend/user-data.js"></script>
   <script src="scripts/backend.js"></script>
   <script src="scripts/index.js"></script>
+  <script src="../scripts/frontend/cb-modal.js"></script>
   <script src="../scripts/frontend/nav.js"></script>
 
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
   <link rel="stylesheet" href="highlight/styles/night-owl.min.css">
   <link rel="stylesheet" href="highlight/styles/chalk.min.css">
   <link rel="stylesheet" href="styles/cb-styles.css">
+  
   
 	<script crossorigin="anonymous" src="https://kit.fontawesome.com/f325a34ebe.js"></script>
   <style>
@@ -49,16 +52,21 @@
 </head>
 
 <body>
-  <header style="display: none;">
-		<h1>Code Blocks</h1>
-		<span onclick="eval(jscode)"><i class="fa fa-play" aria-hidden="true"></i>Run</span>
-	</header>
-
-  <div id="blocklyDiv"></div>
-  <aside id="code">
-    <pre id="py-pre"><i class="fa fa-clone" aria-hidden="true" title="Copy To Clipboard!!" onclick="copyToClipboard(this)"></i><code id="python" class="language-python"></code></pre>
-    <pre id="cpp-pre"><i class="fa fa-clone" aria-hidden="true" title="Copy To Clipboard!!" onclick="copyToClipboard(this)"></i><code id="cpp" class="language-cpp"></code></pre>
-  </aside>
+  <main>
+    <div class="menu">
+    </div>
+    <div id="blocklyDiv"></div>
+    <aside id="code">
+      <pre id="py-pre">
+        <i class="fa fa-clone" aria-hidden="true" title="Copy To Clipboard!!" onclick="copyToClipboard(this)"></i>
+        <code id="python" class="language-python"></code>
+      </pre>
+      <pre id="cpp-pre">
+        <i class="fa fa-clone" aria-hidden="true" title="Copy To Clipboard!!" onclick="copyToClipboard(this)"></i>
+        <code id="cpp" class="language-cpp"></code>
+      </pre>
+    </aside>
+  </main>
   <!-- Toolbox Definition -->
   <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox-categories" style="display: none">
     <category name="Variables" categorystyle="variable_category" custom="VARIABLE"></category>

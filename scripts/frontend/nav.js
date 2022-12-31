@@ -17,12 +17,15 @@ nav.innerHTML = `<span ${window.location.pathname!=='/' && `onclick="window.open
         </span>`;
 
 window.onload = e => {
-    window.location.pathname.match('codeblock') && start()
     let b = document.querySelector('body');
     b.insertBefore(nav, b.children[0]);
     if (!window.location.pathname.match('/dashboard')) {
         cb_auth.onAuthStateChanged(user => {
             updateUser(user);
+            if (window.location.pathname.match('codeblock')){
+                document.querySelector('a[href="authenticate.html"]').href = '../authenticate.html';
+                start();
+            }
         });
     }
     else {
@@ -47,7 +50,7 @@ function updateUser(user) {
             span3.innerHTML = `<img src="${uinf[0] || './images/account_circle.svg'}">
                                 <span id="dname">${uinf[1]}</span>
                                 <div id="user-dropdown">
-                                    <div><a href="dashboard.html">My Profile</a></div>
+                                    <div><a href="${window.location.pathname.match('codeblock') ? '../' : ''}dashboard.html">My Profile</a></div>
                                     <div style="border-top:1px solid;border-radius:0 0 10px 10px" onclick="cb_logout()">Log Out</div>
                                 </div>`;
             mspan3 && (mspan3.innerHTML = span3.innerHTML);

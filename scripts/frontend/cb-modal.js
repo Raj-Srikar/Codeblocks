@@ -3,7 +3,7 @@ var modal;
 const modal_link = document.createElement('link');
 modal_link.setAttribute('rel','stylesheet');
 modal_link.setAttribute('type','text/css');
-modal_link.setAttribute('href','styles/cb-modal.css');
+modal_link.setAttribute('href', (window.location.pathname.match('codeblock') ? '../' : '') + 'styles/cb-modal.css');
 document.querySelector('head').appendChild(modal_link);
 
 function closeModal() {
