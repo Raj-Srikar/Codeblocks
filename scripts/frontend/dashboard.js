@@ -95,10 +95,14 @@ function closeEditFullname() {
     close.style.display = '';
 }
 function confirmFullname() {
-    let updatedName = sanitizeContent(fninp.value.trim()),
+    let updatedName = fninp.value.trim(),
     head = 'Change Name',
     msg = `Are you sure you want to change your full name from <b>"${fname.innerHTML}"</b> to <b>"${updatedName}"</b>?`;
 
+    if (!sanitizeContent(updatedName)) {
+        showModal('Invalid Name', "Try not to use any symbols in your full name!");
+        return;
+    }
     if (updatedName === fname.innerHTML.trim()) {
         closeEditFullname();
         return;
@@ -162,10 +166,14 @@ function closeEditBio() {
     closebio.style.display = '';
 }
 function confirmBio() {
-    let updatedBio = sanitizeContent(editText.value.trim()),
+    let updatedBio = editText.value.trim(),
     head = 'Change Bio',
     msg = 'Are you sure you want to change your bio?';
 
+    if (!sanitizeContent(updatedBio)) {
+        showModal('Invalid Bio', "Try not to use any symbols in your Bio!");
+        return;
+    }
     if (updatedBio === biospan.innerHTML.trim().slice(1,-1)) {
         closeEditBio();
         return;
@@ -241,6 +249,7 @@ userCbFolder = document.querySelector('#my-cbs .cb-folder');
 
 function generateFileHTML(name, isUserFile=false) {
     let sname, imgsrc = isUserFile ? './images/cb-file.svg' : './images/cb-file-ex.svg';
+    if(!name) return '';
     if (name.length>20)
         sname = name.substring(0,21).trim()+'...';
     let html = `<div class="cb-file" title="${name}" onclick="selectFile(this)">

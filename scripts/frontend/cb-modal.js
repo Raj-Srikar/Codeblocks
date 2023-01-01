@@ -39,17 +39,17 @@ async function waitForDecision() {
     }
 }
 
-async function showYesOrNoModal(heading, msg) {
+async function showYesOrNoModal(heading, msg, yes='Yes', no='No') {
     modal && closeModal();
     modal = document.createElement('div');
     modal.setAttribute('id','modal');
     modal.innerHTML = `<div id="modal-content">
-                            <span id="modal-close" onclick="closeModal();decision='no'">&times;</span>
+                            <span id="modal-close" onclick="closeModal();decision='No'">&times;</span>
                             <h3 id="modal-heading">${heading}</h3>
                             <p id="modal-msg">${msg}</p>
                             <div id="modal-decision">
-                                <button id="modal-yes" onclick="decision='yes'">Yes</button>
-                                <button id="modal-no" onclick="decision='no'">No</button>
+                                <button id="modal-yes" onclick="decision='yes'">${yes}</button>
+                                <button id="modal-no" onclick="decision='${no}'">${no}</button>
                             </div>
                         </div>`
     ;
@@ -60,14 +60,18 @@ async function showYesOrNoModal(heading, msg) {
         decision='';
         return true
     }
-    else if(decision==='no'){
+    else if(decision==='No'){
         decision='';
         return false
+    }
+    else {
+        decision = '';
+        return no
     }
 }
 
 
-async function showModalWithTextField(heading, msg) {
+async function showModalWithTextField(heading, msg, limit=0) {
     modal && closeModal();
     modal = document.createElement('div');
     modal.setAttribute('id','modal');
@@ -76,7 +80,7 @@ async function showModalWithTextField(heading, msg) {
                             <h3 id="modal-heading">${heading}</h3>
                             <p id="modal-msg">${msg}</p>
                             <div id="modal-decision">
-                                <input type="text" id="modal-text-field">
+                                <input type="text" id="modal-text-field" ${limit && `maxlength="${limit}"`}>
                                 <button id="modal-ok" onclick="decision='ok'">Ok</button>
                                 <button id="modal-cancel" onclick="decision='cancel'">Cancel</button>
                             </div>

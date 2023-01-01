@@ -40,7 +40,7 @@
 #modal-decision>button {
     padding: 8px 5px;
     margin: 0 5px;
-    width: 20%;
+    min-width: 20%;
     float: right;
     color: white;
     background-color: #3c7b90;

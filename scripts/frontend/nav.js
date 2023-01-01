@@ -25,6 +25,18 @@ window.onload = e => {
             if (window.location.pathname.match('codeblock')){
                 document.querySelector('a[href="authenticate.html"]').href = '../authenticate.html';
                 start();
+                let filename = decodeURIComponent(urlParams.get('filename')), iex = urlParams.has('isExample'),
+                t = document.querySelector('title');
+                if (filename !== 'null') {
+                    if(!iex) {
+                        db.collection('users').doc(cb_auth.currentUser.uid).collection('custom-files').doc(filename).get().then(s => {
+                            !s.exists && window.open('/codeblock', '_self')
+                        });
+                        t.innerHTML = filename + ' | ' + t.innerHTML;
+                    }
+                    else t.innerHTML = 'Ex: ' + filename + ' | ' + t.innerHTML;
+                }
+
             }
         });
     }

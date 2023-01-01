@@ -49,11 +49,18 @@ function copyToClipboard(ele){
   }, 2000);
 }
 
-function showMenu(btn) {
+async function getCodeBlock() {
+  let file = urlParams.get('filename'),
+  isExample = urlParams.has('isExample');
+  return file && await fetchCodeBlock(decodeURIComponent(file), isExample)
+}
+
+function openMenu(btn) {
   btn.classList.toggle('opened');
   btn.setAttribute('aria-expanded', btn.classList.contains('opened'))
   if (btn.classList.contains('opened')){
-    btn.previousElementSibling.style.width = urlParams.has('filename') && !urlParams.has('isExample') ? '166px' : '131.68px';
+    let f = urlParams.has('filename'), iex = urlParams.has('isExample');
+    btn.previousElementSibling.style.width =  f && !iex ? '166px' : f && iex ? '96px' : '131.68px';
     btn.previousElementSibling.style.paddingRight = '5px';
   }
   else
@@ -62,30 +69,62 @@ function showMenu(btn) {
 
 function saveCodeBlock(filename, saveAs=false) {
   let json = JSON.stringify(Blockly.serialization.workspaces.save(workspace));
-  return uploadCodeBlock(json, filename, saveAs)
+  if (json!=='{}') {
+    uploadCodeBlock(json, filename, saveAs)
+  }
+  else
+    showModal('Failed to save the CodeBlock', `There's nothing to save ¯\\_(ツ)_/¯`)
+}
+
+function menuSave() {
+  let filename = decodeURIComponent(urlParams.get('filename'));
+  if(!sanitizeContent(filename, true)) {
+    showModal('Illegal file name', 'The file has illegal name and hence can\'t be saved.');
+    return
+  }
+  showYesOrNoModal('Confirm CodeBlock save', `Are you sure you want to save "<b>${filename}</b>"?`).then(dec => {
+    if (dec) {          // If want to save
+      if (filename) {       // If url has 'filename' get parameter
+        !urlParams.has('isExample') && saveCodeBlock(filename);      // If url doesn't have 'isExample' get parameter, then save
+      }
+      else {
+        showModal('Umm...', "This shouldn't be here.🤔 Try reloading the page.")
+      }
+    }
+  })
+}
+
+function menuSaveAs() {
+  showModalWithTextField('Save CodeBlock as', 'Enter your CodeBlock\'s name:', 30).then(filename => {
+    if(!sanitizeContent(filename, true)) {
+      showModal('Illegal file name', "Try not to use any symbols while naming your file.");
+      return
+    }
+    filename && saveCodeBlock(filename, true)
+  })
 }
 
 cb_auth.onAuthStateChanged(async user => {
-  let menu;
+  let menu, iex = urlParams.has('isExample');
   if (user) {
     let getFile = await getCodeBlock();
     getFile && cbFillWorkspace(getFile);
     menu = `<div class="menu-bar">
-              <span id="menu-import">
+              <span id="menu-import" title="Import">
                   <span class="menu-item material-symbols-outlined">vertical_align_bottom</span>
               </span>
-              ${getFile ? `<span id="menu-save-as">
-                      <span class="menu-item material-symbols-outlined">save_as</span>
-              </span>`: ''}
-              <span id="menu-save">
-                  <span class="menu-item material-symbols-outlined">save</span>
-              </span>
-              <span id="menu-run" class="menu-item">
+              ${ !iex ? `${ getFile ? `<span id="menu-save" title="Save" onclick="menuSave()">
+                      <span class="menu-item material-symbols-outlined">save</span>
+              </span>` : ''}
+              <span id="menu-save-as" title="Save As" onclick="menuSaveAs()">
+                  <span class="menu-item material-symbols-outlined">save_as</span>
+              </span>` : ''}
+              <span id="menu-run" class="menu-item" title="Run the Code" onclick="eval(jscode)">
                   <span class="material-symbols-outlined">play_arrow</span>
                   <span>Run</span>
               </span>
           </div>
-          <button class="menu-btn" onclick="showMenu(this)" aria-label="Main Menu">
+          <button class="menu-btn" onclick="openMenu(this)" aria-label="Main Menu">
               <svg width="25" height="25" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
                   <path class="line line1" d="M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058" />
                   <path class="line line2" d="M 20,50 H 80" />
@@ -95,7 +134,7 @@ cb_auth.onAuthStateChanged(async user => {
   }
   else {
     menu = `<div class="menu-bar no-user-menu">
-                <span id="menu-run-only" class="menu-item">
+                <span id="menu-run-only" class="menu-item" title="Run the Code" onclick="eval(jscode)>
                     <span class="material-symbols-outlined">play_arrow</span>
                     <span>Run</span>
                 </span>

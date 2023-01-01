@@ -27,22 +27,15 @@ const db = firebase.firestore();
 db.settings({ timestampsInSnapshots: true });
 
 
-function sanitizeContent(content) {
-    let syms = {
-        '"' : '&#34',
-        "'" : '&#39',
-        '(' : '&#40',
-        ')' : '&#41',
-        '/' : '&#47',
-        '<' : '&#60',
-        '>' : '&#62'
-    }
+function sanitizeContent(content, excludeBrackets=false) {
+    let syms = ['"',"'",'/','<','>','&','?','(',')']
 
-    for (const key in syms) {
-        if (Object.hasOwnProperty.call(syms, key)) {
-            if(content.includes(key))
-                content = content.replace(key, syms[key])
-        }
+    if (excludeBrackets)
+        syms.pop() && syms.pop()
+
+    for (let i = 0; i < syms.length; i++) {
+        if(content && content.includes(syms[i]))
+            return false
     }
-    return content;
+    return true;
 }
