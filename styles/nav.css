@@ -10,13 +10,10 @@ nav{
     text-align: center;
 }
 
-nav>span:nth-child(1){
-    cursor: pointer;
-}
-
 a{
     text-decoration: none;
     color: inherit;
+    cursor: pointer;
 }
 
 #cb-logo{
@@ -124,15 +121,12 @@ nav>span>a:hover{
     opacity: 1;
     visibility: visible;
 }
-#user-dropdown>div {
+#user-dropdown>div, #user-dropdown>a {
     padding: 10px 5px;
+    display: block;
 }
-#user-dropdown>div:hover{
+#user-dropdown>div:hover, #user-dropdown>a:hover{
     background-color: #23282e;
-}
-#user-dropdown a{
-    text-decoration: none;
-    color: inherit;
 }
 
 @media only screen and (max-width: 768px){

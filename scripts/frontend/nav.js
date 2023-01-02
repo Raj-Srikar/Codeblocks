@@ -1,14 +1,14 @@
 const nav = document.createElement('nav'),
 mnav = document.querySelector('for-mobiles');
 
-nav.innerHTML = `<span ${window.location.pathname!=='/' && `onclick="window.open('/','_self')"`}>
+nav.innerHTML = `<a ${window.location.pathname!=='/' ? `href="/"` : ''}>
             <img src="${window.location.pathname.match('codeblock') ? '../' : ''}images/cb-thin-semisymmetrical-curved-monochrome.svg" id="cb-logo">
             <span id="title">
                 <h1 id="cb-title">
                     <span id="title-code">Code</span><span id="title-blocks">Blocks</span><span id="title-study">.study</span>
                 </h1>
             </span>
-        </span>
+        </a>
         <span>
             <span id="tagline">"An innovative approach to learning Python and C++ at the same time"</span>
         </span>
@@ -35,16 +35,15 @@ window.onload = e => {
                     document.querySelector('.menu').innerHTML = '';
                 }
                 else {                  // If user logged in
-                    let filename = decodeURIComponent(urlParams.get('filename')), iex = urlParams.has('isExample'),
-                    t = document.querySelector('title');
+                    let filename = decodeURIComponent(urlParams.get('filename')), iex = urlParams.has('isExample');
                     if (filename !== 'null') {
                         if(!iex) {
                             db.collection('users').doc(cb_auth.currentUser.uid).collection('custom-files').doc(filename).get().then(s => {
                                 !s.exists && window.open('/codeblock', '_self')
                             });
-                            t.innerHTML = filename + ' | ' + t.innerHTML;
+                            docTitle.innerHTML = filename + ' | ' + docTitle.innerHTML;
                         }
-                        else t.innerHTML = 'Ex: ' + filename + ' | ' + t.innerHTML;
+                        else docTitle.innerHTML = 'Ex: ' + filename + ' | ' + docTitle.innerHTML;
                     }
                     updateOriginalJson()
                     createMenuBar();
@@ -74,7 +73,7 @@ function updateUser(user) {
             span3.innerHTML = `<img src="${uinf[0] || './images/account_circle.svg'}">
                                 <span id="dname">${uinf[1]}</span>
                                 <div id="user-dropdown">
-                                    <div><a href="${window.location.pathname.match('codeblock') ? '../' : ''}dashboard.html">My Profile</a></div>
+                                    <a href="${window.location.pathname.match('codeblock') ? '../' : ''}dashboard.html"><span>My Profile</span></a>
                                     <div style="border-top:1px solid;border-radius:0 0 10px 10px" onclick="cb_logout()">Log Out</div>
                                 </div>`;
             mspan3 && (mspan3.innerHTML = span3.innerHTML);
