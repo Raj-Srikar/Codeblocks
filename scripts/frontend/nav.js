@@ -20,23 +20,27 @@ window.onload = e => {
     let b = document.querySelector('body');
     b.insertBefore(nav, b.children[0]);
     if (!window.location.pathname.match('/dashboard')) {
+        if (window.location.pathname.match('codeblock')) start();
         cb_auth.onAuthStateChanged(user => {
             updateUser(user);
             if (window.location.pathname.match('codeblock')){
-                document.querySelector('a[href="authenticate.html"]').href = '../authenticate.html';
-                start();
-                let filename = decodeURIComponent(urlParams.get('filename')), iex = urlParams.has('isExample'),
-                t = document.querySelector('title');
-                if (filename !== 'null') {
-                    if(!iex) {
-                        db.collection('users').doc(cb_auth.currentUser.uid).collection('custom-files').doc(filename).get().then(s => {
-                            !s.exists && window.open('/codeblock', '_self')
-                        });
-                        t.innerHTML = filename + ' | ' + t.innerHTML;
-                    }
-                    else t.innerHTML = 'Ex: ' + filename + ' | ' + t.innerHTML;
+                if (!user) {
+                    document.querySelector('a[href="authenticate.html"]').href = '../authenticate.html';
                 }
-
+                else {
+                    let filename = decodeURIComponent(urlParams.get('filename')), iex = urlParams.has('isExample'),
+                    t = document.querySelector('title');
+                    if (filename !== 'null') {
+                        if(!iex) {
+                            db.collection('users').doc(cb_auth.currentUser.uid).collection('custom-files').doc(filename).get().then(s => {
+                                !s.exists && window.open('/codeblock', '_self')
+                            });
+                            t.innerHTML = filename + ' | ' + t.innerHTML;
+                        }
+                        else t.innerHTML = 'Ex: ' + filename + ' | ' + t.innerHTML;
+                    }
+                    createMenuBar();
+                }
             }
         });
     }

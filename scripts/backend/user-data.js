@@ -35,7 +35,7 @@ async function deleteMyCodeBlock(name) {
 function cb_logout() {
     showYesOrNoModal('Log Out', 'Are you sure you want to log out?').then(dec =>{
         dec && cb_auth.signOut().then(() => {
-            window.location.pathname=='/' || window.location.pathname.match('codeblock') ? (updateUser(null),showModal('Logged Out', 'You are logged out successfully!')) : window.open('authenticate.html','_self');
+            window.location.pathname=='/' || window.location.pathname.match('codeblock') ? (showModal('Logged Out', 'You are logged out successfully!')) : window.open('authenticate.html','_self');
         });
     })
 }
