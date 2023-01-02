@@ -14,6 +14,11 @@ nav>span:nth-child(1){
     cursor: pointer;
 }
 
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
 #cb-logo{
     display: inline-block;
     width: 4vw;

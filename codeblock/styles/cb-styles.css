@@ -85,6 +85,7 @@ main{
         padding: 5.5px;
         border-radius: 5px;
         transition: 0.3s;
+        transition-timing-function: ease-out;
     }
     .menu-item:hover{
         background-color: #2c3b47;

@@ -82,7 +82,7 @@ function openMenu(btn) {
   btn.setAttribute('aria-expanded', btn.classList.contains('opened'))
   if (btn.classList.contains('opened')){
     let f = urlParams.has('filename'), iex = urlParams.has('isExample');
-    btn.previousElementSibling.style.width =  f && !iex ? '166px' : '131.68px';
+    btn.previousElementSibling.style.width =  f && !iex ? '201px' : '166.68px';
     btn.previousElementSibling.style.paddingRight = '5px';
   }
   else
@@ -139,6 +139,9 @@ async function createMenuBar()  {
             <span id="menu-save-as" title="Save As" onclick="menuSaveAs()">
                 <span class="menu-item material-symbols-outlined">save_as</span>
             </span>
+            <a id="menu-new-cb" href="/codeblock">
+              <span class="menu-item material-symbols-outlined">note_add</span>
+            </a>
             <span id="menu-run" class="menu-item" title="Run the Code" onclick="eval(jscode)">
                 <span class="material-symbols-outlined">play_arrow</span>
                 <span>Run</span>
