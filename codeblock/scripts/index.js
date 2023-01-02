@@ -1,6 +1,7 @@
 'use strict';
 
-let workspace = null, jscode = "";
+var workspace = null, jscode = "", originalJsonCode, jsonChanged=false;
+const docTitle = document.querySelector('title');
 
 function start() {
   // Create main workspace.
@@ -30,13 +31,30 @@ function myUpdateFunction(event) {
     }
   }
   document.getElementById('cpp').innerHTML = cppcode;
+  if (cb_auth.currentUser && !jsonChanged && originalJsonCode !== JSON.stringify(Blockly.serialization.workspaces.save(workspace))) {
+    docTitle.innerHTML = '&#9679; ' + docTitle.innerHTML;
+    jsonChanged = true;
+  }
   hljs.highlightAll();
 }
 
+function updateOriginalJson() {
+  originalJsonCode = JSON.stringify(Blockly.serialization.workspaces.save(workspace));
+  jsonChanged = false;
+  docTitle.innerHTML = docTitle.innerHTML.replace('● ', '')
+}
+
+window.addEventListener('beforeunload', function (e) {
+    if (jsonChanged) {
+        e.preventDefault();
+        e.returnValue = '';
+    }
+});
+
 function copyToClipboard(ele){
   var range = document.createRange();
-  range.selectNode(ele.parentElement);
-  range.setStart(ele.parentElement, 2)
+  range.selectNode(ele.parentElement.children[2]);
+  range.setStart(ele.parentElement.children[2], 0);
   window.getSelection().removeAllRanges();
   window.getSelection().addRange(range);
   document.execCommand("copy");
@@ -53,6 +71,10 @@ async function getCodeBlock() {
   let file = urlParams.get('filename'),
   isExample = urlParams.has('isExample');
   return file && await fetchCodeBlock(decodeURIComponent(file), isExample)
+}
+function cbFillWorkspace(json) {
+  Blockly.serialization.workspaces.load(JSON.parse(json.replaceAll('\\\\','\\')), workspace);
+  updateOriginalJson();
 }
 
 function openMenu(btn) {

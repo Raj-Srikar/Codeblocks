@@ -20,14 +20,21 @@ window.onload = e => {
     let b = document.querySelector('body');
     b.insertBefore(nav, b.children[0]);
     if (!window.location.pathname.match('/dashboard')) {
+    /*
+        If the webpage is not dashboard
+    */
         if (window.location.pathname.match('codeblock')) start();
         cb_auth.onAuthStateChanged(user => {
             updateUser(user);
             if (window.location.pathname.match('codeblock')){
-                if (!user) {
+            /*
+                If current webpage is /codeblock
+            */
+                if (!user) {            // If user logged out
                     document.querySelector('a[href="authenticate.html"]').href = '../authenticate.html';
+                    document.querySelector('.menu').innerHTML = '';
                 }
-                else {
+                else {                  // If user logged in
                     let filename = decodeURIComponent(urlParams.get('filename')), iex = urlParams.has('isExample'),
                     t = document.querySelector('title');
                     if (filename !== 'null') {
@@ -39,6 +46,7 @@ window.onload = e => {
                         }
                         else t.innerHTML = 'Ex: ' + filename + ' | ' + t.innerHTML;
                     }
+                    updateOriginalJson()
                     createMenuBar();
                 }
             }

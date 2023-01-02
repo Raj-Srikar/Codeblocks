@@ -16,9 +16,6 @@ async function fetchCodeBlock(filename, isExample=false) {
     }
 }
 
-function cbFillWorkspace(json) {
-    Blockly.serialization.workspaces.load(JSON.parse(json.replaceAll('\\\\','\\')), workspace);
-}
 
 async function createNewCbDoc(filename, obj, colref, exists=false) {
     if (exists){
@@ -34,6 +31,7 @@ async function createNewCbDoc(filename, obj, colref, exists=false) {
     }
     obj['name'] = filename;
     await colref.doc(filename).set(obj);
+    updateOriginalJson();
     window.open('?filename='+encodeURIComponent(filename),'_self')
 }
 
@@ -48,8 +46,10 @@ async function uploadCodeBlock(json, filename, saveAs=false) {
                     `The CodeBlock, <b>"${filename}"</b> already exists. Do you want to replace it? Or create a new one?`,
                     'Replace', 'Create a new one');     // Ask if Replace or Create new one
                 if (dec === true) {         // If Replace
-                    if (g.data()['json'] !== json)      // If there is some change in the workspace json
+                    if (g.data()['json'] !== json) {      // If there is some change in the workspace json
                         await colref.doc(filename).set(obj, {merge:true});        // append the fields in obj to filename doc (obj will have only json without name)
+                        updateOriginalJson();
+                    }
                     else console.log('No change in workspace');
                 }
                 else if (dec === 'Create a new one')               // If Create new
@@ -63,6 +63,7 @@ async function uploadCodeBlock(json, filename, saveAs=false) {
                 if (g.data()['json'] !== json) {      // If there is some change in the workspace json
                     await colref.doc(filename).set(obj, {merge:true});        // append the fields in obj to filename doc (obj will have only json without name)
                     showModal('File saved', `<b>"${filename}"</b> has been saved successfully!`);
+                    updateOriginalJson();
                 }
                 else console.log('No change in workspace');
             }
