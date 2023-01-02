@@ -227,12 +227,19 @@ window.addEventListener('click', function(e){
 });
 
 
+function openCbFile(open) {
+    let file = open.parentElement.parentElement,
+    filename = file.querySelector('.filename').innerHTML.trim(),
+    folderType = file.parentElement.parentElement.id,
+    url = '/codeblock?filename=' + encodeURIComponent(filename) + (folderType==='examples' ? '&isExample' : '');
+    window.open(url, '_self')
+}
+
 function deleteCbFile(del) {
     let head = 'Delete CodeBlock',
     msg = 'Are you sure you want to delete the selected CodeBlock?<br><span style="color:orangered">(Note: You cannot retrieve it once deleted!</span>)',
     file = del.parentElement.parentElement,
-    filename = file.querySelector('.filename').innerHTML.trim(),
-    folderType = file.parentElement.parentElement.id;
+    filename = file.querySelector('.filename').innerHTML.trim();
     showYesOrNoModal(head,msg).then((res)=>{
         if (res) {
             deleteMyCodeBlock(file.title).then(() => {
@@ -256,7 +263,7 @@ function generateFileHTML(name, isUserFile=false) {
         <img src="${imgsrc}" alt="example file">
         <span class="filename">${sname || name}</span>
         <div class="file-options" title>
-            <div class="open-opt"${isUserFile?'':' style="border:0;border-radius:5px"'}><span class="material-symbols-outlined">file_open</span><span>Open</span></div>
+            <div class="open-opt"${isUserFile?'':' style="border:0;border-radius:5px"'} onclick="openCbFile(this)"><span class="material-symbols-outlined">file_open</span><span>Open</span></div>
             ${isUserFile ? '<div class="delete-opt" onclick="deleteCbFile(this)"><span class="material-symbols-outlined">delete</span><span>Delete</span></div>' : ''}
         </div>
     </div>`
