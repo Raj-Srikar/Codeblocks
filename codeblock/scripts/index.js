@@ -82,7 +82,7 @@ function openMenu(btn) {
   btn.setAttribute('aria-expanded', btn.classList.contains('opened'))
   if (btn.classList.contains('opened')){
     let f = urlParams.has('filename'), iex = urlParams.has('isExample');
-    btn.previousElementSibling.style.width =  f && !iex ? '201px' : '166.68px';
+    btn.previousElementSibling.style.width =  f && !iex ? '203.5px' : '169.18px';
     btn.previousElementSibling.style.paddingRight = '5px';
   }
   else
@@ -131,8 +131,8 @@ async function createMenuBar()  {
   let getFile = await getCodeBlock();
   getFile && cbFillWorkspace(getFile);
   menu = `<div class="menu-bar">
-            <span id="menu-import" title="Import">
-                <span class="menu-item material-symbols-outlined">vertical_align_bottom</span>
+            <span id="menu-open" title="Open" onclick="showOpenCodeBlocksModal()">
+              <span class="menu-item material-symbols-outlined">folder_open</span>
             </span>${ getFile && !iex ? `<span id="menu-save" title="Save" onclick="menuSave()">
                     <span class="menu-item material-symbols-outlined">save</span>
             </span>` : ''}

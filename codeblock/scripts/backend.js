@@ -1,4 +1,5 @@
 const urlParams = new URLSearchParams(window.location.search);
+let exampleFiles, userFiles;
 
 async function fetchCodeBlock(filename, isExample=false) {
     let s;

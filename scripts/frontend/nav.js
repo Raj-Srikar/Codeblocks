@@ -47,6 +47,12 @@ window.onload = e => {
                     }
                     updateOriginalJson()
                     createMenuBar();
+                    fetchExamples().then((arr)=>{
+                        exampleFiles = arr;
+                    })
+                    fetchCustomFiles().then((arr)=>{
+                        userFiles = arr;
+                    })
                 }
             }
         });

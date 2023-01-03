@@ -22,8 +22,8 @@ async function fetchExamples() {
     return snapshot.docs.map(doc => doc.data());
 }
 
-async function fetchCustomFiles(user) {
-    const snapshot = await db.collection('users').doc(user.uid).collection('custom-files').get();
+async function fetchCustomFiles() {
+    const snapshot = await db.collection('users').doc(cb_auth.currentUser.uid).collection('custom-files').get();
     return snapshot.docs.filter(doc => doc.id != 'init').map(doc => doc.data());
 }
 

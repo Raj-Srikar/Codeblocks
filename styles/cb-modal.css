@@ -1,7 +1,7 @@
 #modal{
     display: flex;
     position: fixed;
-    z-index: 100;
+    z-index: 100000;
     left: 0;
     top: 0;
     width: 100%;
@@ -10,6 +10,7 @@
     color: white;
     user-select: none;
     font-family: titi;
+    word-break: break-word;
 }
 #modal-content{
     width: 30%;
@@ -37,11 +38,14 @@
 #modal-close:hover, #modal-msg a:hover{
     color:#00ACC1;
 }
+#modal-decision{
+    display: flex;
+    justify-content: end;
+}
 #modal-decision>button {
     padding: 8px 5px;
     margin: 0 5px;
     min-width: 20%;
-    float: right;
     color: white;
     background-color: #3c7b90;
     border-radius: 5px;
@@ -64,6 +68,75 @@
     margin-bottom: 20px;
 }
 
+#modal-content:has(#modal-codeblocks){
+    width: 50%;
+}
+#modal-codeblocks>div{
+    height: 30vh;
+    margin: 30px 10px;
+    border-radius: 10px;
+    background-color: #172a31;
+    color: white;
+    border: 1px solid lightskyblue;
+    overflow: hidden;
+}
+#modal-codeblocks>div>span{
+    padding: 8px;
+    display: block;
+    background-color: #286d8a;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 15px;
+}
+#modal-codeblocks .cb-folder{
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    overflow: auto;
+    height: 87.5%;
+    padding-left: 5px;
+}
+#modal-codeblocks .cb-file{
+    display: inline-block;
+    text-align: center;
+    margin: 10px 3px;
+    padding: 15px 15px 5px;
+    height: 135px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.2s;
+    font-family: Titi;
+}
+#modal-codeblocks .cb-file:hover{
+    background-color: #253a41;
+}
+#modal-codeblocks .cb-file:hover>.filename{
+    text-shadow: 0px 0px 15px deepskyblue;
+}
+#modal-codeblocks .modal-selected-file{
+    background-color: #304a54;
+    position: relative; 
+}
+#modal-codeblocks .modal-selected-file:hover{
+    background-color: #375764;
+}
+#modal-codeblocks .cb-file>img{
+    margin: auto auto 10px;
+    width: 80px;
+    display: block;
+}
+#modal-codeblocks .filename{
+    display: inline-block;
+    width: 90px;
+}
+
+#modal-content #modal-decision {
+    margin-right: 10px;
+}
+
+
 @media only screen and (max-width: 768px){
     #modal-content {
         width: 50%;
@@ -74,8 +147,12 @@
     #modal-content{
         width: 70%;
     }
+    #modal-decision {
+        display: block;
+    }
     #modal-decision>button {
         width: 25%;
+        float: right;
     }
 }
 

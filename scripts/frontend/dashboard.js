@@ -213,18 +213,17 @@ function selectFile(file) {
     file.classList.toggle('selected-file');
     selectedFile = file;
 }
-function deselectFile() {
-    selectedFile && selectedFile.classList.toggle('selected-file');
-    selectedFile = null;
+function deselectFile(event) {
+    if (selectedFile && !selectedFile.contains(event.target)) {
+        selectedFile.classList.toggle('selected-file');
+        selectedFile = null;
+    }
 }
 
 for (let i = 0; i < files.length; i++) {
-    files[i].onclick = function() {selectFile(this)};
+    files[i].onclick = selectFile;
 }
-window.addEventListener('click', function(e){   
-    if (selectedFile && !selectedFile.contains(e.target))
-        deselectFile();
-});
+window.addEventListener('click', deselectFile);
 
 
 function openCbFile(open) {
