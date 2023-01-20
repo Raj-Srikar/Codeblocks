@@ -20,6 +20,7 @@ main{
         color: white;
         display: flex;
         align-items: center;
+        border: 1px solid white;
         border-radius: 5px;
         position: fixed;
         z-index: 75;
@@ -108,13 +109,17 @@ main{
     }
 
 #blocklyDiv {
+    background-image: url(../../images/Circuit-CB-Glowing-Logo.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 30%;
     height: 100%;
     width: 60vw;
     float: left;
     user-select: none;
 }
 .blocklyToolboxDiv{
-    background-color: #b7ceff;
+    border-right: 1px solid;
 }
 
 aside{

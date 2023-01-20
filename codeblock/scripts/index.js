@@ -8,6 +8,13 @@ function start() {
   workspace = Blockly.inject('blocklyDiv',
     {
       toolbox: document.getElementById('toolbox-categories'),
+      grid: {
+        spacing: 30,
+        length: 3,
+        colour: '#81a5ae55',
+        snap: true,
+      },
+      theme: Blockly.Themes.CodeBlock
     });
     
   workspace.addChangeListener(myUpdateFunction);

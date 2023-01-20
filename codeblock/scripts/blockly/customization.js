@@ -1,3 +1,22 @@
+Blockly.Themes.CodeBlock = Blockly.Theme.defineTheme('halloween', {
+  'base': Blockly.Themes.Classic,
+  'componentStyles': {
+    'workspaceBackgroundColour': '#000000cc',
+    'toolboxBackgroundColour': '#182236',
+    'toolboxForegroundColour': '#fff',
+    'flyoutBackgroundColour': '#8ba2ae',
+    'flyoutForegroundColour': '#ccc',
+    'flyoutOpacity': 0.23,
+    'scrollbarColour': '#4c85af',
+    'insertionMarkerColour': '#fff',
+    'insertionMarkerOpacity': 0.3,
+    'scrollbarOpacity': 0.4,
+    'cursorColour': '#d0d0d0',
+    'blackBackground': '#333'
+  }
+});
+
+
 Blockly.Variables.createVariableButtonHandler = function(a, b, c) {
     var d = c || "",
       e = function(f) {
