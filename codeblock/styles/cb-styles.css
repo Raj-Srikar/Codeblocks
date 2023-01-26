@@ -122,6 +122,47 @@ main{
     border-right: 1px solid;
 }
 
+/* Blockly Toolbox Style*/
+    /* Makes our label white. */
+    .blocklyTreeLabel {
+        color: white;
+    }
+    /* Adds padding around the group of categories and separators. */
+    .blocklyToolboxContents {
+        padding: .5em .8em;
+    }
+    /* Adds space between the categories, rounds the corners and adds space around the label. */
+    .blocklyTreeRow {
+        background-color: initial !important;
+        padding: 3px !important;
+        margin-bottom: .5em;
+        border-radius: 4px;
+        width: 90px;
+        text-align: center;
+        transition: 0.2s;
+    }
+    .blocklyTreeIcon{
+        display: none !important;
+    }
+    .blocklyTreeRow:not(.blocklyTreeSelected):hover{
+        background-color: initial;
+    }
+    #blockly-0:hover{
+        box-shadow: 0 0 8px 1px #f259a6;
+    }
+    #blockly-1:hover{
+        box-shadow: 0 0 8px 1px #2cc28f;
+    }
+    #blockly-2:hover{
+        box-shadow: 0 0 8px 1px #5598db;
+    }
+    #blockly-3:hover{
+        box-shadow: 0 0 8px 1px #85E21F;
+    }
+    #blockly-4:hover{
+        box-shadow: 0 0 8px 1px #FE9B13;
+    }
+
 aside{
     display: flex;
     flex-direction: column;

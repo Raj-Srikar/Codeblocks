@@ -1,5 +1,49 @@
 Blockly.Themes.CodeBlock = Blockly.Theme.defineTheme('halloween', {
   'base': Blockly.Themes.Classic,
+  'categoryStyles': {
+    'variable_category': {
+      'colour': "#f259a6"
+    },
+    'text_category': {
+      'colour': "#2cc28f",
+    },
+    'logic_category': {
+      'colour': "#5598db",
+    },
+    'loop_category': {
+      'colour': "#85E21F",
+    },
+    'procedure_category': {
+      'colour': "#FE9B13",
+    },
+  },
+  'blockStyles': {
+    'variable_blocks': {
+      'colourPrimary': "#f259a6",
+      'colourSecondary':"#f69ec5",
+      'colourTertiary':"#f9bfd7",
+    },
+    'text_blocks': {
+      'colourPrimary': "#2cc28f",
+      'colourSecondary':"#90d6b8",
+      'colourTertiary':"#b7e3cf"
+    },
+    'logic_blocks': {
+      'colourPrimary': "#5598db",
+      'colourSecondary':"#9dbde6",
+      'colourTertiary':"#C5EAFF"
+    },
+    'loop_blocks': {
+      'colourPrimary': "#85E21F",
+      'colourSecondary':"#b3eb8e",
+      'colourTertiary':"#cbf1b6"
+    },
+    'procedure_blocks': {
+      'colourPrimary': "#FE9B13",
+      'colourSecondary':"#febf8d",
+      'colourTertiary':"#ffd3b5"
+    },
+  },
   'componentStyles': {
     'workspaceBackgroundColour': '#000000cc',
     'toolboxBackgroundColour': '#182236',
