@@ -34,7 +34,7 @@ async function waitForDecision() {
             return setTimeout(res, ms);
         });
     };
-    while (decision === '' || (decision === 'open' && !modalSelectedFile)) {
+    while (decision === '' || (decision === 'open' && !modalSelectedFile) || (!modalSelectedFile && decision === 'import')) {
         await timeout(50);
     }
 }
@@ -119,7 +119,8 @@ function selectModalFile(file) {
 function deselectModalFile(event) {
     if (modalSelectedFile
         && !modalSelectedFile.contains(event.target) 
-        && document.getElementById('modal-open') !== event.target) {
+        && document.getElementById('modal-open') !== event.target
+        && document.getElementById('modal-import') !== event.target) {
             modalSelectedFile && modalSelectedFile.classList.toggle('modal-selected-file');
             modalSelectedFile = null;
     }
@@ -139,14 +140,14 @@ async function showOpenCodeBlocksModal() {
     }
     for (let i = 0; i < userFiles.length; i++) {
         uhtml += `<div class="cb-file" onclick="selectModalFile(this)">
-                    <img src="../images/cb-file-ex.svg" alt="example file">
+                    <img src="../images/cb-file.svg" alt="example file">
                     <span class="filename">${userFiles[i].name}</span>
                 </div>\n`;
     }
     
     modal.innerHTML =   `<div id="modal-content">
                             <span id="modal-close" onclick="closeModal();decision='close'">&times;</span>
-                            <h2 id="modal-heading">Open CodeBlocks</h2>
+                            <h2 id="modal-heading">Open / Import CodeBlocks</h2>
                             <div id="modal-codeblocks">
                                 <div id="examples">
                                     <span>Example CodeBlocks</span>
@@ -163,6 +164,7 @@ async function showOpenCodeBlocksModal() {
                             </div>
                             <div id="modal-decision">
                                 <button id="modal-open" onclick="modalSelectedFile && (decision='open')">Open</button>
+                                <button id="modal-import" onclick="modalSelectedFile && (decision='import')">Import</button>
                                 <button id="modal-cancel" onclick="decision='cancel'">Cancel</button>
                             </div>
                         </div>`;
@@ -172,12 +174,25 @@ async function showOpenCodeBlocksModal() {
 
     await waitForDecision(true);
     
-    if (decision === 'open' && modalSelectedFile) {
-        decision = '';
-        let filename = modalSelectedFile.querySelector('.filename').innerHTML.trim(),
-        folderType = modalSelectedFile.parentElement.parentElement.id,
-        url = '/codeblock?filename=' + encodeURIComponent(filename) + (folderType==='examples' ? '&isExample' : '');
-        window.open(url, '_self');
+    if (modalSelectedFile) {
+        if (decision === 'open') {
+            decision = '';
+            let filename = modalSelectedFile.querySelector('.filename').innerHTML.trim(),
+            folderType = modalSelectedFile.parentElement.parentElement.id,
+            url = '/codeblock?filename=' + encodeURIComponent(filename) + (folderType==='examples' ? '&isExample' : '');
+            window.open(url, '_self');
+        }
+        else if (decision === 'import'){
+            decision = '';
+            let filename = modalSelectedFile.querySelector('.filename').innerHTML.trim(),
+            folderType = modalSelectedFile.parentElement.parentElement.id,
+            json = await fetchCodeBlock(filename, folderType==='examples');
+            json = JSON.parse(json.replaceAll('\\\\','\\')),
+            blocks = json.blocks.blocks;
+            for (let i = 0; i < blocks.length; i++) {
+                Blockly.serialization.blocks.append(blocks[i], workspace)
+            }
+        }
     }
     else if (decision === 'cancel' || decision === 'close') {
         decision = '';

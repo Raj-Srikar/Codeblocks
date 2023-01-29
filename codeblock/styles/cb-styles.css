@@ -20,8 +20,8 @@ main{
         color: white;
         display: flex;
         align-items: center;
-        border: 1px solid white;
-        border-radius: 5px;
+        border: 1.6px solid white;
+        border-radius: 6px;
         position: fixed;
         z-index: 75;
         right: 41.5vw;
@@ -93,6 +93,7 @@ main{
     }
     .menu-item:hover{
         background-color: #2c3b47;
+        box-shadow: 0 0 9px 1px #a4e8ff;
     }
     .menu-item:active{
         background-color: #000;

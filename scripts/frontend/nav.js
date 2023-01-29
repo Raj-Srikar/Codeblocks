@@ -23,16 +23,18 @@ window.onload = e => {
     /*
         If the webpage is not dashboard
     */
-        if (window.location.pathname.match('codeblock')) start();
         cb_auth.onAuthStateChanged(user => {
             updateUser(user);
             if (window.location.pathname.match('codeblock')){
             /*
                 If current webpage is /codeblock
             */
+                start();
                 if (!user) {            // If user logged out
                     document.querySelector('a[href="authenticate.html"]').href = '../authenticate.html';
-                    document.querySelector('.menu').innerHTML = '';
+                    let m = document.querySelector('.menu');
+                    m.innerHTML = '';
+                    m.style.border = 'none';
                 }
                 else {                  // If user logged in
                     let filename = decodeURIComponent(urlParams.get('filename')), iex = urlParams.has('isExample');

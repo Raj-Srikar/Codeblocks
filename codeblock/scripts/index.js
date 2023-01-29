@@ -38,9 +38,14 @@ function myUpdateFunction(event) {
     }
   }
   document.getElementById('cpp').innerHTML = cppcode;
-  if (cb_auth.currentUser && !jsonChanged && originalJsonCode !== JSON.stringify(Blockly.serialization.workspaces.save(workspace))) {
+  let json = JSON.stringify(Blockly.serialization.workspaces.save(workspace));
+  if (cb_auth.currentUser && !jsonChanged && json !== "{}" && originalJsonCode !== json) {
     docTitle.innerHTML = '&#9679; ' + docTitle.innerHTML;
     jsonChanged = true;
+  }
+  else if (json === '{}' || originalJsonCode === json) {
+    jsonChanged = false;
+    docTitle.innerHTML = docTitle.innerHTML.replace('● ', '') 
   }
   hljs.highlightAll();
 }
@@ -138,7 +143,7 @@ async function createMenuBar()  {
   let getFile = await getCodeBlock();
   getFile && cbFillWorkspace(getFile);
   menu = `<div class="menu-bar">
-            <span id="menu-open" title="Open" onclick="showOpenCodeBlocksModal()">
+            <span id="menu-open" title="Open / Import" onclick="showOpenCodeBlocksModal()">
               <span class="menu-item material-symbols-outlined">folder_open</span>
             </span>${ getFile && !iex ? `<span id="menu-save" title="Save" onclick="menuSave()">
                     <span class="menu-item material-symbols-outlined">save</span>
@@ -146,7 +151,7 @@ async function createMenuBar()  {
             <span id="menu-save-as" title="Save As" onclick="menuSaveAs()">
                 <span class="menu-item material-symbols-outlined">save_as</span>
             </span>
-            <a id="menu-new-cb" href="/codeblock">
+            <a id="menu-new-cb" title="New CodeBlock" href="/codeblock">
               <span class="menu-item material-symbols-outlined">note_add</span>
             </a>
             <span id="menu-run" class="menu-item" title="Run the Code" onclick="eval(jscode)">

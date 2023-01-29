@@ -135,9 +135,8 @@ Blockly.Blocks['prompt_inp'] = {
     this.setInputsInline(false);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(330);
- this.setTooltip("");
- this.setHelpUrl("");
+    this.setColour("#f259a6");
+    this.setTooltip("Prompt input with the given message and assign it to this variable");
   }
 };
 Blockly.Python.prompt_inp = function(a) {
