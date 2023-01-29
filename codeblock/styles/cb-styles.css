@@ -163,6 +163,18 @@ main{
     #blockly-4:hover{
         box-shadow: 0 0 8px 1px #FE9B13;
     }
+    
+/* Code Blocks */
+    .blocklyPath{
+        stroke-width: 2px;
+        fill: #00000055;
+    }
+    .blocklyPathDark{
+        fill: none;
+    }
+    .blocklyPathLight{
+        stroke: none;
+    }
 
 aside{
     display: flex;

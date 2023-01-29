@@ -18,6 +18,7 @@ function start() {
     });
     
   workspace.addChangeListener(myUpdateFunction);
+  workspace.addChangeListener(changeBlockStyle);
 }
 
 function myUpdateFunction(event) {

@@ -164,3 +164,18 @@ Blockly.JavaScript.prompt_inp = function(a) {
 //  this.setHelpUrl("");
 //   }
 // };
+
+function changeBlockStyle(event) {
+  if (event.type == Blockly.Events.BLOCK_CREATE || event.type == Blockly.Events.TOOLBOX_ITEM_SELECT || event.type == Blockly.Events.TRASHCAN_OPEN) {
+    let colors = ['#f259a6','#2cc28f','#5598db','#85e21f','#fe9b13','#f69ec5','#90d6b8','#9dbde6','#b3eb8e','#febf8d'],
+    cat = colors.map(ele => document.querySelectorAll('.blocklyPath[fill="' + ele + '"]'));
+
+    for (let i = 0; i < cat.length; i++) {
+      for (let j = 0; j < cat[i].length; j++) {
+        const block = cat[i][j];
+        block.style.stroke = colors[i];
+        block.style.filter = 'drop-shadow(0px 0px 10px ' + colors[i] + ')' + 'drop-shadow(0px 0px 5px ' + colors[i] + ')';
+      }
+    }
+  }
+}
