@@ -202,7 +202,16 @@ function changeBlockStyle(event) {
     }
     for (let i = 0; i < ts.length; i++) {
       const tspan = ts[i];
-      tspan.style.fill = pSBC(-0.35,tspan.style.fill);
+      let f = tspan.style.fill,
+      [_,r,g,b] = /rgb\((\d{1,3}), (\d{1,3}), (\d{1,3})\)/.exec(f),
+      hex = "#" + componentToHex(parseInt(r)) + componentToHex(parseInt(g)) + componentToHex(parseInt(b));
+      if (colors.includes(hex))
+        tspan.style.fill = pSBC(-0.35, f);
     }
   }
+}
+
+function componentToHex(c) {
+  var hex = c.toString(16);
+  return hex.length == 1 ? "0" + hex : hex;
 }

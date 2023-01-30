@@ -29,7 +29,9 @@ class CustomCategory extends Blockly.ToolboxCategory {
             // Change the border of the div with a lightened colour.
             this.rowDiv_.style.border = '1.6px solid ' + c;
             // Add box shadow
-            this.rowDiv_.style.boxShadow = '0 0 8px 1px ' + this.colour_;
+            this.rowDiv_.style.boxShadow = '0 0 15px 2px ' + this.colour_;
+            // Increase the size
+            this.rowDiv_.style.transform = 'scale(1.2)';
             // Set the colour of the text to the lightened colour.
             labelDom.style.color = c;
         } else {
@@ -39,6 +41,8 @@ class CustomCategory extends Blockly.ToolboxCategory {
             labelDom.style.color = 'white';
             // Disable box shadow
             this.rowDiv_.style.boxShadow = '';
+            // Restore to original size
+            this.rowDiv_.style.transform = '';
         }
         
         // This is used for accessibility purposes.

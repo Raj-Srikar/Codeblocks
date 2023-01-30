@@ -20,7 +20,7 @@ main{
         color: white;
         display: flex;
         align-items: center;
-        border: 1.6px solid white;
+        border: 1.6px solid #87eafa;
         border-radius: 6px;
         position: fixed;
         z-index: 75;
@@ -122,53 +122,84 @@ main{
 }
 .blocklyToolboxDiv{
     border-right: 1px solid;
+    width: 125.8px;
+    padding: 0;
 }
 
 /* Blockly Toolbox Style*/
-    /* Makes our label white. */
     .blocklyTreeLabel {
         color: white;
     }
-    /* Adds padding around the group of categories and separators. */
     .blocklyToolboxContents {
-        padding: .5em .8em;
+        justify-content: space-evenly;
+        align-items: center;
+        height: 100%;
     }
-    /* Adds space between the categories, rounds the corners and adds space around the label. */
     .blocklyTreeRow {
         background-color: initial !important;
         padding: 3px !important;
-        margin-bottom: .5em;
-        border-radius: 4px;
-        width: 90px;
+        margin-bottom: 0;
+        border-radius: 50%;
+        width: 80px;
+        height: 80px;
         text-align: center;
-        transition: 0.2s;
+        transition: 0.3s;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
     }
     .blocklyTreeIcon{
         display: none !important;
     }
     .blocklyTreeRow:not(.blocklyTreeSelected):hover{
         background-color: initial;
+        /* width: 95px;
+        height: 95px; */
+        transform: scale(1.2);
     }
+    /* .blocklyTreeLabel{
+        font: 15px sans-serif;
+        transition: 0.2s;
+    }
+    .blocklyTreeRow:not(.blocklyTreeSelected):hover .blocklyTreeLabel{
+        font: 17px sans-serif;
+    } */
     #blockly-0:hover{
-        box-shadow: 0 0 8px 1px #f259a6;
+        box-shadow: 0 0 15px 2px #f259a6;
     }
     #blockly-1:hover{
-        box-shadow: 0 0 8px 1px #2cc28f;
+        box-shadow: 0 0 15px 2px #2cc28f;
     }
     #blockly-2:hover{
-        box-shadow: 0 0 8px 1px #5598db;
+        box-shadow: 0 0 15px 2px #5598db;
     }
     #blockly-3:hover{
-        box-shadow: 0 0 8px 1px #85E21F;
+        box-shadow: 0 0 15px 2px #85E21F;
     }
     #blockly-4:hover{
-        box-shadow: 0 0 8px 1px #FE9B13;
+        box-shadow: 0 0 15px 2px #FE9B13;
+    }
+    .blocklyFlyout{
+        z-index: 75;
+    }
+    .blocklyTooltipDiv {
+        background-color: #000000;
+        color: wheat;
+        padding: 2px 4px;
+        border-radius: 4px;
+        box-shadow: 0 0 4px 0 wheat;
     }
     
 /* Code Blocks */
     .blocklyPath{
         stroke-width: 2px;
         fill: #00000055;
+        transition: stroke-width 0.3s;
+    }
+    .geras-renderer.codeblock-theme .blocklyEditableText:not(.editing)>rect{
+        /* Dropdowns and Input fields of blocks */
+        transition: stroke-width 0.3s;
     }
     .blocklyPathDark{
         fill: none;
@@ -176,6 +207,7 @@ main{
     .blocklyPathLight{
         stroke: none;
     }
+    
 
 aside{
     display: flex;
