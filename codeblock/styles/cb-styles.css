@@ -27,6 +27,7 @@ main{
         right: 41.5vw;
         top: 13vh;
         user-select: none;
+        transition: 0.6s;
     }
     .menu-btn {
         background-color: #296985;
@@ -189,6 +190,7 @@ pre {
     border: 1px solid white;
     flex-shrink: 0;
     border-right: 0;
+    user-select: none;
 }
 pre>i{
     color: white;
@@ -231,6 +233,7 @@ code {
     margin: 0;
     height: 90%;
     margin-top: -31px;
+    user-select: text;
 }
 #python.hljs{
     background-image: url(../images/python-logo-tr.png);

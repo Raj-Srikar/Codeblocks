@@ -1,4 +1,4 @@
-Blockly.Themes.CodeBlock = Blockly.Theme.defineTheme('halloween', {
+Blockly.Themes.CodeBlock = Blockly.Theme.defineTheme('codeblock', {
   'base': Blockly.Themes.Classic,
   'categoryStyles': {
     'variable_category': {
@@ -20,27 +20,27 @@ Blockly.Themes.CodeBlock = Blockly.Theme.defineTheme('halloween', {
   'blockStyles': {
     'variable_blocks': {
       'colourPrimary': "#f259a6",
-      'colourSecondary':"#f69ec5",
+      'colourSecondary':"#f259a5",
       'colourTertiary':"#f9bfd7",
     },
     'text_blocks': {
       'colourPrimary': "#2cc28f",
-      'colourSecondary':"#90d6b8",
+      'colourSecondary':"#2cc28e",
       'colourTertiary':"#b7e3cf"
     },
     'logic_blocks': {
       'colourPrimary': "#5598db",
-      'colourSecondary':"#9dbde6",
+      'colourSecondary':"#5598da",
       'colourTertiary':"#C5EAFF"
     },
     'loop_blocks': {
       'colourPrimary': "#85E21F",
-      'colourSecondary':"#b3eb8e",
+      'colourSecondary':"#85e21e",
       'colourTertiary':"#cbf1b6"
     },
     'procedure_blocks': {
       'colourPrimary': "#FE9B13",
-      'colourSecondary':"#febf8d",
+      'colourSecondary':"#FE9B12",
       'colourTertiary':"#ffd3b5"
     },
   },
@@ -166,16 +166,43 @@ Blockly.JavaScript.prompt_inp = function(a) {
 // };
 
 function changeBlockStyle(event) {
-  if (event.type == Blockly.Events.BLOCK_CREATE || event.type == Blockly.Events.TOOLBOX_ITEM_SELECT || event.type == Blockly.Events.TRASHCAN_OPEN) {
-    let colors = ['#f259a6','#2cc28f','#5598db','#85e21f','#fe9b13','#f69ec5','#90d6b8','#9dbde6','#b3eb8e','#febf8d'],
-    cat = colors.map(ele => document.querySelectorAll('.blocklyPath[fill="' + ele + '"]'));
+  if (event.type == Blockly.Events.BLOCK_CREATE
+    || event.type == Blockly.Events.TOOLBOX_ITEM_SELECT
+    || event.type == Blockly.Events.BUBBLE_OPEN
+    || event.type == Blockly.Events.BLOCK_CHANGE
+    || event.type == Blockly.Events.TRASHCAN_OPEN
+  ) {
+    let colors = [],
+    bs = Blockly.Themes.CodeBlock.blockStyles;
+
+    for (let key in bs) {
+        let cp = bs[key].colourPrimary,
+        cs = bs[key].colourSecondary;
+        if(cp.match(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/))
+            colors.push(cp.toLowerCase());
+        if(cp.match(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/))
+            colors.push(cs.toLowerCase());
+    }
+    
+    let cat = colors.map(ele => document.querySelectorAll('.blocklyPath[fill="' + ele + '"]')),
+    ts = document.querySelectorAll('tspan');
 
     for (let i = 0; i < cat.length; i++) {
       for (let j = 0; j < cat[i].length; j++) {
         const block = cat[i][j];
-        block.style.stroke = colors[i];
-        block.style.filter = 'drop-shadow(0px 0px 10px ' + colors[i] + ')' + 'drop-shadow(0px 0px 5px ' + colors[i] + ')';
+        if (i%2 === 0) {
+          block.style.stroke = pSBC(0.25,colors[i]);
+          block.style.filter = 'drop-shadow(0px 0px 10px ' + colors[i] + ') drop-shadow(0px 0px 5px ' + colors[i] + ')';
+        }
+        else {
+          block.style.stroke = 'gray';
+          block.style.filter = 'drop-shadow(0px 0px 10px ' + colors[i] + ') drop-shadow(0px 0px 2px ' + pSBC(-0.25,colors[i]) + ')';
+        }
       }
+    }
+    for (let i = 0; i < ts.length; i++) {
+      const tspan = ts[i];
+      tspan.style.fill = pSBC(-0.35,tspan.style.fill);
     }
   }
 }

@@ -97,9 +97,12 @@ function openMenu(btn) {
     let f = urlParams.has('filename'), iex = urlParams.has('isExample');
     btn.previousElementSibling.style.width =  f && !iex ? '203.5px' : '169.18px';
     btn.previousElementSibling.style.paddingRight = '5px';
+    btn.parentElement.style.boxShadow = '0 0 10px deepskyblue';
   }
-  else
+  else {
     btn.previousElementSibling.style = ''
+    btn.parentElement.style = '';
+  }
 }
 
 function saveCodeBlock(filename, saveAs=false) {
