@@ -29,6 +29,7 @@
   <link rel="stylesheet" href="highlight/styles/night-owl.min.css">
   <link rel="stylesheet" href="highlight/styles/chalk.min.css">
   <link rel="stylesheet" href="styles/cb-styles.css">
+  <link rel="stylesheet" href="../styles/border-slide.css">
   
   
 	<script crossorigin="anonymous" src="https://kit.fontawesome.com/f325a34ebe.js"></script>
@@ -54,7 +55,11 @@
 
 <body>
   <main>
-    <div class="menu">
+    <div class="menu"></div>
+    <div id="sliders">
+      <div class="slider border-slide-x-bottom" id="nav-slider"></div>
+      <div class="slider border-slide-y-right border-slider-reverse-y" id="toolbox-slider"></div>
+      <div class="slider border-slide-y-left" id="code-slider"></div>
     </div>
     <div id="blocklyDiv"></div>
     <aside id="code">

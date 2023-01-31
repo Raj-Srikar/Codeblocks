@@ -92,7 +92,22 @@ function cbFillWorkspace(json) {
 
 function openMenu(btn) {
   btn.classList.toggle('opened');
-  btn.setAttribute('aria-expanded', btn.classList.contains('opened'))
+  btn.setAttribute('aria-expanded', btn.classList.contains('opened'));
+  let sliders = [
+    document.querySelector(".border-slide-x-bottom"),
+    document.querySelector(".border-slide-y-left"),
+    document.querySelector(".border-slide-y-right")
+  ];
+  for (let i = 0; i < sliders.length; i++) {
+    const slider = sliders[i];
+    slider.style.opacity = '0'
+  }
+  setTimeout(() => {
+    for (let i = 0; i < sliders.length; i++) {
+      const slider = sliders[i];
+      slider.style.opacity = "1";
+    }
+  }, 600);
   if (btn.classList.contains('opened')){
     let f = urlParams.has('filename'), iex = urlParams.has('isExample');
     btn.previousElementSibling.style.width =  f && !iex ? '203.5px' : '169.18px';

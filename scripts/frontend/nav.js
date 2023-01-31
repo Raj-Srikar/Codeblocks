@@ -74,14 +74,15 @@ document.querySelector('head').insertBefore(nav_link, document.querySelector('li
 
 function updateUser(user) {
     const span3 = document.querySelector('nav>span:nth-child(3)'),
-    mspan3 = document.querySelector('.for-mobiles>span:nth-child(3)');
+    mspan3 = document.querySelector('.for-mobiles>span:nth-child(3)'),
+    isCodeblock = window.location.pathname.match('codeblock');
     if (user) {
         userInfo(user, false).then(uinf => {
             span3.id = 'authed-user';
-            span3.innerHTML = `<img src="${uinf[0] || './images/account_circle.svg'}">
+            span3.innerHTML = `<img src="${uinf[0] || (isCodeblock ? '.' : '') + './images/account_circle.svg'}">
                                 <span id="dname">${uinf[1]}</span>
                                 <div id="user-dropdown">
-                                    <a href="${window.location.pathname.match('codeblock') ? '../' : ''}dashboard.html"><span>My Profile</span></a>
+                                    <a href="${isCodeblock ? '../' : ''}dashboard.html"><span>My Profile</span></a>
                                     <div style="border-top:1px solid;border-radius:0 0 10px 10px" onclick="cb_logout()">Log Out</div>
                                 </div>`;
             mspan3 && (mspan3.innerHTML = span3.innerHTML);

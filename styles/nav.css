@@ -53,6 +53,7 @@ span:has(#tagline){
 
 nav>span:nth-child(3){
     align-self: stretch;
+    z-index: 1;
 }
 nav>span>a{
     color: white;
@@ -82,14 +83,18 @@ nav>span>a:hover{
     font-family: 'EncodeSansLight';
     align-self: stretch;
     align-items: center;
-    border-left: 1px solid #9aa0a6;
+    border-left: 1px solid;
     border-bottom-left-radius: 10px;
     user-select: none;
     cursor: pointer;
     transition: 0.3s;
+    box-shadow: 0 0 10px 0px #23e6ff;
+    z-index: 1;
 }
 #authed-user:hover{
     background-color: #23282e;
+    box-shadow: 0 0 20px 2px #23e6ff;
+    border-left: 1px solid #83f1ff;
 }
 #authed-user img{
     width: 40px;
@@ -110,7 +115,7 @@ nav>span>a:hover{
     width: 100px;
     border-radius: 0 0 10px 10px;
     font-size: 13px;
-    border: 1px solid;
+    border: 1px solid #83f1ff;
     opacity: 0;
     visibility: hidden;
     z-index: 1;
@@ -120,13 +125,17 @@ nav>span>a:hover{
     /* display: block; */
     opacity: 1;
     visibility: visible;
+    box-shadow: 0px 0px 10px 0px #23e6ff;
+    border-top: 1px solid #83f1ff;
 }
 #user-dropdown>div, #user-dropdown>a {
     padding: 10px 5px;
     display: block;
+    transition: 0.5s;
 }
 #user-dropdown>div:hover, #user-dropdown>a:hover{
     background-color: #23282e;
+    text-shadow: 0 0 3px #23e6ff, 0 0 5px #23e6ff;
 }
 
 @media only screen and (max-width: 768px){

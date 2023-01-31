@@ -28,6 +28,7 @@ main{
         top: 13vh;
         user-select: none;
         transition: 0.6s;
+        box-shadow: deepskyblue 0px 0px 5px;
     }
     .menu-btn {
         background-color: #296985;
@@ -110,6 +111,37 @@ main{
         padding-right: 3px;
     }
 
+/* Neon Sliders */
+    #sliders{
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 10000;
+    }
+    .slider{
+        display: inline-block;
+        transition: opacity 0.6s;
+    }
+    #nav-slider{
+        width: 100%;
+        height: 76.51px;
+        top: 0;
+        left: 0;
+    }
+    #toolbox-slider{
+        height: 100%;
+        width: 126px;
+        top: -3.4px;
+    }
+    #code-slider{
+        width: 40vw;
+        height: 90vh;
+        float:right;
+        top: -3.4px;
+    }
+
 #blocklyDiv {
     background-image: url(../../images/Circuit-CB-Glowing-Logo.png);
     background-size: cover;
@@ -120,13 +152,13 @@ main{
     float: left;
     user-select: none;
 }
-.blocklyToolboxDiv{
-    border-right: 1px solid;
-    width: 125.8px;
-    padding: 0;
-}
 
 /* Blockly Toolbox Style*/
+    .blocklyToolboxDiv {
+        border-right: 1px solid;
+        width: 125.8px;
+        padding: 0;
+    }
     .blocklyTreeLabel {
         color: white;
     }
@@ -154,17 +186,8 @@ main{
     }
     .blocklyTreeRow:not(.blocklyTreeSelected):hover{
         background-color: initial;
-        /* width: 95px;
-        height: 95px; */
         transform: scale(1.2);
     }
-    /* .blocklyTreeLabel{
-        font: 15px sans-serif;
-        transition: 0.2s;
-    }
-    .blocklyTreeRow:not(.blocklyTreeSelected):hover .blocklyTreeLabel{
-        font: 17px sans-serif;
-    } */
     #blockly-0:hover{
         box-shadow: 0 0 15px 2px #f259a6;
     }
@@ -180,11 +203,26 @@ main{
     #blockly-4:hover{
         box-shadow: 0 0 15px 2px #FE9B13;
     }
+    #blockly-0{
+        box-shadow: 0 0 10px 0px #f259a6;
+    }
+    #blockly-1{
+        box-shadow: 0 0 10px 0px #2cc28f;
+    }
+    #blockly-2{
+        box-shadow: 0 0 10px 0px #5598db;
+    }
+    #blockly-3{
+        box-shadow: 0 0 10px 0px #85E21F;
+    }
+    #blockly-4{
+        box-shadow: 0 0 10px 0px #FE9B13;
+    }
     .blocklyFlyout{
         z-index: 75;
     }
     .blocklyTooltipDiv {
-        background-color: #000000;
+        background-color: #000000cc;
         color: wheat;
         padding: 2px 4px;
         border-radius: 4px;

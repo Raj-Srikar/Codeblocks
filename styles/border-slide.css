@@ -1,0 +1,128 @@
+.border-slide-x-bottom {
+	position: relative;
+}
+.border-slide-x-bottom::after {
+	content: " ";
+	position: absolute;
+	background: linear-gradient(90deg, #00000000 45%, cyan, #00000000 55%);
+	background-size: 200%;
+	background-position: 50%;
+	width: 100%;
+	height: 4px;
+	top: calc(100% - 1px);
+	left: 0;
+	filter: blur(2px);
+	animation: slider-x 30s linear infinite;
+	z-index: 10000;
+}
+
+.border-slide-x-top {
+	position: relative;
+}
+.border-slide-x-top::after {
+	content: ' ';
+	position: absolute;
+	background: linear-gradient(90deg, #00000000 45%, cyan, #00000000 55%);
+	background-size: 200%;
+	background-position: 50%;
+	width: 100%;
+	height: 4px;
+	top: -3px;
+	left: 0;
+	filter: blur(2px);
+	animation: slider-x 30s linear infinite;
+	z-index: 10000;
+}
+
+@keyframes slider-x {
+	0% {
+		background-position: 120% 0;
+	}
+	50% {
+		background-position: -20% 0;
+	}
+	100% {
+		background-position: 120% 0;
+	}
+}
+
+@keyframes slider-x-reverse {
+	0% {
+		background-position: -20% 0;
+	}
+	50% {
+		background-position: 120% 0;
+	}
+	100% {
+		background-position: -20% 0;
+	} 
+}
+
+.border-slide-y-right {
+	position: relative;
+}
+.border-slide-y-right::after {
+	content: ' ';
+	position: absolute;
+	background: linear-gradient(0deg, #00000000 45%, cyan, #00000000 55%);
+	background-size: 100% 200%;
+	background-position: 50%;
+	height: 100%;
+	width: 4px;
+	left: calc(100% - 1.5px);
+	top: 0;
+	filter: blur(2px);
+	animation: slider-y 30s linear infinite;
+	z-index: 10000;
+}
+
+.border-slide-y-left {
+	position: relative;
+}
+.border-slide-y-left::after {
+	content: " ";
+	position: absolute;
+	background: linear-gradient(0deg, #00000000 45%, cyan, #00000000 55%);
+	background-size: 100% 200%;
+	background-position: 50%;
+	height: 100%;
+	width: 4px;
+	left: -2px;
+	top: 0;
+	filter: blur(2px);
+	animation: slider-y 30s linear infinite;
+	z-index: 10000;
+}
+
+@keyframes slider-y {
+	0% {
+		background-position: 0 120%;
+	}
+	50% {
+		background-position: 0 -20%;
+	}
+	100% {
+		background-position: 0 120%;
+	}
+}
+
+@keyframes slider-y-reverse {
+	0% {
+		background-position:  0 -20%;
+	}
+	50% {
+		background-position: 0 120%;
+	}
+	100% {
+		background-position:  0 -20%;
+	}
+}
+
+.border-slider-reverse-y::after {
+	border-radius: 5px;
+	animation: slider-y-reverse 30s linear infinite;
+}
+
+.border-slider-reverse-x::after {
+	animation: slider-x-reverse 30s linear infinite;
+}
