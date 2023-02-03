@@ -187,3 +187,21 @@ async function createMenuBar()  {
         </button>`;
   document.querySelector('.menu').innerHTML = menu;
 };
+
+setInterval(()=>{
+  let sty = document.querySelector("#border-slider-color-change"),
+    html = "";
+  if (!sty) {
+    sty = document.createElement("style");
+    sty.setAttribute("id", "border-slider-color-change");
+    document.body.appendChild(sty);
+  }
+  const colors = ["#5598db", "#85e21f", "#fe9b13", "#2cc28f", "#f259a6"],
+    clr = colors[Math.floor(Math.random() * colors.length)];
+  html +=
+    "#toolbox-slider" +
+    "::after{background-image: linear-gradient(0deg, #00000000 45%, " +
+    clr +
+    ", #00000000 55%);}";
+  sty.innerHTML = html;
+}, 15000);

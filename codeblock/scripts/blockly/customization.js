@@ -164,7 +164,7 @@ Blockly.JavaScript.prompt_inp = function(a) {
 //  this.setHelpUrl("");
 //   }
 // };
-
+var colors = [];
 function changeBlockStyle(event) {
   if (event.type == Blockly.Events.BLOCK_CREATE
     || event.type == Blockly.Events.TOOLBOX_ITEM_SELECT
@@ -172,7 +172,6 @@ function changeBlockStyle(event) {
     || event.type == Blockly.Events.BLOCK_CHANGE
     || event.type == Blockly.Events.TRASHCAN_OPEN
   ) {
-    let colors = [],
     bs = Blockly.Themes.CodeBlock.blockStyles;
 
     for (let key in bs) {
@@ -180,7 +179,7 @@ function changeBlockStyle(event) {
         cs = bs[key].colourSecondary;
         if(cp.match(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/))
             colors.push(cp.toLowerCase());
-        if(cp.match(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/))
+        if(cs && cs.match(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/))
             colors.push(cs.toLowerCase());
     }
     

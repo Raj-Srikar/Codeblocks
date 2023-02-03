@@ -26,7 +26,7 @@ main{
     background-color: white;
     background-color: #000000ad;
     color: white;
-    /* margin: 0 10px; */
+    border-right: 1px solid;
     text-align: center;    
     display: flex;
     flex-flow: column;
