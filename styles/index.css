@@ -98,6 +98,9 @@ body{
 }
 
 @media only screen and (max-width: 480px){
+    #sliders {
+        display: none;
+    }
     #bg{
         padding: 5%;
         background-position: 44% center;

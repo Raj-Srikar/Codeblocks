@@ -421,7 +421,7 @@ hr{
         
     }
     nav{
-        position: sticky;
+        position: fixed;
         z-index: 3;
         top: 0;
     }
@@ -430,11 +430,13 @@ hr{
         align-items: center;
         height: initial;
         background: none;
+        margin-top: 9vh;
     }
     main>#profile{
         width: 90%;
         margin-top: 5%;
         border-radius: 20px;
+        border: 1px solid;
     }
     #dp{
         padding-top: 50%;

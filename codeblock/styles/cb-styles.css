@@ -504,7 +504,7 @@ code {
             width: 150px;
         }
         .opened-wide-menu {
-            width: 184.32px;         /* TODO: Test for example and set value */
+            width: 184.32px;
         }
 
     ::-webkit-scrollbar{
@@ -628,8 +628,12 @@ code {
             width: 150px;
         }
         .opened-wide-menu {
-            width: 184.32px;         /* TODO: Test for example and set value */
+            width: 184.32px;
         }
+    /* Slider */
+        #nav-slider {
+			height: 8.2vh !important;
+		}
     /* Switch Language */
         #switch-language {
             display: block;

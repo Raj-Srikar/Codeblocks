@@ -120,20 +120,10 @@ function cbFillWorkspace(json) {
 function openMenu(btn) {
   btn.classList.toggle('opened');
   btn.setAttribute('aria-expanded', btn.classList.contains('opened'));
-  let sliders = [
-    document.querySelector(".border-slide-x-bottom"),
-    document.querySelector(".border-slide-y-left"),
-    document.querySelector(".border-slide-y-right")
-  ];
-  for (let i = 0; i < sliders.length; i++) {
-    const slider = sliders[i];
-    slider.style.opacity = '0'
-  }
+  let sliders =  document.querySelector('#sliders');
+  sliders.style.opacity = '0';
   setTimeout(() => {
-    for (let i = 0; i < sliders.length; i++) {
-      const slider = sliders[i];
-      slider.style.opacity = "1";
-    }
+      sliders.style.opacity = "1";
   }, 600);
   if (btn.classList.contains('opened')){
     let f = urlParams.has('filename'), iex = urlParams.has('isExample');
