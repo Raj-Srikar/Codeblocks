@@ -110,6 +110,12 @@ main{
         width: 100%;
         padding-right: 3px;
     }
+    .opened-menu {
+        width: 169.18px;
+    }
+    .opened-wide-menu {
+        width: 203.5px;
+    }
 
 /* Neon Sliders */
     #sliders{
@@ -252,10 +258,31 @@ aside{
     flex-direction: column;
     height: 89vh;
     width: 40vw;
+    position: relative;
+}
+
+#switch-language {
+    display: none;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    background-color: black;
+    background-size: 70%;
+    background-position: 70% center;
+    background-repeat: no-repeat;
+    right: 0;
+    top: 40%;
+    border: 1.5px solid white;
+    border-right: 0;
+    border-radius: 10px 0 0 10px;
+    cursor: pointer;
+    box-shadow: 0 0 8px white;
+    transition: 0.5s;
+    opacity: 0.7;
 }
 
 pre {
-    height: 44.35vh;
+    height: 44.5vh;
     margin: 0;
     border: 1px solid white;
     flex-shrink: 0;
@@ -273,11 +300,14 @@ pre>i{
     border-radius: 5px;
     transition: 0.15s;
 }
+#cpp-pre{
+    border-top: 0;
+}
 #py-pre>i{
-    background-color: #011627;
+    background-color: transparent;
 }
 #cpp-pre>i{
-    background-color: #151515;
+    background-color: transparent;
 }
 #py-pre>i:hover{
     color: #011627;
@@ -301,9 +331,11 @@ code {
     resize: none;
     font-size: 16px;
     margin: 0;
-    height: 90%;
+    height: 100%;
     margin-top: -31px;
     user-select: text;
+    box-sizing: border-box;
+    overflow: overlay !important;
 }
 #python.hljs{
     background-image: url(../images/python-logo-tr.png);
@@ -324,10 +356,295 @@ code {
 }
 ::-webkit-scrollbar-thumb {
     background: #8f8f8f4d;
+    border-radius: 10px;
 }
 ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
+}
+::-webkit-scrollbar-corner {
+    background-color: transparent;
+}
+
+
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+    /* Nav Bar */
+        #authed-user {
+            border-radius: 0;
+            box-shadow: none;
+            padding: 0 1.5vw 0 3.5vw;
+            width: 14vw;
+            z-index: 80;
+        }
+    
+        #authed-user::after {
+            content: "▾";
+            font-size: 30px;
+            margin-left: 5px;
+        }
+    
+        #authed-user>img {
+            width: 7vw;
+            height: 7vw;
+            max-width: 45px;
+            max-height: 45px;
+        }
+    
+        #dname {
+            display: none;
+        }
+    
+        #user-dropdown {
+            width: 18.9vw;
+            font-size: 12px;
+            top: 9vh;
+        }
+    
+        #user-dropdown>div,
+        #user-dropdown>a {
+            padding: 8px 5px;
+        }
+    
+        /* Main */
+        main {
+            display: block;
+        }
+    
+        /* Blockly */
+        #blocklyDiv {
+            height: 45.5vh;
+            width: 100%;
+        }
+    
+        .blocklyToolboxDiv {
+            width: 18.8vw;
+            height: 99.9% !important;
+            overflow-x: hidden;
+            overflow-y: overlay;
+            box-sizing: border-box;
+            /* border-bottom: 1px solid; */
+        }
+    
+        .blocklyTreeRow {
+            width: 11vw;
+            height: 11vw;
+        }
+    
+        .blocklyTreeLabel {
+            font-size: 2.5vw;
+        }
+    
+        .blocklyToolboxContents {
+            flex-wrap: nowrap;
+            height: initial;
+        }
+    
+        .blocklyToolboxCategory {
+            margin: 10px 0;
+        }
+
+    /* Code */
+        aside {
+            flex-direction: row;
+            width: 100%;
+            border-top: 1px solid white;
+            height: 45vh;
+        }
+        pre {
+            width: 50%;
+            height: 100%;
+            border: 0;
+            border-top: 1px solid;
+            position: relative;
+        }
+        #py-pre {
+            border-right: 1px solid white;
+        }
+        #cpp-pre {
+            border-top: 1px solid;
+        }
+        pre>i {
+            right: 10px;
+            margin-top: 7px;
+            font-size: 15px;
+        }
+        code {
+            width: 100%;
+            font-size: 14px;
+        }
+        #py-pre>i:hover {
+            color: white;
+            background-color: transparent;
+        }
+
+        #cpp-pre>i:hover {
+            color: white;
+            background-color: transparent;
+        }
+    /* Menu */
+        .menu {
+            right: 3.5vw;
+            top: 11vh;
+        }
+        .menu-btn {
+            padding: 2px;
+        }
+        .menu-bar {
+            height: 29px;
+        }
+        .menu-item {
+            font-size: 20px;
+        }
+        #menu-run {
+            padding-left: 0;
+            font-size: 16px;
+        }
+
+        .opened-menu {
+            width: 150px;
+        }
+        .opened-wide-menu {
+            width: 184.32px;         /* TODO: Test for example and set value */
+        }
+
+    ::-webkit-scrollbar{
+        width: 5px;
+        height: 5px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    /* Nav Bar */
+        #authed-user {
+            border-radius: 0;
+            box-shadow: none;
+            padding: 0 1.5vw 0 4.5vw;
+            width: 17vw;
+            z-index: 80;
+        }
+        #authed-user::after {
+            content: "▾";
+            font-size: 30px;
+            margin-left: 13px;
+        }
+        #authed-user > img {
+            width: 7vw;
+            height: 7vw;
+        }
+        #dname {
+            display: none;
+        }
+        #user-dropdown {
+            width: 23vw;
+            font-size: 2.5vw;
+            top: 8.3vh;
+        }
+        #user-dropdown>div, #user-dropdown>a {
+            padding: 8px 5px;
+        }
+
+    /* Main */
+        main {
+            display: block;
+        }
+
+    /* Blockly */
+        #blocklyDiv {
+            height: 50%;
+            width: 100%;
+        }
+        .blocklyToolboxDiv {
+            width: 18.5vw;
+            overflow-x: hidden;
+            overflow-y: overlay;
+        }
+        .blocklyTreeRow {
+            width: 11vw;
+            height: 11vw;
+        }
+        .blocklyTreeLabel {
+            font-size: 2.5vw;
+        }
+        .blocklyToolboxContents {
+            flex-wrap: nowrap;
+            height: initial;
+        }
+        .blocklyToolboxCategory {
+            margin: 10px 0;
+        }
+    /* Code */
+        aside {
+            flex-direction: row;
+            width: 100%;
+            height: 50%;
+        }
+        pre {
+            border: 0;
+            border-top: 1px solid white !important;
+            width: 100%;
+            height: 100%;
+        }
+        #cpp-pre{
+            display: none;
+        }
+        .show-pre{
+            display: block !important;
+        }
+        .hide-pre{
+            display: none !important;
+        }
+        code {
+            font-size: 14px;
+        }
+        #py-pre>i:hover {
+            color: white;
+            background-color: transparent;
+        }
+
+        #cpp-pre>i:hover {
+            color: white;
+            background-color: transparent;
+        }
+    /* Menu */
+        .menu {
+            right: 3.5vw;
+            top: 10vh;
+        }
+        .menu-btn {
+            padding: 2px;
+        }
+        .menu-bar {
+            height: 29px;
+        }
+        .menu-item {
+            font-size: 20px;
+        }
+        #menu-run {
+            padding-left: 0;
+            font-size: 16px;
+        }
+
+        .opened-menu {
+            width: 150px;
+        }
+        .opened-wide-menu {
+            width: 184.32px;         /* TODO: Test for example and set value */
+        }
+    /* Switch Language */
+        #switch-language {
+            display: block;
+        }
+        .to-cpp {
+            background-image: url(/codeblock/images/cpp.png);
+        }
+        .to-py {
+            background-image: url(/codeblock/images/py.png);
+        }
+    
+    ::-webkit-scrollbar{
+        width: 5px;
+        height: 5px;
+    }
 }
 
 @font-face {

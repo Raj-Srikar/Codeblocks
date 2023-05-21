@@ -95,7 +95,7 @@
     justify-content: flex-start;
     flex-wrap: wrap;
     overflow: auto;
-    height: 87.5%;
+    height: 82%;
     padding-left: 5px;
 }
 #modal-codeblocks .cb-file{
@@ -139,13 +139,42 @@
 
 @media only screen and (max-width: 768px){
     #modal-content {
-        width: 50%;
+        width: 70%;
+    }
+    #modal-content:has(#modal-codeblocks) {
+        width: 65%;
+    }
+    #modal-heading {
+        font-size: 20px;
+    }
+    #modal-codeblocks>div>span {
+        font-size: 14px;
+    }
+    #modal-codeblocks>div {
+        font-size: 13px;
+    }
+    #modal-codeblocks .cb-folder {
+        height: 83%;
+        box-sizing: border-box;
+        padding-bottom: 3%;
+    }
+    #modal-codeblocks .cb-file {
+        height: 110px;
+        padding: 15px 5px 5px;
+        margin: 0 3px;
+        margin-top: 10px;
+    }
+    #modal-codeblocks .cb-file>img {
+        width: 70px;
+    }
+    #modal-decision>button {
+        font-size: 12px;
     }
 }
 
 @media only screen and (max-width: 480px){
     #modal-content{
-        width: 70%;
+        width: 50%;
     }
     #modal-decision {
         display: block;
@@ -153,6 +182,9 @@
     #modal-decision>button {
         width: 25%;
         float: right;
+    }
+    #modal-content:has(#modal-codeblocks) {
+        width: 80%;
     }
 }
 

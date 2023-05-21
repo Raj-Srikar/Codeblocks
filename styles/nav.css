@@ -150,6 +150,7 @@ nav>span>a:hover{
     }
     nav:first-of-type #cb-logo{
         width: 8vw;
+        max-width: 55px;
         margin-left: 0;
     }
     nav:first-of-type #cb-title{

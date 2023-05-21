@@ -14,7 +14,14 @@ function start() {
         colour: '#81a5ae55',
         snap: true,
       },
-      theme: Blockly.Themes.CodeBlock
+      theme: Blockly.Themes.CodeBlock,
+      zoom: {
+        wheel: true,
+        startScale: 0.8,
+        maxScale: 1.2,
+        minScale: 0.3,
+        pinch: true
+      }
     });
     
   workspace.addChangeListener(myUpdateFunction);
@@ -64,6 +71,26 @@ window.addEventListener('beforeunload', function (e) {
     }
 });
 
+function switchLanguge(ele) {
+  let cname = ele.className,
+  pypre = ele.parentElement.children[1],
+  cpppre = ele.parentElement.children[2];
+  if (cname == 'to-py') {
+    ele.className = 'to-cpp';
+    pypre.classList.add('show-pre');
+    cpppre.classList.add('hide-pre');
+    pypre.classList.remove('hide-pre');
+    cpppre.classList.remove('show-pre');
+  }
+  else {
+    ele.className = 'to-py';
+    pypre.classList.add('hide-pre');
+    cpppre.classList.add('show-pre');
+    pypre.classList.remove('show-pre');
+    cpppre.classList.remove('hide-pre');
+  }
+}
+
 function copyToClipboard(ele){
   var range = document.createRange();
   range.selectNode(ele.parentElement.children[2]);
@@ -110,11 +137,14 @@ function openMenu(btn) {
   }, 600);
   if (btn.classList.contains('opened')){
     let f = urlParams.has('filename'), iex = urlParams.has('isExample');
-    btn.previousElementSibling.style.width =  f && !iex ? '203.5px' : '169.18px';
+    // btn.previousElementSibling.style.width =  f && !iex ? '203.5px' : '169.18px';
+    btn.previousElementSibling.classList.add(f && !iex ? 'opened-wide-menu' : 'opened-menu');
     btn.previousElementSibling.style.paddingRight = '5px';
     btn.parentElement.style.boxShadow = '0 0 10px deepskyblue';
   }
   else {
+    btn.previousElementSibling.classList.remove('opened-wide-menu');
+    btn.previousElementSibling.classList.remove('opened-menu');
     btn.previousElementSibling.style = ''
     btn.parentElement.style = '';
   }
